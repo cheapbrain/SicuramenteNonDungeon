@@ -49,24 +49,27 @@ public class WorldGenTest {
 		//possibilità 2: offset relativo
 		int l=(int) Math.sqrt(roomsnumber);
 		points= new int[l][l+1];
-		int totWidth[]=new int[l], totHeight[]=new int[l+1];
+		int lastHeight[]=new int[l], lastWidth[]=new int[l+1];
+		int totHeight[]=new int[l], totWidth[]=new int[l+1];
+		for(int i=0; i<l; i++) totHeight[i]=0;
+		for (int j=0; j<l+1; j++) totWidth[j]=0;
+		rooms[0].x=0; rooms[0].y=0;
 		for(int i=0; i<l; i++){
 			for(int j=0; j<l+1; j++){
-				totHeight[i]=0;
-				totWidth[j]=0;
-			}
-		}
-		for(int i=0; i<l; i++){
-			for(int j=0; j<l+1; j++){
-				if(i+j<roomsnumber){
-					rooms[i*l+j].x=i;
-					rooms[i*l+j].y=j;
+				if(i*l+j<roomsnumber){
 					totHeight[i]+=rooms[i*l+j].height;
 					totWidth[j]+=rooms[i*l+j].width;
+					lastHeight[i]=rooms[i*l+j].height;
+					lastWidth[j]=rooms[i*l+j].width;
+					if((i*l+j)%!=0) {
+						rooms[i*l+j].x=rooms[i*l+j-1].x+rooms[i*l+j-1].width+(width-lastWidth[j]-totWidth[j])/(roomsnumber-1);
+						rooms[i*l+j].y=rooms[i*l+j-1].y+rooms[i*l+j-1].height+(height-lastHeight[i]-totHeight[i])/(roomsnumber-1);
+						System.out.print(rooms[i*l+j].x+";"+rooms[i*l+j].y+"  ");
+					}		
 				}
 			}
+			System.out.println();
 		}
-
 	}
 	
 	public static void main(String[] args) throws Exception {
