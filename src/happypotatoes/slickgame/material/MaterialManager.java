@@ -1,4 +1,4 @@
-package happypotatoes.slickgame.world;
+package happypotatoes.slickgame.material;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -11,11 +11,15 @@ public class MaterialManager {
 		Image texture = new Image("./res/dirt.png");
 		texture.setFilter(Image.FILTER_NEAREST);
 		materials = new Material[2];
-		materials[0] = new Material(null);
-		materials[1] = new Material(texture);
+		materials[0] = new Material(null, true);
+		materials[1] = new Material(texture, false);
 	}
 
 	public static Image getTexture(int i) {
 		return materials[i].getTexture();
+	}
+	
+	public static Material getMaterial(int i) {
+		return materials[i];
 	}
 }

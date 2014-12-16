@@ -12,7 +12,7 @@ public class Camera {
 	
 	private Entity target;
 	private float speed = .2f;
-	private float viewAngle = .4f;
+	private float viewAngle = 1f;
 	
 	public Camera(int width, int height, int unit, Entity target) {
 		this.target = target;

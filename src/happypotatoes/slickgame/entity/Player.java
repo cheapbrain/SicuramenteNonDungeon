@@ -12,6 +12,8 @@ public class Player extends Entity{
 	float speed = 0.004f;
 	
 	public Player() {
+		x = 3;
+		y = 3;
 		try {
 			texture = new Image("./res/player.png");
 			texture.setFilter(Image.FILTER_NEAREST);
@@ -25,17 +27,19 @@ public class Player extends Entity{
 		Input input = container.getInput();
 		
 		if (input.isKeyDown(Input.KEY_W)) {
-            y -= speed*delta;
+            speedy = -speed;
         }
         if (input.isKeyDown(Input.KEY_S)) {
-            y += speed*delta;
+        	speedy = speed;
         }
         if (input.isKeyDown(Input.KEY_A)) {
-            x -= speed*delta;
+            speedx = -speed;
         }
         if (input.isKeyDown(Input.KEY_D)) {
-            x += speed*delta;
+            speedx = speed;
         }
+        
+        super.update(container, world, delta);
 	}
 	
 	public void render() {
