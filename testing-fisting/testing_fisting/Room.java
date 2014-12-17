@@ -3,6 +3,8 @@ package testing_fisting;
 public class Room {
 	int x, y;
 	int height, width;
+	int corridornumb, corridors[];
+	int topSpace, rightSpace, downSpace, leftSpace;
 	//info varie
 	
 	public Room(){
