@@ -35,7 +35,7 @@ public class World {
 					terrain[x][y] = 1;
 
 		Entity player = new Player();
-		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
+		camera = new Camera(container.getWidth(), container.getHeight(), 48, player);
 		update(container, 0);
 		add(player);
 	}
@@ -50,7 +50,6 @@ public class World {
 			for (int x=0;x<size;x++)
 				if (terrain[x][y]>0) {
 					MaterialManager.getTexture(terrain[x][y]).draw(x, y, 1, 1);
-					MaterialManager.getTexture(terrain[x][y]).draw(x, y-camera.getViewAngle(), 1, 1);
 				}
 				
 			while (checkEntities) {

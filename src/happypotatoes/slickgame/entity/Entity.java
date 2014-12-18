@@ -5,7 +5,7 @@ import happypotatoes.slickgame.world.World;
 import org.newdawn.slick.GameContainer;
 
 public class Entity {
-	protected float x, y;
+	protected float oldx, oldy, x, y, width, height;
 	protected float speedx, speedy;
 	protected float size = .4f;
 	
@@ -18,8 +18,8 @@ public class Entity {
 	}
 	
 	public void update(GameContainer container, World world, int delta) {
-		float oldx = x;
-		float oldy = y;
+		oldx = x;
+		oldy = y;
 		x += speedx*delta;
 		y += speedy*delta;
 		
