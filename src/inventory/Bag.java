@@ -1,7 +1,5 @@
 //classe borsa che contiene tutti gli oggetti all'interno dell'inventario di una entità
 package inventory;
-import java.util.ArrayList;
-import java.util.List;
 
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.world.World;
@@ -9,15 +7,18 @@ import happypotatoes.slickgame.world.World;
 public class Bag {
 	private int dimensione;
 	private Entity Owner;
-	private int content[];
+	public String content[];
+	public int nOggetti;
 	public Bag(Entity owner, int dim){
 		dimensione=dim;
-		content=new int[dimensione];
+		content = new String[dimensione];
 		Owner=owner;	
+		nOggetti=0;
 	}
-	public void add(Entity pickedUpEntity, World world){
-		if(pickedUpEntity==null) return;
-		contents.add(pickedUpEntity.getItem());
-		world.remove(pickedUpEntity);
+	public int add(Entity pickedUpEntity){
+		if (nOggetti==dimensione) return 0;
+		content[nOggetti]=BagManager.toItem(pickedUpEntity);
+		nOggetti++;
+		return 1;
 	}
 }
