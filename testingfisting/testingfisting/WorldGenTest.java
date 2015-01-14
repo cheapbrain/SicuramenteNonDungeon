@@ -5,18 +5,19 @@ import java.util.Random;
 
 public class WorldGenTest {
 	int seed=17817;
-	int width=101, height=101;
-	int roomsnumber=100;
+	int width=50, height=50;
+	int roomsnumber=20;
 	Room rooms[];
 	ArrayList<Room> roomList = new ArrayList<Room>();
 	ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
-	int max=12, min=7; //dimensioni stanze
-	public int terrain[][]= new int[width][height];
+	int max=10, min=4; //dimensioni stanze
+	public int tempTerrain[][]= new int[width][height];
+	public int terrain[][]= new int[width*2][height*2];
 	
-	public boolean inters(Room a, int[][] terrain){
+	public boolean inters(Room a, int[][] tempTerrain){
 		for(int i=a.x-a.leftSpace; i<a.x+a.width+a.rightSpace; i++){
 			for(int j=a.y-a.topSpace; j<a.y+a.height+a.downSpace; j++){
-				if((i>0)&&(i<width)&&(j>0)&&(j<height)) if(terrain[i][j]==0) return true;
+				if((i>0)&&(i<width)&&(j>0)&&(j<height)) if(tempTerrain[i][j]==0) return true;
 			}
 		}
 		return false;
@@ -25,7 +26,7 @@ public class WorldGenTest {
 	public void putRoom(Room a){
 		for(int i=a.x; i<a.x+a.width; i++){
 			for(int j=a.y; j<a.y+a.height; j++){
-				terrain[i][j]=0;
+				tempTerrain[i][j]=0;
 			}
 		}
 	}
@@ -33,7 +34,7 @@ public class WorldGenTest {
 	public WorldGenTest(){
 		for(int i=0; i<width; i++)
 			for(int j=0; j<height; j++)
-				terrain[i][j]=1;
+				tempTerrain[i][j]=1;
 		rooms= new Room[roomsnumber];
 		
 		Random r= new Random();
@@ -57,7 +58,7 @@ public class WorldGenTest {
 			tries=0;
 			rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 			rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
-			while((inters(rooms[i], terrain))&&(tries<100)){
+			while((inters(rooms[i], tempTerrain))&&(tries<100)){
 				rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 				rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 				tries++;
@@ -85,18 +86,27 @@ public class WorldGenTest {
 		}
 		*/
 		
-		for(int i=0; i<25; i++){
+		for(int i=0; i<5; i++){
 			corridorList.add(new Corridor(r,100));
 			Corridor a= corridorList.get(corridorList.size()-1);
 			for(int j=0; j<a.cells.size(); j++){	
-				terrain[a.cells.get(j).y][a.cells.get(j).x]=0;
+				tempTerrain[a.cells.get(j).y][a.cells.get(j).x]=0;
 			}
 		}
 		
 		for(int i=0; i<height; i++){
-			for(int j=0; j<width; j++)
+			for(int j=0; j<width; j++){
+				terrain[i*2][j*2]=tempTerrain[i][j];
+				terrain[i*2+1][j*2]=tempTerrain[i][j];
+				terrain[i*2][j*2+1]=tempTerrain[i][j];
+				terrain[i*2+1][j*2+1]=tempTerrain[i][j];
+			}
+		}
+		for(int i=0; i<height*2; i++){
+			for(int j=0; j<width*2; j++){
 				if(terrain[i][j]==0) System.out.print(" ");
 				else System.out.print("#");
+			}
 			System.out.println();
 		}
 		

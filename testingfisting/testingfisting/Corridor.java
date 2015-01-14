@@ -11,7 +11,7 @@ public class Corridor {
 	
 	public Corridor(Random random,int lenght){
 		r=random;
-		cells.add(new Cell(r.nextInt(99)+1,r.nextInt(99)+1));
+		cells.add(new Cell(r.nextInt(48)+1,r.nextInt(48)+1));
 		d=r.nextInt(4);
 		System.out.println(d);
 		int n;
@@ -33,8 +33,8 @@ public class Corridor {
 		Cell t=cells.get(cells.size()-1);
 		switch(d){
 		case 0: if((t.y-1>0)&&(!touchItself(t.x,t.y-1))){ cells.add(new Cell(t.x,t.y-1)); return true; } else break;
-		case 1: if((t.x+1<100)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); return true; } else break;
-		case 2: if((t.y+1<100)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); return true; } else break;
+		case 1: if((t.x+1<49)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); return true; } else break;
+		case 2: if((t.y+1<49)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); return true; } else break;
 		case 3: if((t.x-1>0)&&(!touchItself(t.x-1,t.y))){ cells.add(new Cell(t.x-1,t.y)); return true; } else break;
 		}
 		return false;
@@ -43,8 +43,8 @@ public class Corridor {
 	public boolean right(){
 		Cell t=cells.get(cells.size()-1);
 		switch(d){
-		case 0: if((t.x+1<100)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); d=(d+1)%4; return true; } else break;
-		case 1: if((t.y+1<100)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); d=(d+1)%4;  return true; } else break;
+		case 0: if((t.x+1<49)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); d=(d+1)%4; return true; } else break;
+		case 1: if((t.y+1<49)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); d=(d+1)%4;  return true; } else break;
 		case 2: if((t.x-1>0)&&(!touchItself(t.x-1,t.y))){ cells.add(new Cell(t.x-1,t.y)); d=(d+1)%4; return true; } else break;
 		case 3: if((t.y-1>0)&&(!touchItself(t.x,t.y-1))){ cells.add(new Cell(t.x,t.y-1)); d=(d+1)%4; return true; } else break;
 		}
@@ -56,8 +56,8 @@ public class Corridor {
 		switch(d){
 		case 0: if((t.x-1>0)&&(!touchItself(t.x-1,t.y))){ cells.add(new Cell(t.x-1,t.y)); d--; if(d<0) d=3; return true; } else break;
 		case 1: if((t.y-1>0)&&(!touchItself(t.x,t.y-1))){ cells.add(new Cell(t.x,t.y-1)); d--; if(d<0) d=3; return true; } else break;
-		case 2: if((t.x+1<100)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); d--; if(d<0) d=3; return true; } else break;
-		case 3: if((t.y+1<100)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); d--; if(d<0) d=3;  return true; } else break;
+		case 2: if((t.x+1<49)&&(!touchItself(t.x+1,t.y))){ cells.add(new Cell(t.x+1,t.y)); d--; if(d<0) d=3; return true; } else break;
+		case 3: if((t.y+1<49)&&(!touchItself(t.x,t.y+1))){ cells.add(new Cell(t.x,t.y+1)); d--; if(d<0) d=3;  return true; } else break;
 		}
 		return false;
 	}
