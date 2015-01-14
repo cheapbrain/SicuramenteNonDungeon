@@ -1,16 +1,16 @@
 package inventory;
 
-import happypotatoes.slickgame.entity.Chiave;
+import happypotatoes.slickgame.entity.EntityKey;
 import happypotatoes.slickgame.entity.Entity;
 
 public class BagManager {
-	public static String toItem(Entity entity){
-		String ID="";
-		if(entity instanceof Chiave){
-			String ID_class="01";
-			String ID_Porta=((Chiave)entity).getPorta();
-			ID=ID_class+ID_Porta;
+	public static char[] toItem(Entity entity){
+		char ID[] = new char[Bag.dimID];
+		if(entity instanceof EntityKey){
+			ID[0]=((EntityKey) entity).getIdItem();
+			//ID[1]=((EntityKey)entity).getPorta();
 		}
+		
 		return ID;
 	}
 }
