@@ -13,7 +13,7 @@ public class Corridor {
 		r=random;
 		cells.add(new Cell(r.nextInt(48)+1,r.nextInt(48)+1));
 		d=r.nextInt(4);
-		System.out.println(d);
+		//System.out.println(d);
 		int n;
 		for(int i=0; i<lenght; i++){
 			rot=0;
@@ -64,7 +64,7 @@ public class Corridor {
 	
 	private boolean place(int x){
 		switch(x){
-		case 0: System.out.println("STRAIGHT");
+		case 0: //System.out.println("STRAIGHT");
 				if(!straight()){
 					if(c<3){
 						c++;
@@ -74,7 +74,7 @@ public class Corridor {
 					else return false;
 				}
 				break; //al contrario, quindi priorità all'ultima
-		case 1: System.out.println("RIGHT");
+		case 1: //System.out.println("RIGHT");
 				if(!right()){
 					if(c<3){
 						c++;
@@ -84,7 +84,7 @@ public class Corridor {
 					else return false;
 				}
 				break;
-		case 2: System.out.println("LEFT");
+		case 2: //System.out.println("LEFT");
 				if(!left()){
 					if(c<3){
 						c++;
