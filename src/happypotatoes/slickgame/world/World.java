@@ -3,7 +3,6 @@ package happypotatoes.slickgame.world;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,6 +11,7 @@ import org.newdawn.slick.SlickException;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.entity.Player;
+import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
 
 public class World {
@@ -33,23 +33,30 @@ public class World {
 			for (int x=0;x<size;x++)
 				if (x==0||y==0||x==size-1||y==size-1)
 					terrain[x][y] = 1;
+		
+		terrain[6][4] = 1;
 
 		Entity player = new Player();
-		camera = new Camera(container.getWidth(), container.getHeight(), 48, player);
+		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
 		add(player);
 	}
 	
 	public void render(Graphics g) {
-		g.scale(camera.getUnit(), camera.getUnit());
-		g.translate(-camera.getX1(), -camera.getY1());
+		float unit = camera.getUnit();
+		float cx = (int)(camera.getX1()*unit)/unit;
+		float cy = (int)(camera.getY1()*unit)/unit;
+		g.scale(unit, unit);
+		g.translate(-cx, -cy);
 		Iterator<Entity> iterator = entities.iterator();
 		Entity e = iterator.next();
 		boolean checkEntities = true;
 		for (int y=0;y<size;y++) {
 			for (int x=0;x<size;x++)
-				if (terrain[x][y]>0) {
-					MaterialManager.getTexture(terrain[x][y]).draw(x, y, 1, 1);
+				if (terrain[x][y]>-1) {
+					Material m = MaterialManager.getMaterial(terrain[x][y]);
+					m.getTexture().draw(x, y+m.getOffset(), 1, m.getHeight());
+					
 				}
 				
 			while (checkEntities) {
@@ -77,7 +84,25 @@ public class World {
 	}
 	
 	public void add(Entity e) {
-		entities.add(e);
+		if (entities.isEmpty())
+			entities.add(e);
+		else {
+			float y = e.getY();
+			for (int i=0;i<entities.size();i++)
+				if (entities.get(i).getY()>y) {
+					entities.add(i, e);
+					return;
+				}
+			entities.add(e);
+		}
+	}
+	
+	public void move(Entity e) {
+		
+	}
+	
+	public void remove(Entity e) {
+		entities.remove(e);
 	}
 	
 	public boolean isWalkable(float x, float y) {

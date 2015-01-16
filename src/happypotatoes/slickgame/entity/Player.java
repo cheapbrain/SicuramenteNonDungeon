@@ -17,11 +17,11 @@ public class Player extends WalkEntity{
 		x = 3;
 		y = 3;
 		try {
-			Image texture = new Image("./res/spritetest.png");
+			Image texture = new Image("./res/spriteomg.png");
 			texture.setFilter(Image.FILTER_NEAREST);
-			setSize(48, 92, 2);
+			setSize(64, 128, 2);
 			setAnimations(texture, 0, 1, 1);
-			setAnimations(texture, 1, 9, 100);
+			setAnimations(texture, 1, 4, 100);
 			
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -44,19 +44,22 @@ public class Player extends WalkEntity{
 			speedx = speed;
 		}
 
-		super.update(container, world, delta);
-
 		float dx = x-oldx;
 		float dy = y-oldy;
+		super.update(container, world, delta);
+
 		float d = (float)Math.sqrt(dx*dx+dy*dy);
 		
 		if (d>0) {
-			int newdir = (int)Math.round(Math.acos(dx/d)/Math.PI*4);
-			if (dy<0) newdir = -newdir;
-			newdir = ((newdir+5)%8+1)%8;
+			if(dy>0)
+				facing = 0;
+			else if (dy<0)
+				facing = 2;
+			else if (dx>0)
+				facing = 3;
+			else if (dx<0)
+				facing = 1;
 			
-			
-			facing = newdir;
 
 			state = 1;
 		} else {

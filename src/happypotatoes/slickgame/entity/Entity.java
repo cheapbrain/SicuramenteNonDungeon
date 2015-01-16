@@ -18,26 +18,28 @@ public class Entity {
 	}
 	
 	public void update(GameContainer container, World world, int delta) {
+
 		oldx = x;
 		oldy = y;
+		
 		x += speedx*delta;
 		y += speedy*delta;
 		
-		float r = 1.000001f;
+		float r = 1.001f;
 		
 		if (x>oldx)  {
-			if (!world.isWalkable(x+size, oldy-size)||!world.isWalkable(x+size, oldy+size)) {
+			if (!world.isWalkable(x+size, oldy-size)||!world.isWalkable(x+size, oldy+size/2)) {
 				x = (float) (Math.floor(x+size)-size*r);
 			}
 		} else if (x<oldx) {
-			if (!world.isWalkable(x-size, oldy-size)||!world.isWalkable(x-size, oldy+size)) {
+			if (!world.isWalkable(x-size, oldy-size)||!world.isWalkable(x-size, oldy+size/2)) {
 				x = (float) (Math.ceil(x-size)+size*r);
 			}
 		}
 
 		if (y>oldy)  {
-			if (!world.isWalkable(oldx+size, y+size)||!world.isWalkable(oldx-size, y+size)) {
-				y = (float) (Math.floor(y+size)-size*r);
+			if (!world.isWalkable(oldx+size, y+size/2)||!world.isWalkable(oldx-size, y+size/2)) {
+				y = (float) (Math.floor(y+size/2)-size/2*r);
 			}
 		} else if (y<oldy) {
 			if (!world.isWalkable(oldx+size, y-size)||!world.isWalkable(oldx-size, y-size)) {
@@ -51,5 +53,12 @@ public class Entity {
 
 	public void render() {
 		
+	}
+	
+	public float getDist(Entity entity) {
+		float dx = this.getX()-entity.getX();
+		float dy = this.getY()-entity.getY();
+		float ris = (float) Math.sqrt(dx*dx+dy*dy);
+		return ris;
 	}
 }
