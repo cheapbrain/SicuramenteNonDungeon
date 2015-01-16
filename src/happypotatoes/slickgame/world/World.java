@@ -8,7 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import testingfisting.WorldGenTest;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.entity.Player;
@@ -36,11 +35,8 @@ public class World {
 				if (x==0||y==0||x==size-1||y==size-1)
 					terrain[x][y] = 1;
 		
-<<<<<<< HEAD
 		terrain[6][4] = 1;
 
-=======
->>>>>>> origin/master
 		Entity player = new Player();
 		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
