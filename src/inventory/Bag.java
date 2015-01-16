@@ -5,13 +5,14 @@ import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.world.World;
 
 public class Bag {
+	public final static int dimID=4;
 	private int dimensione;
 	private Entity Owner;
-	public String content[];
+	public char content[][];
 	public int nOggetti;
 	public Bag(Entity owner, int dim){
 		dimensione=dim;
-		content = new String[dimensione];
+		content = new char[dimensione][dimID];
 		Owner=owner;	
 		nOggetti=0;
 	}
