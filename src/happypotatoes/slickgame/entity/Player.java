@@ -2,15 +2,13 @@ package happypotatoes.slickgame.entity;
 
 import happypotatoes.slickgame.world.World;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 public class Player extends WalkEntity{
-	float speed = 0.001f;
+	float speed = 0.002f;
 	int direction;
 	
 	public Player() {
@@ -51,14 +49,15 @@ public class Player extends WalkEntity{
 		float d = (float)Math.sqrt(dx*dx+dy*dy);
 		
 		if (d>0) {
-			if(dy>0)
-				facing = 0;
-			else if (dy<0)
-				facing = 2;
-			else if (dx>0)
+			
+			if (dx>0)
 				facing = 3;
 			else if (dx<0)
 				facing = 1;
+			else if(dy>0)
+				facing = 0;
+			else if (dy<0)
+				facing = 2;
 			
 
 			state = 1;
