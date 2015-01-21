@@ -9,7 +9,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameState extends BasicGameState {
+import TWLSlick.BasicTWLGameState;
+
+public class GameState extends BasicTWLGameState {
 	World world;
 
 	@Override

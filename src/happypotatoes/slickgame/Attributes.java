@@ -8,23 +8,23 @@ public class Attributes {
 
 	private Entity Owner;
 	
-	private Float forza; //da 0 a 25 -- 8 è un punteggio normale/di base
-	private Float destrezza;
-	private Float costituzione;
-	private Float intelligenza;
-	private Float tenacia;
-	private Float carisma;
-	private Float tecnologia;
+	private float forza; //da 0 a 25 -- 8 è un punteggio normale/di base
+	private float destrezza;
+	private float costituzione;
+	private float intelligenza;
+	private float tenacia;
+	private float carisma;
+	private float tecnologia;
 	
-	private Float maestriataglio; //da 0 a 100
-	private Float maestriacontundente;
-	private Float maestriaarco;
-	private Float maestriaarmadafuoco;
-	private Float maestriaarcana;
+	private float maestriataglio; //da 0 a 100
+	private float maestriacontundente;
+	private float maestriaarco;
+	private float maestriaarmadafuoco;
+	private float maestriaarcana;
 	
-	private Float salute;
+	private float salute;
 	
-	private Float mitigazione; //da 0 a 100
+	private float mitigazione; //da 0 a 100
 	
 	
 	public void calcolaMitigazione(Armour a){
@@ -43,16 +43,69 @@ public class Attributes {
 	public void incrementamaestria(String tipo){
 		switch (tipo){
 		
-		case "taglio": maestriataglio=(float) (maestriataglio+(Math.cos(maestriataglio/36)+1)/32); //modificare l'ultima divisione per aumentare il numero di attacchi necessari
+		case "taglio":{
+						if (maestriataglio<100)
+							maestriataglio=(float) (maestriataglio+(Math.cos(maestriataglio/36)+1)/32);
+							//modificare l'ultima divisione per aumentare il numero di attacchi necessari
+							incrementaforza();
+						break;
+	                  }
+		case "contundente":{
+						if (maestriacontundente<100)
+							maestriacontundente=(float) (maestriacontundente+(Math.cos(maestriacontundente/36)+1)/32);
+							incrementaforza();
+						break;
+					       }
 			
-		case "contundente": maestriacontundente=(float) (maestriacontundente+(Math.cos(maestriacontundente/36)+1)/32);
-			
-		case "arco": maestriaarco=(float) (maestriaarco+(Math.cos(maestriaarco/36)+1)/32);
+		case "arco":{
+						if (maestriaarco<100)
+							 maestriaarco=(float) (maestriaarco+(Math.cos(maestriaarco/36)+1)/32);
+							incrementadestrezza();
+						break;
+		}
 		
-		case "armadafuoco": maestriaarmadafuoco=(float) (maestriaarmadafuoco+(Math.cos(maestriaarmadafuoco/36)+1)/32);
+		case "armadafuoco":{
+						if (maestriaarmadafuoco<100)
+							maestriaarmadafuoco=(float) (maestriaarmadafuoco+(Math.cos(maestriaarmadafuoco/36)+1)/32);
+							incrementadestrezza();
+						break;
+		}
 			
-		case "arcana": maestriaarcana=(float) (maestriaarcana+(Math.cos(maestriaarcana/36)+1)/32);
+		case "arcana":{
+						if (maestriaarcana<100)
+							maestriaarcana=(float) (maestriaarcana+(Math.cos(maestriaarcana/36)+1)/32);
+							incrementaintelligenza();
+						break;		
+		}
+		}
+		
+	}
+
+	private void incrementaforza() {
+		if (forza<25){
+
+		}
+		
+	}
+	
+	private void incrementadestrezza() {
+		if (destrezza<25){
+
+		}
+		
+	}
+
+	private void incrementaintelligenza() {
+		if (intelligenza<25){
+			intelligenza++;
 		}
 	}
+		
+	private void incrementatenacia() {
+		if (tenacia<25){
+			tenacia=tenacia+1;	
+		}
+	
+}
 	
 }

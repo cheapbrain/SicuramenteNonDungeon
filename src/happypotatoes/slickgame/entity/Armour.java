@@ -25,4 +25,10 @@ public class Armour extends Entity implements Actor{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public char getIdItem() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
