@@ -12,8 +12,6 @@ public class Player extends WalkEntity{
 	int direction;
 	
 	public Player() {
-		x = 3;
-		y = 3;
 		try {
 			Image texture = new Image("./res/spriteomg.png");
 			texture.setFilter(Image.FILTER_NEAREST);

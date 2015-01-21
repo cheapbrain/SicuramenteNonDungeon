@@ -9,6 +9,11 @@ public class Entity {
 	protected float speedx, speedy;
 	protected float size = .4f;
 	
+	public void setPosition(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public float getX() {
 		return x;
 	}

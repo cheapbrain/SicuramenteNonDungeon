@@ -14,7 +14,7 @@ public class MaterialManager {
 		
 		materials[0] = new Material(texture.getSubImage(0, 64, 64, 64), true, 0, 1);
 	
-		materials[1] = new Material(texture.getSubImage(64, 64, 64, 64*3), false, -2, 3);
+		materials[1] = new Material(texture.getSubImage(64, 64, 64, 64), false, 0, 1);
 	}
 
 	public static Image getTexture(int i) {

@@ -7,12 +7,14 @@ import java.util.List;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
+import happypotatoes.slickgame.worldgenerator.WorldGenTest;
 
 public class World {
 	private Camera camera;
@@ -20,7 +22,7 @@ public class World {
 	private int[][] terrain;
 	private List<Entity> entities = new ArrayList<Entity>();
 	
-	private int size = 10;
+	private int size = 100;
 
 	public World(GameContainer container) {
 		try {
@@ -28,16 +30,19 @@ public class World {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		WorldGenTest gen = new WorldGenTest();
 		
-		terrain = new int[size][size];
-		for (int y=0;y<size;y++)
-			for (int x=0;x<size;x++)
-				if (x==0||y==0||x==size-1||y==size-1)
-					terrain[x][y] = 1;
+		terrain = gen.terrain;
 		
-		terrain[6][4] = 1;
+		int x = 0, y = 0;
+		for (y=0;y<gen.height;y++)
+			for (x=0;x<gen.width;x++)
+				if (terrain[x][y]==0)
+					break;
 
 		Entity player = new Player();
+		System.out.println(x+" "+y);
+		player.setPosition(x+.5f, y+.5f);
 		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
 		add(player);
@@ -49,31 +54,25 @@ public class World {
 		float cy = (int)(camera.getY1()*unit)/unit;
 		g.scale(unit, unit);
 		g.translate(-cx, -cy);
-		Iterator<Entity> iterator = entities.iterator();
-		Entity e = iterator.next();
-		boolean checkEntities = true;
-		for (int y=0;y<size;y++) {
-			for (int x=0;x<size;x++)
+
+		int sx = (int)camera.getX1();
+		int sy = (int)camera.getY1();
+		int ex = (int)camera.getX2()+1;
+		int ey = (int)camera.getY2()+1;
+		if (sx<0) sx = 0;
+		if (sy<0) sy = 0;
+		if (ex>size) ex = size;
+		if (ey>size) ey = size;
+		
+		for (int y=sy;y<ey;y++)
+			for (int x=sx;x<ex;x++)
 				if (terrain[x][y]>-1) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
-					m.getTexture().draw(x, y+m.getOffset(), 1, m.getHeight());
-					
+					m.getTexture().draw(x, y, 1, 1);
 				}
-				
-			while (checkEntities) {
-				if (e.getY()<y+1) {
-					e.render();
-					if (iterator.hasNext())
-						e = iterator.next();
-					else {
-						e =  null;
-						checkEntities = false;
-					}
-				} else
-					checkEntities = false;
-			}
-			checkEntities = e!=null;
-		}
+
+		for (Entity e:entities)
+			e.render();
 	}
 	
 	public void update(GameContainer container, int delta) {
