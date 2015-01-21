@@ -8,6 +8,4 @@ public interface Actor {
 	public float getDist(Entity entity);
 	//ritorna il puntatore all'item corrispondente
 	public void use(Entity user, World world);
-	//
-	public char getIdItem();
 }
