@@ -8,6 +8,11 @@ public class Entity {
 	protected float oldx, oldy, x, y, width, height;
 	protected float speedx, speedy;
 	protected float size = .4f;
+	protected boolean doesCollide = true;
+	
+	public Entity(boolean doesCollide) {
+		this.doesCollide = doesCollide;
+	}
 	
 	public void setPosition(float x, float y) {
 		this.x = x;
@@ -30,30 +35,37 @@ public class Entity {
 		x += speedx*delta;
 		y += speedy*delta;
 		
-		float r = 1.001f;
-		
-		if (x>oldx)  {
-			if (!world.isWalkable(x+size, oldy-size)||!world.isWalkable(x+size, oldy+size/2)) {
-				x = (float) (Math.floor(x+size)-size*r);
+		if (doesCollide) {
+			float r = 1.001f;
+			if (x>oldx)  {
+				if (!world.isWalkable(x+size, oldy-size)||!world.isWalkable(x+size, oldy+size/2)) {
+					x = (float) (Math.floor(x+size)-size*r);
+					speedx = 0;
+				}
+			} else if (x<oldx) {
+				if (!world.isWalkable(x-size, oldy-size)||!world.isWalkable(x-size, oldy+size/2)) {
+					x = (float) (Math.ceil(x-size)+size*r);
+					speedx = 0;
+				}
 			}
-		} else if (x<oldx) {
-			if (!world.isWalkable(x-size, oldy-size)||!world.isWalkable(x-size, oldy+size/2)) {
-				x = (float) (Math.ceil(x-size)+size*r);
+	
+			if (y>oldy)  {
+				if (!world.isWalkable(oldx+size, y+size/2)||!world.isWalkable(oldx-size, y+size/2)) {
+					y = (float) (Math.floor(y+size/2)-size/2*r);
+					speedy = 0;
+				}
+			} else if (y<oldy) {
+				if (!world.isWalkable(oldx+size, y-size)||!world.isWalkable(oldx-size, y-size)) {
+					y = (float) (Math.ceil(y-size)+size*r);
+					speedy = 0;
+				}
 			}
 		}
 
-		if (y>oldy)  {
-			if (!world.isWalkable(oldx+size, y+size/2)||!world.isWalkable(oldx-size, y+size/2)) {
-				y = (float) (Math.floor(y+size/2)-size/2*r);
-			}
-		} else if (y<oldy) {
-			if (!world.isWalkable(oldx+size, y-size)||!world.isWalkable(oldx-size, y-size)) {
-				y = (float) (Math.ceil(y-size)+size*r);
-			}
-		}
+		float dy = y-oldy;
 		
-		speedx = 0;
-		speedy = 0;
+		if (dy!=0)
+			world.move(this);
 	}
 
 	public void render() {
@@ -63,7 +75,10 @@ public class Entity {
 	public float getDist(Entity entity) {
 		float dx = this.getX()-entity.getX();
 		float dy = this.getY()-entity.getY();
-		float ris = (float) Math.sqrt(dx*dx+dy*dy);
-		return ris;
+		return (float) Math.sqrt(dx*dx+dy*dy);
+	}
+	
+	public boolean doesCollide() {
+		return doesCollide;
 	}
 }

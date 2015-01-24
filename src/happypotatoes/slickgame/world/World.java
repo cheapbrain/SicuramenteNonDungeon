@@ -1,16 +1,19 @@
 package happypotatoes.slickgame.world;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.entity.Dummy;
 import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.entity.NyanCat;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
@@ -20,9 +23,11 @@ public class World {
 	private Camera camera;
 
 	private int[][] terrain;
-	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Entity> entities = new LinkedList<Entity>();
+	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	
 	private int size = 100;
+	private int maxdelay = 30;
 
 	public World(GameContainer container) {
 		try {
@@ -40,12 +45,35 @@ public class World {
 				if (terrain[x][y]==0)
 					break;
 
-		Entity player = new Player();
 		System.out.println(x+" "+y);
+
+		Entity player = new Player();
 		player.setPosition(x+.5f, y+.5f);
+		add(player);
+		
 		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
-		add(player);
+
+		
+		Entity cat = new NyanCat();
+		cat.setPosition(x+.5f, y+.5f);
+		add(cat);
+		
+		Entity dummy = new Dummy();
+		dummy.setPosition(x+.5f, y+2.5f);
+		add(dummy);
+
+		dummy = new Dummy();
+		dummy.setPosition(x+.5f, y+1.5f);
+		add(dummy);
+
+		dummy = new Dummy();
+		dummy.setPosition(x+.5f, y+3.5f);
+		add(dummy);
+		
+		dummy = new Dummy();
+		dummy.setPosition(x+.5f, y-1f);
+		add(dummy);
 	}
 	
 	public void render(Graphics g) {
@@ -76,14 +104,42 @@ public class World {
 	}
 	
 	public void update(GameContainer container, int delta) {
+		if (delta>maxdelay) delta = maxdelay;
 		
 		for (Entity e:entities)
 			e.update(container, this, delta);
+		
+		EntityCommand c;
+		while((c = eCommands.poll())!=null) {
+			switch(c.action) {
+				case EntityCommand.ADD:
+					addToList(c.e);
+					break;
+				case EntityCommand.REMOVE:
+					entities.remove(c.e);
+					break;
+				case EntityCommand.REFRESH:
+					int i = entities.indexOf(c.e);
+					float y = c.e.getY();
+					float y1 = i+1<entities.size()?entities.get(i+1).getY():Integer.MAX_VALUE;
+					float y2 = i>0?entities.get(i-1).getY():0;
+					if (y>y1||y<y2) {
+						entities.remove(c.e);
+						addToList(c.e);
+					}
+					
+			}
+		}
+		
 		
 		camera.update(delta);
 	}
 	
 	public void add(Entity e) {
+		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
+	}
+	
+	private void addToList(Entity e) {
 		if (entities.isEmpty())
 			entities.add(e);
 		else {
@@ -98,11 +154,11 @@ public class World {
 	}
 	
 	public void move(Entity e) {
-		
+		eCommands.add(new EntityCommand(e, EntityCommand.REFRESH));
 	}
 	
 	public void remove(Entity e) {
-		entities.remove(e);
+		eCommands.add(new EntityCommand(e, EntityCommand.REMOVE));
 	}
 	
 	public boolean isWalkable(float x, float y) {

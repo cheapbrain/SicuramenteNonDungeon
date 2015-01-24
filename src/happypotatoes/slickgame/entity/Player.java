@@ -8,10 +8,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player extends WalkEntity{
-	float speed = 0.002f;
-	int direction;
+	float speed = 0.008f;
 	
 	public Player() {
+		super(true);
 		try {
 			Image texture = new Image("./res/spriteomg.png");
 			texture.setFilter(Image.FILTER_NEAREST);
@@ -29,24 +29,30 @@ public class Player extends WalkEntity{
 		Input input = container.getInput();
 		if (input.isKeyDown(Input.KEY_W)) {
 			speedy = -speed;
+			state = 1;
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
 			speedy = speed;
+			state = 1;
 		}
 		if (input.isKeyDown(Input.KEY_A)) {
 			speedx = -speed;
+			state = 1;
 		}
 		if (input.isKeyDown(Input.KEY_D)) {
 			speedx = speed;
+			state = 1;
 		}
 
 		float dx = x-oldx;
 		float dy = y-oldy;
 		super.update(container, world, delta);
-
+		
 		float d = (float)Math.sqrt(dx*dx+dy*dy);
 		
-		if (d>0) {
+		if (state==1&&d>0) {
+			speedx = 0;
+			speedy = 0;
 			
 			if (dx>0)
 				facing = 3;
@@ -56,9 +62,6 @@ public class Player extends WalkEntity{
 				facing = 0;
 			else if (dy<0)
 				facing = 2;
-			
-
-			state = 1;
 		} else {
 			state = 0;
 		}
