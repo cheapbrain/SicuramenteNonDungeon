@@ -61,8 +61,8 @@ public class NyanCat extends Entity{
 		
 		taildelay-= delta;
 		if (taildelay<=0) {
-			world.add(new Particle(tail, 2000, x+.5f, y-.2f));
-			taildelay = 10;
+			world.add(new Particle(tail, 2000, x+1f, y-.3f));
+			taildelay = 5;
 		}
 	}
 	

@@ -21,7 +21,7 @@ import happypotatoes.slickgame.worldgenerator.WorldGenTest;
 
 public class World {
 	private Camera camera;
-	private int scale=4;
+	private int scale=1;
 	private int[][] terrain;
 	private List<Entity> entities = new LinkedList<Entity>();
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
@@ -58,7 +58,7 @@ public class World {
 		
 		Entity cat = new NyanCat();
 		cat.setPosition(x+.5f, y+.5f);
-		add(cat);
+		//add(cat);
 		
 		Entity dummy = new Dummy();
 		dummy.setPosition(x+.5f, y+2.5f);

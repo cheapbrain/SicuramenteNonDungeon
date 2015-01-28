@@ -23,8 +23,8 @@ public class Particle extends Entity{
 		
 		color1 = Color.white;
 		color2 = new Color(255, 255, 255, 0);
-		scale1 = 1.5f;
-		scale2 = 1.5f;
+		scale1 = 1f;
+		scale2 = 1f;
 	}
 	
 	@Override
@@ -46,6 +46,6 @@ public class Particle extends Entity{
 		color = color1.scaleCopy(p).addToCopy(color2.scaleCopy(k));
 		scale = scale1*p+scale2*k;
 		
-		image.draw(x-scale, y-scale/2, scale/image.getWidth(), color);
+		image.draw(x-scale, y-scale/2, scale/25, color);
 	}
 }

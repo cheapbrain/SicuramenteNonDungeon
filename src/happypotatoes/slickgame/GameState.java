@@ -2,12 +2,12 @@ package happypotatoes.slickgame;
 
 import happypotatoes.slickgame.world.World;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 
 public class GameState extends BasicGameState {
 	World world;
@@ -21,7 +21,6 @@ public class GameState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -29,15 +28,13 @@ public class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		world.render(g);
-		
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
-		world.update(container, delta);
 		
+		world.update(container, delta);
 	}
 
 	@Override
