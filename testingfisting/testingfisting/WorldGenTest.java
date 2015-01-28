@@ -79,13 +79,13 @@ public class WorldGenTest {
 			rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 			rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 			while((inters(rooms[i]))&&(tries<100)){
-				System.out.println("RETRY");
+				//System.out.println("RETRY");
 				rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 				rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 				tries++;
 			}
 			if(tries<100){
-				System.out.println("OK");
+				//System.out.println("OK");
 				putRoom(rooms[i]);
 				roomList.add(rooms[i]);
 			}
@@ -104,13 +104,13 @@ public class WorldGenTest {
 				terrain[i*corrWidth+1][j*corrWidth+1]=tempTerrain[i][j];
 			}
 		}
-		for(int i=0; i<height*corrWidth; i++){
+		/*for(int i=0; i<height*corrWidth; i++){
 			for(int j=0; j<width*corrWidth; j++){
 				if(terrain[i][j]==0) System.out.print(" ");
 				else System.out.print("#");
 			}
 			System.out.println();
-		}
+		}*/
 	}
 	
 	public static void main(String[] args) throws Exception {

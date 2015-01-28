@@ -4,7 +4,6 @@ public class Room {
 	int x, y;
 	int height, width;
 	int bind[];
-	int topSpace, rightSpace, downSpace, leftSpace;
 	//info varie
 	
 	public Room(){

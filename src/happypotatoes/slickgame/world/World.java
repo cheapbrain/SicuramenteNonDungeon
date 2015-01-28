@@ -21,12 +21,12 @@ import happypotatoes.slickgame.worldgenerator.WorldGenTest;
 
 public class World {
 	private Camera camera;
-
+	private int scale=4;
 	private int[][] terrain;
 	private List<Entity> entities = new LinkedList<Entity>();
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	
-	private int size = 100;
+	private int size;
 	private int maxdelay = 30;
 
 	public World(GameContainer container) {
@@ -36,6 +36,7 @@ public class World {
 			e.printStackTrace();
 		}
 		WorldGenTest gen = new WorldGenTest();
+		size=gen.height*gen.corrWidth;
 		
 		terrain = gen.terrain;
 		
@@ -51,7 +52,7 @@ public class World {
 		player.setPosition(x+.5f, y+.5f);
 		add(player);
 		
-		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
+		camera = new Camera(container.getWidth(), container.getHeight(), 64/scale, player);
 		update(container, 0);
 
 		

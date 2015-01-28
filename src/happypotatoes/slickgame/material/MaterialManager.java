@@ -8,7 +8,7 @@ public class MaterialManager {
 		
 	public static void init() throws SlickException {
 
-		Image texture = new Image("./res/sheet.png");
+		Image texture = new Image("./res/sheet2.png");
 		texture.setFilter(Image.FILTER_NEAREST);
 		materials = new Material[2];
 		
