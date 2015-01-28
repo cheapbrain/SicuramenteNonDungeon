@@ -8,7 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player extends WalkEntity{
-	float speed = 0.030f;
+	float speed = 0.012f;
 	
 	public Player() {
 		super(true);
