@@ -13,6 +13,7 @@ public class Meuwse extends WalkEntity{
 	int timer;
 	int direction;
 	public Meuwse(){
+		super(true);
 		x = 3;
 		y = 3;
 		timer = 0;

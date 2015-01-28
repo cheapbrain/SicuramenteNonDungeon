@@ -6,6 +6,7 @@ import happypotatoes.slickgame.entity.Entity;
 
 public class Attributes {
 
+
 	private Entity Owner;
 	
 	private float forza; //da 0 a 25 -- 8 è un punteggio normale/di base
@@ -24,6 +25,9 @@ public class Attributes {
 	
 	private float salute;
 	
+	private float esperienza;
+	private int livello; //da 1 a 25 //calcolare livello quando?
+	
 	private float mitigazione; //da 0 a 100
 	
 	
@@ -40,38 +44,38 @@ public class Attributes {
 		if (mit>100) mit=(float) 100;
 	}
 	
-	public void incrementamaestria(String tipo){
+	public void incrementamaestria(int tipo){ //tipo: 1=taglio, 2=contundente, 3=arco, 4=armadafuoco; 5=arcana;
 		switch (tipo){
 		
-		case "taglio":{
+		case 1:{
 						if (maestriataglio<100)
 							maestriataglio=(float) (maestriataglio+(Math.cos(maestriataglio/36)+1)/32);
 							//modificare l'ultima divisione per aumentare il numero di attacchi necessari
 							incrementaforza();
 						break;
 	                  }
-		case "contundente":{
+		case 2:{
 						if (maestriacontundente<100)
 							maestriacontundente=(float) (maestriacontundente+(Math.cos(maestriacontundente/36)+1)/32);
 							incrementaforza();
 						break;
 					       }
 			
-		case "arco":{
+		case 3:{
 						if (maestriaarco<100)
 							 maestriaarco=(float) (maestriaarco+(Math.cos(maestriaarco/36)+1)/32);
 							incrementadestrezza();
 						break;
 		}
 		
-		case "armadafuoco":{
+		case 4:{
 						if (maestriaarmadafuoco<100)
 							maestriaarmadafuoco=(float) (maestriaarmadafuoco+(Math.cos(maestriaarmadafuoco/36)+1)/32);
 							incrementadestrezza();
 						break;
 		}
 			
-		case "arcana":{
+		case 5:{
 						if (maestriaarcana<100)
 							maestriaarcana=(float) (maestriaarcana+(Math.cos(maestriaarcana/36)+1)/32);
 							incrementaintelligenza();
@@ -103,7 +107,7 @@ public class Attributes {
 		
 	private void incrementatenacia() {
 		if (tenacia<25){
-			tenacia=tenacia+1;	
+			tenacia++;	
 		}
 	
 }

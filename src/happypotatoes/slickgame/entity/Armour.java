@@ -7,6 +7,7 @@ public class Armour extends Entity implements Actor{
 	private Float mitigation;
 
 	public Armour(){
+		super(true);
 		
 	}
 	
@@ -26,7 +27,6 @@ public class Armour extends Entity implements Actor{
 		
 	}
 
-	@Override
 	public char getIdItem() {
 		// TODO Auto-generated method stub
 		return 0;
