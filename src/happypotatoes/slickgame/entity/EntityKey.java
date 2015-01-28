@@ -10,6 +10,7 @@ public class EntityKey extends Entity implements Actor{
 	private Image texture;
 	
 	public EntityKey(float x, float y) {
+		super(false);
 		try {
 			texture = new Image("./res/SteamKeyColorata.png");
 			texture.setFilter(Image.FILTER_NEAREST);
