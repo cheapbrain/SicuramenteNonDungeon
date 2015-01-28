@@ -3,8 +3,9 @@ package happypotatoes.slickgame.worldgenerator;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class WorldGenTest {
-	int seed=7;
+public class Generator {
+	public static Random r = new Random();
+	int seed=314159265;
 	public int width=75;
 	public int height=75;
 	public int corrWidth=2;
@@ -48,13 +49,12 @@ public class WorldGenTest {
 		}
 	}
 	
-	public WorldGenTest(){
+	public Generator(){
 		for(int i=0; i<width; i++)
 			for(int j=0; j<height; j++)
 				tempTerrain[i][j]=1;
 		rooms= new Room[roomsnumber];
-		
-		Random r= new Random();
+	
 		r.setSeed(seed);
 		
 		int h, w;
@@ -65,14 +65,14 @@ public class WorldGenTest {
 		}
 		
 		for(int i=0; i<nCorr; i++){
-			corridorList.add(new Corridor(r,100,width,height));
+			corridorList.add(new Corridor(100,width,height));
 			Corridor a= corridorList.get(corridorList.size()-1);
 			for(int j=0; j<a.cells.size(); j++){
 				tempTerrain[a.cells.get(j).y][a.cells.get(j).x]=0;
 			}
 		}
 		
-		printAll();
+		//printAll();
 		
 		int tries, nstanze=0;
 		//sistemare stanze
@@ -81,23 +81,17 @@ public class WorldGenTest {
 			rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 			rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 			while((inters(rooms[i]))&&(tries<100)){
-				System.out.println("RETRY");
+				//System.out.println("RETRY");
 				rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 				rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 				tries++;
 			}
 			if(tries<100){
-				System.out.println("OK");
+				//System.out.println("OK");
 				putRoom(rooms[i]);
 				roomList.add(rooms[i]);
 			}
 		}
-		
-		printAll();
-		
-	}
-	
-	public void printAll(){
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){
 				terrain[i*corrWidth][j*corrWidth]=tempTerrain[i][j];
@@ -106,6 +100,13 @@ public class WorldGenTest {
 				terrain[i*corrWidth+1][j*corrWidth+1]=tempTerrain[i][j];
 			}
 		}
+		
+		//printAll();
+		
+	}
+	
+	public void printAll(){
+		
 		for(int i=0; i<height*corrWidth; i++){
 			for(int j=0; j<width*corrWidth; j++){
 				if(terrain[i][j]==0) System.out.print(" ");

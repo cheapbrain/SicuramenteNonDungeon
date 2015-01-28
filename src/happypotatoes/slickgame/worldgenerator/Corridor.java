@@ -8,17 +8,15 @@ public class Corridor {
 	public ArrayList<Cell> cells= new ArrayList<Cell>();
 	int d,rot,c;
 	int w,h;
-	Random r;
 	int turnProb=24;
 	
-	public Corridor(Random random,int lenght,int w,int h){
-		r=random;
-		cells.add(new Cell(r.nextInt(w-2)+1,r.nextInt(h-2)+1));
-		d=r.nextInt(4);
+	public Corridor(int lenght,int w,int h){
+		cells.add(new Cell(Generator.r.nextInt(w-2)+1,Generator.r.nextInt(h-2)+1));
+		d=Generator.r.nextInt(4);
 		int n;
 		for(int i=0; i<lenght; i++){
 			rot=0;
-			n=r.nextInt(100);
+			n=Generator.r.nextInt(100);
 			if(n<turnProb/2){
 				rot=1;
 			}
@@ -69,7 +67,7 @@ public class Corridor {
 				if(!straight()){
 					if(c<3){
 						c++;
-						rot=r.nextInt(2)+1;
+						rot=Generator.r.nextInt(2)+1;
 						place(rot);
 					}
 					else return false;

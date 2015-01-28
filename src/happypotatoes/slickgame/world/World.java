@@ -17,7 +17,7 @@ import happypotatoes.slickgame.entity.NyanCat;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
-import happypotatoes.slickgame.worldgenerator.WorldGenTest;
+import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
 	private Camera camera;
@@ -35,7 +35,7 @@ public class World {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		WorldGenTest gen = new WorldGenTest();
+		Generator gen = new Generator();
 		size=gen.height*gen.corrWidth;
 		
 		terrain = gen.terrain;
