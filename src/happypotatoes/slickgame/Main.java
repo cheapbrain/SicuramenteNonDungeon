@@ -9,6 +9,8 @@ public class Main {
 		AppGameContainer app = new AppGameContainer(new GameStateController());
 		app.setDisplayMode(800, 600, false);
         app.start();
-	}
 
+
+
+	}
 }

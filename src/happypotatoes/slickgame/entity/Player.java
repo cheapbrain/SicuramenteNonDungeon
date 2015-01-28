@@ -8,12 +8,12 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player extends WalkEntity{
-	float speed = 0.008f;
+	float speed = 0.030f;
 	
 	public Player() {
 		super(true);
 		try {
-			Image texture = new Image("./res/spriteomg.png");
+			Image texture = new Image("./res/spritea.png");
 			texture.setFilter(Image.FILTER_NEAREST);
 			setSize(64, 128, 2);
 			setAnimations(texture, 0, 1, 1);
