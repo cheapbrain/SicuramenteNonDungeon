@@ -21,7 +21,7 @@ import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
 	private Camera camera;
-	private int scale=1;
+	private int scale=8;
 	private int[][] terrain;
 	private List<Entity> entities = new LinkedList<Entity>();
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
