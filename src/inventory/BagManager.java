@@ -1,6 +1,5 @@
 package inventory;
 
-import happypotatoes.slickgame.entity.EntityKey;
 import happypotatoes.slickgame.entity.Entity;
 
 public class BagManager {
@@ -16,9 +15,9 @@ public class BagManager {
 	}
 	public static char[] toItem(Entity entity){
 		char ID[] = new char[Bag.dimID];
-		if(entity instanceof EntityKey){
-			ID[0]=(char)ItemsID.KeyItemID.val;
-		}	
+//		if(entity instanceof EntityKey){
+//			ID[0]=(char)ItemsID.KeyItemID.val;
+//		}	
 		return ID;
 	}
 }

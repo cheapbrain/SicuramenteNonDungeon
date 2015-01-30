@@ -6,21 +6,21 @@ import org.newdawn.slick.GameContainer;
 
 public class Npc extends WalkEntity{
 	
-	private String tipo; //Animal, Antropomorph, Construct, Undead, Demon, Elemental, Xenomorph
-	private int livello;
-	private String pericolosità; //Normal, Strong, Elite, Menace, Grand Menace
-	private int puntiferita;
-	private float mitigazione;
-	private int[] danni;
+	protected String tipo; //Animal, Antropomorph, Construct, Undead, Demon, Elemental, Xenomorph
+	protected int livello;
+	protected String pericolosità; //Normal, Strong, Elite, Menace, Grand Menace
+	protected int puntiferita;
+	protected float mitigazione;
+	protected int[] danni;
 	
 	//private int[][] drop;  //servono gli id, ma di che tipo sono?
 	
-	private int xp;
+	protected int xp;
 	
-	private int status; //morto, vivo ecc..
+	protected int status; //morto, vivo ecc..
 	
 	public int givexp(){
-		//when he dies
+		//if status=died{
 		return xp;
 	}
 
