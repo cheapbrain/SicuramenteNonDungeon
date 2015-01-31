@@ -13,7 +13,7 @@ public class Meuwse extends Npc{
 	private int timer;
 	private int direction;
 	public Meuwse(){
-		super(true);
+		super(true,true);
 		timer = 0;
 		direction=0;
 		try {
