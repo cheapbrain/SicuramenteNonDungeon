@@ -2,12 +2,12 @@ package happypotatoes.slickgame.entity;
 
 import happypotatoes.slickgame.world.World;
 
-public class Armour extends Entity implements Actor{
+public class Armour extends Item implements Actor{
 	
 	private Float mitigation;
 
 	public Armour(){
-		super(true);
+		super();
 		
 	}
 	

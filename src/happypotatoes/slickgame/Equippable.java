@@ -1,5 +1,5 @@
 package happypotatoes.slickgame;
 
-public class UserInterface {
+public interface Equippable {
 
 }
