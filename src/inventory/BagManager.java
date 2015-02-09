@@ -15,9 +15,6 @@ public class BagManager {
 	}
 	public static char[] toItem(Entity entity){
 		char ID[] = new char[Bag.dimID];
-//		if(entity instanceof EntityKey){
-//			ID[0]=(char)ItemsID.KeyItemID.val;
-//		}	
 		return ID;
 	}
 }
