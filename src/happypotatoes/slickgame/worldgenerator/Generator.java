@@ -5,40 +5,41 @@ import java.util.Random;
 
 public class Generator {
 	public static Random r = new Random();
-	int seed=-5;
+	public int seed=19921;
 	public int width=75;
 	public int height=75;
 	public int corrWidth=2;
 	public int nCorr=11;
 	public int roomsnumber=25;
-	Room rooms[];
-	ArrayList<Room> roomList = new ArrayList<Room>();
-	ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
-	int max=13, min=5; //dimensioni stanze
+	public Room rooms[];
+	public ArrayList<Room> roomList = new ArrayList<Room>();
+	public ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
+	public ArrayList<Trap> allTraps = new ArrayList<Trap>();
+	public int max=13, min=5; //dimensioni stanze
 	public int tempTerrain[][]= new int[width][height];
-	public int terrain[][]= new int[width*3][height*3];
+	public int terrain[][]= new int[width*corrWidth][height*corrWidth];
 	
 	public boolean inters(Room a){
-		int c=0;
 		for(int i=a.x; i<a.x+a.width-1; i++){ 
-			if((tempTerrain[i][a.y-1]==0)||(tempTerrain[i][a.y+a.height]==0))
-				c++;
+			if(tempTerrain[i][a.y-1]==0) a.addCorridor(i, a.y-1);
+			if(tempTerrain[i][a.y+a.height]==0) a.addCorridor(i, a.y+a.height);
 		}
 		for(int j=a.y; j<a.y+a.height-1; j++){ 
-			if((tempTerrain[a.x-1][j]==0)||(tempTerrain[a.x+a.width][j]==0))
-				c++;
+			if(tempTerrain[a.x-1][j]==0) a.addCorridor(a.x-1, j);
+			if(tempTerrain[a.x+a.width][j]==0) a.addCorridor(a.x+a.width,j);
 		}
 		
 		//intersezione tra stanze
 		for(int i=0; i<roomList.size(); i++){
 			Room b = roomList.get(i);
-			if((a.x+a.width>=b.x-1)&&(a.x-1<=b.x+b.width)&&(a.y+a.height>=b.y-1)&&(a.y-1<=b.y+b.height))
-				c=-1;
+			if(a.intersect(b))
+				a.clearCorridors();
 		}
 			
-		if((c>0)&&(c<6)) return false;
+		if((a.getCorridorsNumber()>0)&&(a.getCorridorsNumber()<5)) return false;
 		else return true;
 	}
+	
 	
 	public void putRoom(Room a){
 		for(int i=a.x; i<a.x+a.width; i++){
@@ -47,6 +48,7 @@ public class Generator {
 			}
 		}
 	}
+	
 	
 	public Generator(){
 		for(int i=0; i<width; i++)
@@ -95,10 +97,16 @@ public class Generator {
 				terrain[i*corrWidth+1][j*corrWidth+1]=tempTerrain[i][j];
 			}
 		}		
+		
+		for(int i=0; i<roomList.size()-1; i++){
+			roomList.get(i).fix();
+			roomList.get(i).generate();
+			allTraps.addAll(roomList.get(i).getTraps());
+		}
 	}
 	
+	
 	public void printAll(){
-		
 		for(int i=0; i<height*corrWidth; i++){
 			for(int j=0; j<width*corrWidth; j++){
 				if(terrain[i][j]==0) System.out.print(" ");
