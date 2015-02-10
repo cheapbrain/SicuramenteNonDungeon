@@ -1,0 +1,5 @@
+#commento
+#Tue Feb 10 16:39:19 CET 2015
+Name=mouse
+SpritePath=.\\res\\Sprites\\Mobs\\mouse.png
+Health=123
