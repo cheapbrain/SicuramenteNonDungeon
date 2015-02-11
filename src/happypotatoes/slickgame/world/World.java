@@ -1,6 +1,5 @@
 package happypotatoes.slickgame.world;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -13,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Dummy;
 import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.entity.Meuwse;
 import happypotatoes.slickgame.entity.NyanCat;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
@@ -24,6 +24,7 @@ public class World {
 	private int scale=1;
 	private int[][] terrain;
 	private List<Entity> entities = new LinkedList<Entity>();
+	private Quadtree quadtree;
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	
 	private int size;
@@ -51,14 +52,10 @@ public class World {
 		Entity player = new Player();
 		player.setPosition(x+.5f, y+.5f);
 		add(player);
-		
-		camera = new Camera(container.getWidth(), container.getHeight(), 64/scale, player);
-		update(container, 0);
-
-		
+				
 		Entity cat = new NyanCat();
 		cat.setPosition(x+.5f, y+.5f);
-		//add(cat);
+		add(cat);
 		
 		Entity dummy = new Dummy();
 		dummy.setPosition(x+.5f, y+2.5f);
@@ -71,10 +68,14 @@ public class World {
 		dummy = new Dummy();
 		dummy.setPosition(x+.5f, y+3.5f);
 		add(dummy);
+
+		Entity mouse = new Meuwse();
+		mouse.setPosition(x+.5f, y-1f);
+		add(mouse);
 		
-		dummy = new Dummy();
-		dummy.setPosition(x+.5f, y-1f);
-		add(dummy);
+
+		camera = new Camera(container.getWidth(), container.getHeight(), 64/scale, player);
+		update(container, 0);
 	}
 	
 	public void render(Graphics g) {
