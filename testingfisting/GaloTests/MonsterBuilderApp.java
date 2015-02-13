@@ -1,4 +1,4 @@
-package happypotatoes.slickgame;
+package GaloTests;
 
 
 public class MonsterBuilderApp {

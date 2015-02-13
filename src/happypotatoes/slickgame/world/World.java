@@ -69,6 +69,12 @@ public class World {
 		System.out.println(count);
 		System.out.println(count*count/2);
 
+		//add trappole
+		for(int i=0; i<gen.allTraps.size(); i++){
+			add(gen.allTraps.get(i));
+		}
+		
+		
 		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
 	}
