@@ -73,7 +73,7 @@ public class MonsterBuilder extends JFrame{
 			        f = new File(spritePathSource.getText());
 					if (!f.exists()) throw new Exception();
 				}catch(Exception exc){
-					System.out.println("inserire un valore di salute valido");
+					System.out.println("inserire tutti i dati validi");
 					return;
 				}
 				f = new File(path+name.getText()+".mob");

@@ -1,17 +1,23 @@
 package happypotatoes.slickgame.entity;
 
+import happypotatoes.slickgame.world.World;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import MobsManagers.AIManager;
 
 public class Mob extends Npc implements IsEnemy{
 	private String name, spritePath;
 	private int health;
-	public static final String path = "./res/Mobs/", spritePathDest = "./res/Sprites/Mobs/";
+	private int timer;
+	public static final String path = "./res/Mobs/";
 	public Mob(boolean doesCollide, String race) {
 		super(doesCollide);
 		File f;
@@ -26,6 +32,9 @@ public class Mob extends Npc implements IsEnemy{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+	public void render() {
+		super.render();
 	}
 	public void loadParams(File f) {
 	    Properties props = new Properties();
@@ -49,21 +58,14 @@ public class Mob extends Npc implements IsEnemy{
 	    	System.out.println("dati nel file corrotti");
 	    }
 	}
-	public File findFile(String name,File file)
-    {
-        File[] list = file.listFiles();
-        if(list!=null)
-        for (File fil : list)
-        {
-            if (fil.isDirectory())
-            {
-                findFile(name,fil);
-            }
-            else if (name.equalsIgnoreCase(fil.getName()))
-            {
-                return fil;
-            }
-        }
-		return null;
-    }
+	public void update(GameContainer container, World world, int delta) {
+		super.update(container, world, delta);
+		AIManager.move(this);
+	}
+	public void collideWith(Entity entity){
+		
+	}
+	private void die(World world) {
+		world.remove(this);
+	}
 }
