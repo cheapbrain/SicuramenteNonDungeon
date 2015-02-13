@@ -3,6 +3,8 @@ package happypotatoes.slickgame.entity;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class Entity {
 	protected float oldx, oldy, x, y, width, height;
@@ -25,6 +27,14 @@ public class Entity {
 
 	public float getY() {
 		return y;
+	}
+	
+	public float getWidth() {
+		return width;
+	}
+
+	public float getHeight() {
+		return height;
 	}
 	
 	public void update(GameContainer container, World world, int delta) {
@@ -64,8 +74,6 @@ public class Entity {
 
 		float dy = y-oldy;
 		
-		if (dy!=0)
-			world.move(this);
 	}
 
 	public void render() {
@@ -80,5 +88,17 @@ public class Entity {
 	
 	public boolean doesCollide() {
 		return doesCollide;
+	}
+	
+	public void collideWith(Entity entity) {
+		
+	}
+
+	public Rectangle getSpriteShape() {
+		return new Rectangle(x-getWidth()/2, y-getHeight(), getWidth(), getHeight());
+	}
+
+	public Shape getShape() {
+		return new Rectangle(x-size, y+size, size*2, size*2);
 	}
 }

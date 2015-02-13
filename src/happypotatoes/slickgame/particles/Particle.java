@@ -19,6 +19,8 @@ public class Particle extends Entity{
 		this.y = y;
 		this.duration = duration;
 		this.image = image;
+		width = image.getWidth()/25f;
+		height = image.getHeight()/25f;
 		time = 0;
 		
 		color1 = Color.white;
@@ -46,6 +48,16 @@ public class Particle extends Entity{
 		color = color1.scaleCopy(p).addToCopy(color2.scaleCopy(k));
 		scale = scale1*p+scale2*k;
 		
-		image.draw(x-scale, y-scale/2, scale/25, color);
+		image.draw(x-getWidth()/2, y-getHeight(), getWidth(), getHeight(), color);
+	}
+	
+	@Override
+	public float getWidth() {
+		return width*scale;
+	}
+
+	@Override
+	public float getHeight() {
+		return height*scale;
 	}
 }

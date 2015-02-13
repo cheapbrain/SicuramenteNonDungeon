@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Dummy;
 import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.entity.Meuwse;
 import happypotatoes.slickgame.entity.NyanCat;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
@@ -21,9 +26,8 @@ import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
 	private Camera camera;
-	private int scale=1;
 	private int[][] terrain;
-	private List<Entity> entities = new LinkedList<Entity>();
+	private Quadtree quadtree;
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	
 	private int size;
@@ -36,47 +40,40 @@ public class World {
 			e.printStackTrace();
 		}
 		Generator gen = new Generator();
-		size=gen.height*gen.corrWidth;
-		
-		terrain = gen.terrain;
-		
-		int x = 0, y = 0;
-		for (y=0;y<gen.height;y++)
-			for (x=0;x<gen.width;x++)
-				if (terrain[x][y]==0)
-					break;
 
-		System.out.println(x+" "+y);
+		terrain = gen.terrain;
+		size=terrain.length;
+		
+		quadtree = new Quadtree(10, 5, null, new Rectangle(0, 0, size, size));
+		
+
+		int x = 0, y = 0;
+					
+
 
 		Entity player = new Player();
-		player.setPosition(x+.5f, y+.5f);
+		player.setPosition(2+.5f, 2+.5f);
 		add(player);
 		
-		camera = new Camera(container.getWidth(), container.getHeight(), 64/scale, player);
+		int count = 1;
+		for (y=0;y<size;y++)
+			for (x=0;x<size;x++) 
+				if (terrain[x][y]==0){
+					if (Math.random()>.90) {
+						Entity dummy = new Meuwse();
+						dummy.setPosition(x+.5f, y+.5f);
+						add(dummy);
+						count++;
+					}
+				}
+		System.out.println(count);
+		System.out.println(count*count/2);
+
+		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
-
-		
-		Entity cat = new NyanCat();
-		cat.setPosition(x+.5f, y+.5f);
-		//add(cat);
-		
-		Entity dummy = new Dummy();
-		dummy.setPosition(x+.5f, y+2.5f);
-		add(dummy);
-
-		dummy = new Dummy();
-		dummy.setPosition(x+.5f, y+1.5f);
-		add(dummy);
-
-		dummy = new Dummy();
-		dummy.setPosition(x+.5f, y+3.5f);
-		add(dummy);
-		
-		dummy = new Dummy();
-		dummy.setPosition(x+.5f, y-1f);
-		add(dummy);
 	}
 	
+	boolean renderquad = false;
 	public void render(Graphics g) {
 		float unit = camera.getUnit();
 		float cx = (int)(camera.getX1()*unit)/unit;
@@ -99,35 +96,42 @@ public class World {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
 					m.getTexture().draw(x, y, 1, 1);
 				}
+		
+		if (renderquad)
+			quadtree.render(g);
 
-		for (Entity e:entities)
+		List<Entity> renderizable = new ArrayList<Entity>();
+		quadtree.getRenderizable(camera.getRekt(), renderizable);
+		for(Entity e:renderizable)
 			e.render();
 	}
 	
 	public void update(GameContainer container, int delta) {
+		Input input = container.getInput();
+		if (input.isKeyPressed(Input.KEY_UP))
+			camera.scale(1.5f);
+		if (input.isKeyPressed(Input.KEY_DOWN))
+			camera.scale(1/1.5f);
+		if (input.isKeyPressed(Input.KEY_TAB))
+			renderquad = !renderquad;
+		
 		if (delta>maxdelay) delta = maxdelay;
 		
-		for (Entity e:entities)
-			e.update(container, this, delta);
+		quadtree.collisions(null);
+
+		quadtree.update(container, this, delta);
 		
 		EntityCommand c;
 		while((c = eCommands.poll())!=null) {
 			switch(c.action) {
 				case EntityCommand.ADD:
-					addToList(c.e);
+					quadtree.add(c.e);
 					break;
 				case EntityCommand.REMOVE:
-					entities.remove(c.e);
+					quadtree.remove(c.e);
 					break;
 				case EntityCommand.REFRESH:
-					int i = entities.indexOf(c.e);
-					float y = c.e.getY();
-					float y1 = i+1<entities.size()?entities.get(i+1).getY():Integer.MAX_VALUE;
-					float y2 = i>0?entities.get(i-1).getY():0;
-					if (y>y1||y<y2) {
-						entities.remove(c.e);
-						addToList(c.e);
-					}
+					break;
 					
 			}
 		}
@@ -138,20 +142,6 @@ public class World {
 	
 	public void add(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
-	}
-	
-	private void addToList(Entity e) {
-		if (entities.isEmpty())
-			entities.add(e);
-		else {
-			float y = e.getY();
-			for (int i=0;i<entities.size();i++)
-				if (entities.get(i).getY()>y) {
-					entities.add(i, e);
-					return;
-				}
-			entities.add(e);
-		}
 	}
 	
 	public void move(Entity e) {

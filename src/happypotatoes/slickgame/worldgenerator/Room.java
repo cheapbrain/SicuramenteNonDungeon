@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.worldgenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Room {
 	int x, y;
@@ -20,13 +21,16 @@ public class Room {
 		new Room(height,width);
 	}
 	
-	private void createTraps() {
+	private void createPlates() {
 		int nTraps = Generator.r.nextInt(3);
 		for(int i=0; i<nTraps; i++){
-			traps.add(new Trap(this));
+			traps.add(new Plate(this));
+			/*Trap a = traps.get(traps.size()-1);
+			traps.add(new Plate(a.getX(),a.getY(),a.type));*/
+			
 		}
 		for(int i=0; i<corridors.size()-1; i++){
-			traps.add(new Trap(corridors.get(i).x,corridors.get(i).y,2));
+			//plates.add(new Plate(corridors.get(i).x,corridors.get(i).y,2));
 		}
 	}
 	
@@ -50,7 +54,7 @@ public class Room {
 	}
 
 	public void generate() {
-		createTraps();	
+		createPlates();	
 	}
 	public ArrayList<Trap> getTraps(){
 		return this.traps;
@@ -66,4 +70,5 @@ public class Room {
 			corridors.get(i).y*=2;
 		}
 	}
+
 }
