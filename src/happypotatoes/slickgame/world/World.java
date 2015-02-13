@@ -42,7 +42,7 @@ public class World {
 		Generator gen = new Generator();
 
 		terrain = gen.terrain;
-		size=terrain.length/4;
+		size=terrain.length;
 		
 		quadtree = new Quadtree(10, 5, null, new Rectangle(0, 0, size, size));
 		
@@ -59,10 +59,12 @@ public class World {
 		for (y=0;y<size;y++)
 			for (x=0;x<size;x++) 
 				if (terrain[x][y]==0){
-					Entity dummy = new Dummy();
-					dummy.setPosition(x+.5f, y+.5f);
-					add(dummy);
-					count++;
+					if (Math.random()>.90) {
+						Entity dummy = new Meuwse();
+						dummy.setPosition(x+.5f, y+.5f);
+						add(dummy);
+						count++;
+					}
 				}
 		System.out.println(count);
 		System.out.println(count*count/2);
