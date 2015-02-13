@@ -1,14 +1,17 @@
 package happypotatoes.slickgame;
 
+import org.newdawn.slick.geom.Rectangle;
+
 import happypotatoes.slickgame.entity.Entity;
 
 public class Camera {
+	private float w, h;
 	private float x, y;
 	private float x1, y1;
 	private float x2, y2;
 	private float hw, hh;
 	private float tx, ty;
-	private int unit;
+	private float unit;
 	
 	private Entity target;
 	private float speed = .2f;
@@ -16,9 +19,19 @@ public class Camera {
 	
 	public Camera(int width, int height, int unit, Entity target) {
 		this.target = target;
-		hw = width/2f/unit;
-		hh = height/2f/unit;
+		w = (float)width/unit;
+		h = (float)height/unit;
+		hw = w/2;
+		hh = h/2;
 		this.unit = unit;
+	}
+	
+	public void scale(float k) {
+		unit *= k;
+		w /= k;
+		h /= k;
+		hh = h/2;
+		hw = w/2;
 	}
 	
 	public void setTarget(Entity target) {
@@ -45,6 +58,10 @@ public class Camera {
 		
 		y1 = y-hh;
 		y2 = y+hh;
+	}
+	
+	public Rectangle getRekt() {
+		return new Rectangle(x1, y1, w, h);
 	}
 	
 	public boolean isInside(float x, float y) {
@@ -81,6 +98,6 @@ public class Camera {
 	}
 	
 	public int getUnit() {
-		return unit;
+		return Math.round(unit);
 	}
 }

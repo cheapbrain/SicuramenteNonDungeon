@@ -39,7 +39,7 @@ public class GameState extends BasicGameState {
 		g.pushTransform();
 		world.render(g);
 		g.popTransform();
-		ui.render(g);
+		//ui.render(g);
 	}
 
 	@Override
