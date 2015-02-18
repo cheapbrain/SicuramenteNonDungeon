@@ -10,27 +10,21 @@ public class Room {
 	private ArrayList<Cell> corridors = new ArrayList<Cell>();
 	private ArrayList<Trap> traps = new ArrayList<Trap>();
 	
-	public Room(int height, int width){
-		this.height=height;
+	public Room(int width, int height){
 		this.width=width;
+		this.height=height;
 	}
 
-	public Room(int x, int y,int height, int width){
+	public Room(int x, int y, int width, int height){
 		this.x=x;
 		this.y=y;
-		new Room(height,width);
+		new Room(width,height);
 	}
 	
 	private void createPlates() {
 		int nTraps = Generator.r.nextInt(3);
 		for(int i=0; i<nTraps; i++){
 			traps.add(new Plate(this));
-			/*Trap a = traps.get(traps.size()-1);
-			traps.add(new Plate(a.getX(),a.getY(),a.type));*/
-			
-		}
-		for(int i=0; i<corridors.size()-1; i++){
-			//plates.add(new Plate(corridors.get(i).x,corridors.get(i).y,2));
 		}
 	}
 	

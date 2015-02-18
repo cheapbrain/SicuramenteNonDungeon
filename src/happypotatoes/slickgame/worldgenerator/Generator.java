@@ -6,18 +6,17 @@ import java.util.Random;
 public class Generator {
 	public static Random r = new Random();
 	public int seed=19921;
-	public int width=75;
-	public int height=75;
+	public int width;
+	public int height;
 	public int corrWidth=2;
-	public int nCorr=11;
-	public int roomsnumber=25;
+	public int nCorr, nRooms;
 	public Room rooms[];
 	public ArrayList<Room> roomList = new ArrayList<Room>();
 	public ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
 	public ArrayList<Trap> allTraps = new ArrayList<Trap>();
-	public int max=13, min=5; //dimensioni stanze
-	public int tempTerrain[][]= new int[width][height];
-	public int terrain[][]= new int[width*corrWidth][height*corrWidth];
+	public int maxW=13, minW=5, maxH=13, minH=5; //dimensioni stanze
+	public int tempTerrain[][];
+	public int terrain[][];
 	
 	public boolean inters(Room a){
 		for(int i=a.x; i<a.x+a.width-1; i++){ 
@@ -49,20 +48,28 @@ public class Generator {
 		}
 	}
 	
-	
-	public Generator(){
+	public Generator(int w, int h, int complexity){
+		width=w;
+		height=h;
+		complexity=Math.abs(complexity%11);
+		nRooms=2*complexity+2;
+		nCorr=complexity+1;
+		
+		tempTerrain= new int[width][height];
+		terrain = new int[width*corrWidth][height*corrWidth];
+		
 		for(int i=0; i<width; i++)
 			for(int j=0; j<height; j++)
 				tempTerrain[i][j]=1;
-		rooms= new Room[roomsnumber];
+		rooms= new Room[nRooms];
 	
 		r.setSeed(seed);
 		
-		int h, w;
-		for(int i=0; i<roomsnumber; i++){	
-			h=(int) (r.nextFloat()*(max-min)+min);
-			w=(int) (r.nextFloat()*(max-min)+min);
-			rooms[i]= new Room(h, w);
+		int W, H;
+		for(int i=0; i<nRooms; i++){	
+			H=(int) (r.nextFloat()*(maxH-minH)+minH);
+			W=(int) (r.nextFloat()*(maxW-minW)+minW);
+			rooms[i]= new Room(W, H);
 		}
 		
 		for(int i=0; i<nCorr; i++){
@@ -75,7 +82,7 @@ public class Generator {
 		
 		//sistemare stanze
 		int tries;
-		for(int i=0; i<roomsnumber; i++){
+		for(int i=0; i<nRooms; i++){
 			tries=0;
 			rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 			rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
@@ -103,6 +110,10 @@ public class Generator {
 			roomList.get(i).generate();
 			allTraps.addAll(roomList.get(i).getTraps());
 		}
+	}
+	
+	public Generator(){
+		this(75,75,10);
 	}
 	
 	

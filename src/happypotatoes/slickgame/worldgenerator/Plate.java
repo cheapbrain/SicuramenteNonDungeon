@@ -3,12 +3,16 @@ package happypotatoes.slickgame.worldgenerator;
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.entity.WalkEntity;
+import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Plate extends Trap{
+	
+	int pressed=0;
 	
 	public Plate(Room a){
 		this(Generator.r.nextInt(a.width)+a.x,Generator.r.nextInt(a.height)+a.y,Generator.r.nextInt(1));
@@ -32,11 +36,15 @@ public class Plate extends Trap{
 	}
 	
 	@Override
+	public void update(GameContainer container, World world, int delta){
+		this.setState(pressed);
+		pressed=0;
+	}
+	
+	@Override
 	public void collideWith(Entity a){
-		if(a instanceof WalkEntity){
-			this.setState(1);
-			//System.out.println("A");
+		if(a instanceof Player){
+			this.pressed=1;
 		}
-		//System.out.println("B");
 	}
 }
