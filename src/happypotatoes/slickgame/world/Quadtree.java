@@ -109,7 +109,7 @@ public class Quadtree {
 	
 	public void addToList(Entity entity) {
 		entities.add(entity);
-		if (entities.size()>maxEntities&&nodes==null) {
+		if (entities.size()>maxEntities&&nodes==null&&depth<maxDepth) {
 			genChildren();
 		}
 				
@@ -247,5 +247,17 @@ public class Quadtree {
 				} else
 					nodes[i].render(g);
 		}
+	}
+
+
+
+	public void getEntities(Shape shape, List<Entity> list) {
+		for (Entity e:entities)
+			if (e.getShape().intersects(shape))
+				list.add(e);
+		if (nodes!=null)
+			for (Quadtree node:nodes)
+				if (node.getArea().intersects(shape))
+					node.getEntities(shape, list);
 	}
 }

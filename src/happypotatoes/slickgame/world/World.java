@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.world;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -34,6 +35,8 @@ public class World {
 	private int maxdelay = 30;
 
 	public World(GameContainer container) {
+		int x = 0, y = 0;
+		
 		try {
 			MaterialManager.init();
 		} catch (SlickException e) {
@@ -41,14 +44,57 @@ public class World {
 		}
 		Generator gen = new Generator();
 
-		terrain = gen.terrain;
+		int[][] terrain = gen.terrain;
 		size=terrain.length;
 		
-		quadtree = new Quadtree(10, 5, null, new Rectangle(0, 0, size, size));
+		this.terrain = new int[size][size];
+		
+		
+		for (y=size-1;y>-1;y--)
+			for (x=0;x<size;x++) 
+				if(terrain[x][y]==0)
+					this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random()*.6)*9;
+				else 
+					if(x==0||y==0||x==size-1||y==size-1)
+						this.terrain[x][y] = 0;
+					else {
+						int value = 0;
+						if (terrain[x-1][y]==1)
+							if (terrain[x+1][y]==0)
+								value += 2;
+							else
+								value++;
+						
+						if (terrain[x][y-1]==1)
+							if (terrain[x][y+1]==0)
+								value += 6;
+							else
+								value += 3;
+						
+						if (value==4) {
+							if (terrain[x-1][y-1]==0)
+								value += 8;
+							else if (terrain[x+1][y-1]==0)
+								value += 9;
+							else if (terrain[x-1][y+1]==0)
+								value += 10;
+							else if (terrain[x+1][y+1]==0)
+								value += 11;
+							else
+								value = -MaterialManager.WALLS;
+						}
+						
+						this.terrain[x][y] = value+MaterialManager.WALLS;
+					}
+					
+					
+					
+		terrain = this.terrain;
+		
+		quadtree = new Quadtree(5, 6, null, new Rectangle(0, 0, size, size));
 		
 
-		int x = 0, y = 0;
-					
+				
 
 
 		Entity player = new Player();
@@ -58,14 +104,17 @@ public class World {
 		int count = 1;
 		for (y=0;y<size;y++)
 			for (x=0;x<size;x++) 
-				if (terrain[x][y]==0){
-					if (Math.random()>.90) {
+				if (MaterialManager.getMaterial(terrain[x][y]).isWalkable()){
+					if (Math.random()>.97) {
 						Entity dummy = new Meuwse();
 						dummy.setPosition(x+.5f, y+.5f);
 						add(dummy);
 						count++;
 					}
 				}
+		
+
+		
 		System.out.println(count);
 		System.out.println(count*count/2);
 
@@ -92,7 +141,7 @@ public class World {
 		
 		for (int y=sy;y<ey;y++)
 			for (int x=sx;x<ex;x++)
-				if (terrain[x][y]>-1) {
+				if (terrain[x][y]>0) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
 					m.getTexture().draw(x, y, 1, 1);
 				}
@@ -138,6 +187,14 @@ public class World {
 		
 		
 		camera.update(delta);
+	}
+	
+	public List<Entity> getEntities(Shape shape) {
+		List<Entity> list = new ArrayList<Entity>();
+		
+		quadtree.getEntities(shape, list);
+		
+		return list;
 	}
 	
 	public void add(Entity e) {
