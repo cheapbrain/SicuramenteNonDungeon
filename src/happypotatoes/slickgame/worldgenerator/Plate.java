@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 
 public class Plate extends Trap{
 	
-	int pressed=0;
+	private int pressed=0;
 	
 	public Plate(Room a){
 		this(Generator.r.nextInt(a.width)+a.x,Generator.r.nextInt(a.height)+a.y,Generator.r.nextInt(1));

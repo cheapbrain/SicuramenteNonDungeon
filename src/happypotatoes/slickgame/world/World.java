@@ -113,6 +113,8 @@ public class World {
 					}
 				}
 		
+		for(int i=0; i<gen.allTraps.size(); i++)
+			add(gen.allTraps.get(i));
 
 		
 		System.out.println(count);
