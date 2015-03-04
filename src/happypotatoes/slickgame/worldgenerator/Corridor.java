@@ -99,12 +99,8 @@ public class Corridor {
 
 	private boolean touchItself(int x, int y){
 		for(int i=0; i<cells.size()-2; i++) 
-			if (((x>=cells.get(i).x-1)&&(x<=cells.get(i).x+1)&&(y==cells.get(i).y))||
-				((x==cells.get(i).x)&&(y>=cells.get(i).y-1)&&(y<=cells.get(i).y+1)))
-			{
-			//if((x==cells.get(i).x)&&(y==cells.get(i).y)){
+			if (((x>=cells.get(i).x-1)&&(x<=cells.get(i).x+1)&&(y>=cells.get(i).y-1)&&(y<=cells.get(i).y+1)))
 			return true;
-			}
 		return false;
 	}
 }

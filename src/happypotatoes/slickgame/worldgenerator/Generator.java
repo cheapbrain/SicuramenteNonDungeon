@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.worldgenerator;
 
+import happypotatoes.slickgame.entity.StaticEntity;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,32 +15,10 @@ public class Generator {
 	public Room rooms[];
 	public ArrayList<Room> roomList = new ArrayList<Room>();
 	public ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
-	public ArrayList<Trap> allTraps = new ArrayList<Trap>();
+	public ArrayList<StaticEntity> allTraps = new ArrayList<StaticEntity>();
 	public int maxW=13, minW=5, maxH=13, minH=5; //dimensioni stanze
 	public int tempTerrain[][];
 	public int terrain[][];
-	
-	public boolean inters(Room a){
-		for(int i=a.x; i<a.x+a.width-1; i++){ 
-			if(tempTerrain[i][a.y-1]==0) a.addCorridor(i, a.y-1);
-			if(tempTerrain[i][a.y+a.height]==0) a.addCorridor(i, a.y+a.height);
-		}
-		for(int j=a.y; j<a.y+a.height-1; j++){ 
-			if(tempTerrain[a.x-1][j]==0) a.addCorridor(a.x-1, j);
-			if(tempTerrain[a.x+a.width][j]==0) a.addCorridor(a.x+a.width,j);
-		}
-		
-		//intersezione tra stanze
-		for(int i=0; i<roomList.size(); i++){
-			Room b = roomList.get(i);
-			if(a.intersect(b))
-				a.clearCorridors();
-		}
-			
-		if((a.getCorridorsNumber()>0)&&(a.getCorridorsNumber()<5)) return false;
-		else return true;
-	}
-	
 	
 	public void putRoom(Room a){
 		for(int i=a.x; i<a.x+a.width; i++){
@@ -72,6 +52,7 @@ public class Generator {
 			rooms[i]= new Room(W, H);
 		}
 		
+		//sistemare corridoi
 		for(int i=0; i<nCorr; i++){
 			corridorList.add(new Corridor(100,width,height));
 			Corridor a= corridorList.get(corridorList.size()-1);
@@ -86,7 +67,7 @@ public class Generator {
 			tries=0;
 			rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 			rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
-			while((inters(rooms[i]))&&(tries<100)){
+			while((rooms[i].attempt(tempTerrain, roomList))&&(tries<100)){
 				rooms[i].x=2*((int) (0.5*(r.nextFloat()*(width-rooms[i].width-4)+2)));
 				rooms[i].y=2*((int) (0.5*(r.nextFloat()*(height-rooms[i].height-4)+2)));
 				tries++;
@@ -96,6 +77,8 @@ public class Generator {
 				roomList.add(rooms[i]);
 			}
 		}
+		roomList.get(r.nextInt(roomList.size()-1)).addStairs();
+		
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){
 				terrain[i*corrWidth][j*corrWidth]=tempTerrain[i][j];

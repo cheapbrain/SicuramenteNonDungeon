@@ -1,15 +1,12 @@
-package happypotatoes.slickgame.worldgenerator;
+package happypotatoes.slickgame.entity;
 
-import happypotatoes.slickgame.entity.Actor;
-import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class Trap extends Entity implements Actor{
-	public int type; //steam, magic, natural
+public class StaticEntity extends Entity implements Actor{
 	Image texture;
 	private int directions;
 	private int state = 0;
@@ -18,20 +15,21 @@ public class Trap extends Entity implements Actor{
 	private Animation[][] animations;
 	private Image[][] sprites;
 		
-	public Trap(float x, float y, int type, int directions){
+	public StaticEntity(float x, float y, int directions){
 	super(true);
 	this.x=x;
 	this.y=y;
-	this.type=type;
 	this.directions=directions;
 	this.facing=0;
 	}
 	
-	public void setSize(int width, int height, int states) {
-		txwidth = width;
-		txheight = height;
-		this.width = 1;
-		this.height = 1;
+	public void setSize(int txwidth, int txheight, int states) {
+		this.txwidth = txwidth;
+		this.txheight = txheight;
+		this.width=1;
+		this.height=1;
+		this.x+=.5f;
+		this.y+=.5f;
 		sprites = new Image[directions][states];
 	}
 	
@@ -94,7 +92,7 @@ public class Trap extends Entity implements Actor{
 	
 	@Override
 	public void render(){
-		sprites[facing][state].draw(x, y,width,height);
+		sprites[facing][state].draw(x-.5f, y-.5f,width,height);
 	}
 	
 }

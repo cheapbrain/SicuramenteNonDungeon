@@ -1,9 +1,8 @@
-package happypotatoes.slickgame.worldgenerator;
+package happypotatoes.slickgame.entity;
 
-import happypotatoes.slickgame.entity.Entity;
-import happypotatoes.slickgame.entity.Player;
-import happypotatoes.slickgame.entity.WalkEntity;
 import happypotatoes.slickgame.world.World;
+import happypotatoes.slickgame.worldgenerator.Generator;
+import happypotatoes.slickgame.worldgenerator.Room;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;

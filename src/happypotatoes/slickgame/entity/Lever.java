@@ -1,4 +1,7 @@
-package happypotatoes.slickgame.worldgenerator;
+package happypotatoes.slickgame.entity;
+
+import happypotatoes.slickgame.worldgenerator.Generator;
+import happypotatoes.slickgame.worldgenerator.Room;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
