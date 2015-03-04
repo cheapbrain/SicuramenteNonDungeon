@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -16,10 +17,13 @@ import MobsManagers.AIManager;
 public class Mob extends Npc implements IsEnemy{
 	private String name, spritePath;
 	private int health;
-	private int timer;
+	private int direction;
+	private int timer=3000;
+	private boolean toDx, toUp;
 	public static final String path = "./res/Mobs/";
-	public Mob(boolean doesCollide, String race) {
-		super(doesCollide);
+	public Mob(String race) {
+		super(true);
+		speed=0.003f;
 		File f;
 		f= new File(path+race+".mob");
 		loadParams(f);
@@ -60,12 +64,53 @@ public class Mob extends Npc implements IsEnemy{
 	}
 	public void update(GameContainer container, World world, int delta) {
 		super.update(container, world, delta);
-		AIManager.move(this);
+		AIManager.update(this, delta, world);
+		
 	}
 	public void collideWith(Entity entity){
-		
+		if(entity instanceof WalkEntity){
+			stop();
+			if((this.x-entity.getX())>=0) speedx=speed; else speedx=-speed;
+			if((this.y-entity.getY())>=0) speedy=speed; else speedy=-speed;
+		}
+		if(entity instanceof Player){
+			stop();
+		}
 	}
 	private void die(World world) {
 		world.remove(this);
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public void follow(Entity e){
+		if(this.getX()>e.getX()) speedx = -speed;
+		else speedx = speed;
+		if(this.getY()>e.getY()) speedy = -speed;
+		else speedy = speed;
+	}
+	public void wander(int delta){
+		Random r = new Random();
+		if(timer<=0){
+			timer=3000;
+			if(r.nextInt()%2==0) toDx=true; else toDx=false;
+			if(r.nextInt()%2==0) toUp=true; else toUp=false;
+		}
+		if(toDx){
+			speedx=speed;
+		} else speedx=-speed;
+
+		if(toUp){
+			speedy=speed;
+		} else speedy=-speed;
+		timer-=delta;
+		
+	}
+	public void stop(){
+		speedx=0;
+		speedy=0;
 	}
 }
