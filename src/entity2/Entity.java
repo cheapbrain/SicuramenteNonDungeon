@@ -4,8 +4,8 @@ import happypotatoes.slickgame.world.World;
 
 import java.util.ArrayList;
 
-public class Entity {
-	public int id;
+public final class Entity {
+	public long id;
 	public float x,y;	
 	public boolean enabled;
 	ArrayList<Component> components;
@@ -26,10 +26,10 @@ public class Entity {
 	}
 	
 	public void update(World w, long delta){
-		//todo
+		
 	}
 
 	public Entity(long id){
-		//todo
+		this.id = id;
 	}
 }
