@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 public class Lever extends Trap {
 
 	public Lever(Room a){
-		this(Generator.r.nextInt(a.width)+a.x,Generator.r.nextInt(a.height)+a.y,Generator.r.nextInt(1));
+		this(Generator.getR().nextInt(a.width)+a.x,Generator.getR().nextInt(a.height)+a.y,Generator.getR().nextInt(1));
 	}
 	
 	public Lever(float x, float y, int type){
@@ -22,11 +22,11 @@ public class Lever extends Trap {
 		}
 		
 		this.setDirections(4);
-		this.setFacing(Generator.r.nextInt(4));
+		this.setFacing(Generator.getR().nextInt(4));
 		this.setSize(32, 32, 2);
 		this.setSprites(texture, 0);
 		this.setSprites(texture, 1);
-		this.setState(Generator.r.nextInt(2));
+		this.setState(Generator.getR().nextInt(2));
 	}
 	
 }

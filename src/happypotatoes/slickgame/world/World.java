@@ -50,7 +50,8 @@ public class World {
 
 		camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 		
-		int[][] terrain = gen.terrain;
+		int[][] terrain = gen.getTerrain();
+		
 		size=terrain.length;
 		terrainType = terrain;
 		this.terrain = new int[size][size];
@@ -115,8 +116,8 @@ public class World {
 					}
 				}
 		
-		for(int i=0; i<gen.allTraps.size(); i++)
-			add(gen.allTraps.get(i));
+		for(int i=0; i<gen.getAllTraps().size(); i++)
+			add(gen.getAllTraps().get(i));
 
 		
 		System.out.println(count);

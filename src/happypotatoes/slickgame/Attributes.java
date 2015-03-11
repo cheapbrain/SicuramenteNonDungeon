@@ -1,7 +1,7 @@
 package happypotatoes.slickgame;
 
-import happypotatoes.slickgame.entity.Armour;
 import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.items.ItemArmor;
 
 
 public class Attributes {
@@ -31,10 +31,10 @@ public class Attributes {
 	private float mitigazione; //da 0 a 100
 	
 	
-	public void calcolaMitigazione(Armour a){
+	public void calcolaMitigazione(ItemArmor a){
 		Float mit=(float) 0;
 		mit=(float) ((Math.sqrt(costituzione/8)*10)-10)*3; //ci abbiamo perso un'ora
-		mit=mit+a.getmitigation();
+		//mit=mit+a.getmitigation();
 		if (mit>100) mit=(float) 100;
 	}
 	
