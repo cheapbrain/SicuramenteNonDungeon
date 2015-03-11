@@ -1,10 +1,12 @@
 package happypotatoes.slickgame;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 import happypotatoes.slickgame.entity.Entity;
 
 public class Camera {
+	public static Camera camera;
 	private float w, h;
 	private float x, y;
 	private float x1, y1;
@@ -18,12 +20,22 @@ public class Camera {
 	private float viewAngle = 1f;
 	
 	public Camera(int width, int height, int unit, Entity target) {
+		camera = this;
 		this.target = target;
 		w = (float)width/unit;
 		h = (float)height/unit;
 		hw = w/2;
 		hh = h/2;
 		this.unit = unit;
+	}
+	
+	public void applyTrasform(Graphics g) {
+		float unit = camera.getUnit();
+		float cx = (int)(camera.getX1()*unit)/unit;
+		float cy = (int)(camera.getY1()*unit)/unit;
+
+		g.scale(unit, unit);
+		g.translate(-cx, -cy);
 	}
 	
 	public void scale(float k) {

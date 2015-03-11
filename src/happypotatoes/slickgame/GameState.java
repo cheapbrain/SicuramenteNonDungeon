@@ -1,11 +1,13 @@
 package happypotatoes.slickgame;
 
+
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.Window;
 import happypotatoes.slickgame.gui.component.Button;
 import happypotatoes.slickgame.gui.component.Label;
 import happypotatoes.slickgame.world.World;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -31,15 +33,15 @@ public class GameState extends BasicGameState {
 		test.add(new Label("ebola", 0, 0, 100, 50));
 		test.add(new Button("omg", 150, 0, 50, 30));
 		ui.add(test);
+		container.getGraphics().setBackground(new Color(100,100,0,255));
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		g.pushTransform();
+		g.clear();
 		world.render(g);
-		g.popTransform();
-		//ui.render(g);
+		ui.render(g);
 	}
 
 	@Override

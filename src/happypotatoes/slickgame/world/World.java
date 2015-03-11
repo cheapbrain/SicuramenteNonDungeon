@@ -1,13 +1,10 @@
 package happypotatoes.slickgame.world;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -16,17 +13,20 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import happypotatoes.slickgame.Camera;
-import happypotatoes.slickgame.entity.Dummy;
+import happypotatoes.slickgame.Light;
+import happypotatoes.slickgame.Lighting;
 import happypotatoes.slickgame.entity.Entity;
 import happypotatoes.slickgame.entity.Meuwse;
-import happypotatoes.slickgame.entity.NyanCat;
+import happypotatoes.slickgame.entity.Mob;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
 import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
+	private Lighting lighting;
 	private Camera camera;
+	private int[][] terrainType;
 	private int[][] terrain;
 	private Quadtree quadtree;
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
@@ -35,6 +35,10 @@ public class World {
 	private int maxdelay = 30;
 
 	public World(GameContainer container) {
+		System.out.println(Math.atan2(.1, -1));
+		System.out.println(Math.atan2(1, .1));
+		System.out.println(Math.atan2(.1, 1));
+		System.out.println(Math.atan2(-1, .1));
 		int x = 0, y = 0;
 		
 		try {
@@ -44,11 +48,13 @@ public class World {
 		}
 		Generator gen = new Generator();
 
+		camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
+		
 		int[][] terrain = gen.terrain;
 		size=terrain.length;
-		
+		terrainType = terrain;
 		this.terrain = new int[size][size];
-		
+		lighting = new Lighting(container, terrainType);
 		
 		for (y=size-1;y>-1;y--)
 			for (x=0;x<size;x++) 
@@ -87,26 +93,22 @@ public class World {
 						this.terrain[x][y] = value+MaterialManager.WALLS;
 					}
 					
-					
-					
 		terrain = this.terrain;
 		
 		quadtree = new Quadtree(5, 6, null, new Rectangle(0, 0, size, size));
 		
-
-				
-
-
 		Entity player = new Player();
 		player.setPosition(2+.5f, 2+.5f);
 		add(player);
+		
+		lighting.addLight(new Light(player, 0, 0, 4));
 		
 		int count = 1;
 		for (y=0;y<size;y++)
 			for (x=0;x<size;x++) 
 				if (MaterialManager.getMaterial(terrain[x][y]).isWalkable()){
-					if (Math.random()>.97) {
-						Entity dummy = new Meuwse();
+					if (Math.random()>0.96) {
+						Entity dummy = new Mob("mouse");
 						dummy.setPosition(x+.5f, y+.5f);
 						add(dummy);
 						count++;
@@ -119,8 +121,9 @@ public class World {
 		
 		System.out.println(count);
 		System.out.println(count*count/2);
+		
+		camera.setTarget(player);
 
-		camera = new Camera(container.getWidth(), container.getHeight(), 64, player);
 		update(container, 0);
 	}
 	
@@ -129,8 +132,10 @@ public class World {
 		float unit = camera.getUnit();
 		float cx = (int)(camera.getX1()*unit)/unit;
 		float cy = (int)(camera.getY1()*unit)/unit;
-		g.scale(unit, unit);
-		g.translate(-cx, -cy);
+
+		g.clear();
+		g.pushTransform();
+		camera.applyTrasform(g);
 
 		int sx = (int)camera.getX1();
 		int sy = (int)camera.getY1();
@@ -155,6 +160,11 @@ public class World {
 		quadtree.getRenderizable(camera.getRekt(), renderizable);
 		for(Entity e:renderizable)
 			e.render();
+
+		lighting.generate();
+		g.popTransform();
+
+		lighting.render(g);
 	}
 	
 	public void update(GameContainer container, int delta) {
