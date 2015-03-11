@@ -16,7 +16,6 @@ import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.Lighting;
 import happypotatoes.slickgame.entity.Entity;
-import happypotatoes.slickgame.entity.Meuwse;
 import happypotatoes.slickgame.entity.Mob;
 import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
