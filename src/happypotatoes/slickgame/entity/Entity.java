@@ -70,10 +70,7 @@ public class Entity {
 					speedy = 0;
 				}
 			}
-		}
-
-		float dy = y-oldy;
-		
+		}		
 	}
 
 	public void render() {

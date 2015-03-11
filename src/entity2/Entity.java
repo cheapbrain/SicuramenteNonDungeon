@@ -10,7 +10,7 @@ public final class Entity {
 	public boolean enabled;
 	ArrayList<Component> components;
 	
-	public Component getComponent(Class<Component> c){
+	public Component getComponent(Class<?> c){
 		for(int i=0; i<components.size(); i++) 
 			if(components.get(i).getClass()==c) return components.get(i);
 		return null;
@@ -20,7 +20,7 @@ public final class Entity {
 		components.add(c);
 	}
 	
-	public void removeComponent(Class<Component> c){
+	public void removeComponent(Class<?> c){
 	for(int i=0; i<components.size(); i++) 
 		if(components.get(i).getClass()==c) components.remove(i);
 	}
