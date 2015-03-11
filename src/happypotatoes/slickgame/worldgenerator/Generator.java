@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Generator {
-	public static Random r = new Random();
-	public int seed=19921;
-	public int width;
-	public int height;
-	public int corrWidth=2;
-	public int nCorr, nRooms;
-	public Room rooms[];
-	public ArrayList<Room> roomList = new ArrayList<Room>();
-	public ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
-	public ArrayList<StaticEntity> allTraps = new ArrayList<StaticEntity>();
-	public int maxW=13, minW=5, maxH=13, minH=5; //dimensioni stanze
-	public int tempTerrain[][];
-	public int terrain[][];
+	private static Random r = new Random();
+	private int seed=19921;
+	private int width;
+	private int height;
+	private int corrWidth=2;
+	private int nCorr, nRooms;
+	private Room rooms[];
+	private ArrayList<Room> roomList = new ArrayList<Room>();
+	private ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
+	private ArrayList<StaticEntity> allTraps = new ArrayList<StaticEntity>();
+	private int maxW=13, minW=5, maxH=13, minH=5; //dimensioni stanze
+	private int tempTerrain[][];
+	private int terrain[][];
 	
 	public void putRoom(Room a){
 		for(int i=a.x; i<a.x+a.width; i++){
@@ -56,8 +56,8 @@ public class Generator {
 		for(int i=0; i<nCorr; i++){
 			corridorList.add(new Corridor(100,width,height));
 			Corridor a= corridorList.get(corridorList.size()-1);
-			for(int j=0; j<a.cells.size(); j++){
-				tempTerrain[a.cells.get(j).y][a.cells.get(j).x]=0;
+			for(int j=0; j<a.getCells().size(); j++){
+				tempTerrain[a.getCells().get(j).getY()][a.getCells().get(j).getX()]=0;
 			}
 		}
 		
@@ -108,5 +108,141 @@ public class Generator {
 			}
 			System.out.println();
 		}
+	}
+
+	public static Random getR() {
+		return r;
+	}
+
+	public static void setR(Random r) {
+		Generator.r = r;
+	}
+
+	public int getSeed() {
+		return seed;
+	}
+
+	public void setSeed(int seed) {
+		this.seed = seed;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getCorrWidth() {
+		return corrWidth;
+	}
+
+	public void setCorrWidth(int corrWidth) {
+		this.corrWidth = corrWidth;
+	}
+
+	public int getnCorr() {
+		return nCorr;
+	}
+
+	public void setnCorr(int nCorr) {
+		this.nCorr = nCorr;
+	}
+
+	public int getnRooms() {
+		return nRooms;
+	}
+
+	public void setnRooms(int nRooms) {
+		this.nRooms = nRooms;
+	}
+
+	public Room[] getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(Room[] rooms) {
+		this.rooms = rooms;
+	}
+
+	public ArrayList<Room> getRoomList() {
+		return roomList;
+	}
+
+	public void setRoomList(ArrayList<Room> roomList) {
+		this.roomList = roomList;
+	}
+
+	public ArrayList<Corridor> getCorridorList() {
+		return corridorList;
+	}
+
+	public void setCorridorList(ArrayList<Corridor> corridorList) {
+		this.corridorList = corridorList;
+	}
+
+	public ArrayList<StaticEntity> getAllTraps() {
+		return allTraps;
+	}
+
+	public void setAllTraps(ArrayList<StaticEntity> allTraps) {
+		this.allTraps = allTraps;
+	}
+
+	public int getMaxW() {
+		return maxW;
+	}
+
+	public void setMaxW(int maxW) {
+		this.maxW = maxW;
+	}
+
+	public int getMinW() {
+		return minW;
+	}
+
+	public void setMinW(int minW) {
+		this.minW = minW;
+	}
+
+	public int getMaxH() {
+		return maxH;
+	}
+
+	public void setMaxH(int maxH) {
+		this.maxH = maxH;
+	}
+
+	public int getMinH() {
+		return minH;
+	}
+
+	public void setMinH(int minH) {
+		this.minH = minH;
+	}
+
+	public int[][] getTempTerrain() {
+		return tempTerrain;
+	}
+
+	public void setTempTerrain(int[][] tempTerrain) {
+		this.tempTerrain = tempTerrain;
+	}
+
+	public int[][] getTerrain() {
+		return terrain;
+	}
+
+	public void setTerrain(int[][] terrain) {
+		this.terrain = terrain;
 	}
 }

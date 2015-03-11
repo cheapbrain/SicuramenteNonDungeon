@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 public class Stairs extends StaticEntity {
 
 	public Stairs(Room a) {
-		this(Generator.r.nextInt(a.width-2)+a.x+2,Generator.r.nextInt(a.height-2)+a.y+2,Generator.r.nextInt(1));
+		this(Generator.getR().nextInt(a.width-2)+a.x+2,Generator.getR().nextInt(a.height-2)+a.y+2,Generator.getR().nextInt(1));
 	}
 	
 	public Stairs(float x, float y, int directions) {

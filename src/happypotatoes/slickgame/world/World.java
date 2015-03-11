@@ -44,7 +44,7 @@ public class World {
 		}
 		Generator gen = new Generator();
 
-		int[][] terrain = gen.terrain;
+		int[][] terrain = gen.getTerrain();
 		size=terrain.length;
 		
 		this.terrain = new int[size][size];
@@ -113,8 +113,8 @@ public class World {
 					}
 				}
 		
-		for(int i=0; i<gen.allTraps.size(); i++)
-			add(gen.allTraps.get(i));
+		for(int i=0; i<gen.getAllTraps().size(); i++)
+			add(gen.getAllTraps().get(i));
 
 		
 		System.out.println(count);

@@ -5,6 +5,7 @@ import happypotatoes.slickgame.world.World;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
 public class StaticEntity extends Entity implements Actor{
 	Image texture;

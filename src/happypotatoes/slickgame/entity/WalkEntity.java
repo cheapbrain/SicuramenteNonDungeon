@@ -6,6 +6,7 @@ import org.newdawn.slick.SpriteSheet;
 
 public class WalkEntity extends Entity{
 
+	protected float speed;
 	protected int directions = 4;
 	protected int txwidth, txheight;
 	protected int state = 0;

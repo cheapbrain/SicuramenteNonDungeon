@@ -20,13 +20,13 @@ public class Room {
 	}
 
 	public Room(int x, int y, int width, int height){
+		this(width,height);
 		this.x=x;
 		this.y=y;
-		new Room(width,height);
 	}
 	
 	private void createPlates() {
-		int nTraps = Generator.r.nextInt(3);
+		int nTraps = Generator.getR().nextInt(3);
 		for(int i=0; i<nTraps; i++){
 			staticEntities.add(new Plate(this));
 		}
@@ -86,8 +86,8 @@ public class Room {
 		width*=2;
 		height*=2;
 		for(int i=0; i<corridors.size();i++){
-			corridors.get(i).x*=2;
-			corridors.get(i).y*=2;
+			corridors.get(i).setX(corridors.get(i).getX() * 2);
+			corridors.get(i).setY(corridors.get(i).getY() * 2);
 		}
 	}
 
