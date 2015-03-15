@@ -1,7 +1,5 @@
 package happypotatoes.slickgame.monsterbuilder;
 
-import happypotatoes.slickgame.entity.Mob;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.util.Properties;
 
 import javax.swing.BoxLayout;
@@ -65,11 +62,9 @@ public class MonsterBuilder extends JFrame{
 		});
 		confirm.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				int hp;
 				File f;
 				try{
 					if(name.getText().equals("")) throw new Exception();
-					hp = Integer.parseInt(health.getText());
 			        f = new File(spritePathSource.getText());
 					if (!f.exists()) throw new Exception();
 				}catch(Exception exc){
