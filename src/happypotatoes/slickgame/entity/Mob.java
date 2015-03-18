@@ -23,16 +23,16 @@ public class Mob extends Npc implements IsEnemy{
 	public static final String path = "./res/Mobs/";
 	public Mob(String race) {
 		super(true);
-		speed=0.003f;
+		speed=0.001f;
 		File f;
 		f= new File(path+race+".mob");
 		loadParams(f);
 		try {
 			Image texture = new Image(spritePath);
 			texture.setFilter(Image.FILTER_NEAREST);
-			setSize(48, 48, 2);
+			setSize(96, 54, 2);
 			setAnimations(texture, 0, 1, 1);
-			setAnimations(texture, 1, 4, 100);
+			setAnimations(texture, 1, 10, 100);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -49,8 +49,8 @@ public class Mob extends Npc implements IsEnemy{
 	    catch ( Exception e ) { is = null; }
 	    try {
 	        if ( is == null ) {
-	            is = getClass().getResourceAsStream(f.getPath());
-	        }
+	        	 is = new FileInputStream(f.getPath());
+	  	      }
 	        props.load( is );
 	    }
 	    catch ( Exception e ) { }
@@ -87,10 +87,13 @@ public class Mob extends Npc implements IsEnemy{
 		this.state = state;
 	}
 	public void follow(Entity e){
-		if(this.getX()>e.getX()) speedx = -speed;
-		else speedx = speed;
-		if(this.getY()>e.getY()) speedy = -speed;
-		else speedy = speed;
+		int x=50;
+		if(this.getX()>e.getX()+x*speed) speedx = -speed;
+		else if(this.getX()<e.getX()-x*speed) speedx = speed;
+		else speedx=0;
+		if(this.getY()>e.getY()+x*speed) speedy = -speed;
+		else if(this.getY()<e.getY()-x*speed) speedy = speed;
+		else speedy=0;
 	}
 	public void wander(int delta){
 		Random r = new Random();
@@ -107,8 +110,15 @@ public class Mob extends Npc implements IsEnemy{
 			speedy=speed;
 		} else speedy=-speed;
 		timer-=delta;
-		
-	}
+		if(toUp){ facing =0; state=1;}
+		if(toUp&&!toDx){ facing =1; state=1;}
+		/*if(!toDx){ facing =2; state=1;}
+		if(!toUp&&!toDx) facing =1;
+		if(!toUp) facing =4;
+		if(!toUp&&toDx) facing =5;
+		if(toDx) facing =6;
+		if(toUp&&toDx) facing =7;
+	*/}
 	public void stop(){
 		speedx=0;
 		speedy=0;
