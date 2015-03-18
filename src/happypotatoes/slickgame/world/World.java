@@ -15,11 +15,11 @@ import org.newdawn.slick.geom.Shape;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.Lighting;
-import happypotatoes.slickgame.entity.Entity;
-import happypotatoes.slickgame.entity.Mob;
-import happypotatoes.slickgame.entity.Player;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
+import happypotatoes.slickgame.oldentity.Entity;
+import happypotatoes.slickgame.oldentity.Mob;
+import happypotatoes.slickgame.oldentity.Player;
 import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
@@ -100,14 +100,12 @@ public class World {
 		Entity player = new Player();
 		player.setPosition(2+.5f, 2+.5f);
 		add(player);
-		
-		lighting.addLight(new Light(player, 0, 0, 4));
-		
+				
 		int count = 1;
 		for (y=0;y<size;y++)
 			for (x=0;x<size;x++) 
 				if (MaterialManager.getMaterial(terrain[x][y]).isWalkable()){
-					if (Math.random()>0.96) {
+					if (Math.random()>2) {
 						Entity dummy = new Mob("mouse");
 						dummy.setPosition(x+.5f, y+.5f);
 						add(dummy);
@@ -161,10 +159,10 @@ public class World {
 		for(Entity e:renderizable)
 			e.render();
 
-		lighting.generate();
+		//lighting.generate();
 		g.popTransform();
 
-		lighting.render(g);
+		//lighting.render(g);
 	}
 	
 	public void update(GameContainer container, int delta) {

@@ -18,9 +18,8 @@ public final class Entity {
 	
 	public void addComponent(Component c){
 		if(!components.isEmpty()) {
-			int max = components.size();
-			for(int i=0;i<max;i++)
-				if (c.priority>components.get(i).priority) {
+			for(int i=0;i<components.size();i++)
+				if (c.priority<components.get(i).priority) {
 					components.add(i, c);
 					return;
 				}

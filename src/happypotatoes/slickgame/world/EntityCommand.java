@@ -1,6 +1,6 @@
 package happypotatoes.slickgame.world;
 
-import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.oldentity.Entity;
 
 public class EntityCommand {
 	public static final int ADD = 0;

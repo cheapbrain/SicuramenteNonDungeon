@@ -41,8 +41,6 @@ public class Lighting {
         offg.clear();
 		Color.white.bind();
 		lightShape.bind();
-        for (Light light:lights)
-        	light.render(offg);
         offg.flush();
 	}
 	
