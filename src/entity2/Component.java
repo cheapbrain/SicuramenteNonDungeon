@@ -10,6 +10,7 @@ public abstract class Component {
 	public abstract void update(World w, long delta);
 	
 	public Component(Entity owner, float priority){
+		owner.addComponent(this);
 		this.priority = priority;
 		this.owner = owner;
 		enabled = true;

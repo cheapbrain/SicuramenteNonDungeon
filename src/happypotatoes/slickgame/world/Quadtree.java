@@ -9,12 +9,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.geom.Rectangle;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 public class Quadtree {
 	private int maxEntities;
@@ -30,11 +29,11 @@ public class Quadtree {
 	//  0 1
 	//  2 3
 	
-	public Quadtree(int maxEntities, int maxDepth, Quadtree parent, Rectangle area) {
+	public Quadtree(int maxEntities, int maxDepth, Quadtree parent, happypotatoes.slickgame.geom.Rectangle rectangle) {
 		nodes = null;
 		this.maxEntities = maxEntities;
 		this.maxDepth = maxDepth;
-		this.area = area;
+		this.area = rectangle;
 		
 		this.parent = parent;
 		
@@ -52,10 +51,10 @@ public class Quadtree {
 	
 	private void genChildren() {
 		nodes = new Quadtree[4];
-		float x = area.getX();
-		float y = area.getY();
-		float w = area.getWidth()/2f;
-		float h = area.getHeight()/2f;
+		float x = area.x0;
+		float y = area.y0;
+		float w = area.w/2f;
+		float h = area.h/2f;
 		
 		Rectangle a0 = new Rectangle(x, y, w, h);
 		Rectangle a1 = new Rectangle(x+w, y, w, h);
@@ -78,21 +77,14 @@ public class Quadtree {
 		return area;
 	}
 	
-	public boolean contains(Rectangle r1, Rectangle r2) {
-		return 
-				r1.getMinX()<=r2.getMinX()&&
-				r1.getMinY()<=r2.getMinY()&&
-				r1.getMaxX()>=r2.getMaxX()&&
-				r1.getMaxY()>=r2.getMaxY();
-	}
 	
 	public void add(Entity entity) {
-		if (contains(area,entity.getSpriteShape())) {
+		if (area.contain(entity.getSpriteShape())) {
 			boolean added = false;
 			if (nodes!=null) {
 				Rectangle shape = entity.getSpriteShape();
 				for (Quadtree node:nodes)
-					if (contains(node.getArea(),shape)) {
+					if (node.getArea().contain(shape)) {
 						node.add(entity);
 						added = true;
 						break;
@@ -120,7 +112,7 @@ public class Quadtree {
 		if (nodes!=null) {
 			Rectangle shape = entity.getSpriteShape();
 			for (int i=0;i<nodes.length;i++)
-				if (contains(nodes[i].getArea(),shape)) {
+				if (nodes[i].getArea().contain(shape)) {
 					nodes[i].remove(entity);
 					removed = true;
 					break;
@@ -151,14 +143,14 @@ public class Quadtree {
 		
 		for (Entity e:entities) {
 			e.update(container, world, delta);
-			if (!contains(area,e.getSpriteShape())) {
+			if (!area.contain(e.getSpriteShape())) {
 				if (parent!=null) {
 					remove.add(e);
 				}
 			} else 
 				if (nodes!=null)
 					for (Quadtree node:nodes)
-						if (contains(node.getArea(),e.getSpriteShape())) {
+						if (node.getArea().contain(e.getSpriteShape())) {
 							remove.add(e);
 						}
 		}
@@ -243,7 +235,7 @@ public class Quadtree {
 				if (nodes[i].isLast()) {
 					Rectangle s = nodes[i].getArea();
 					g.setColor(colors[i]);
-					g.fillRect(s.getMinX(), s.getMinY(), s.getWidth(), s.getHeight());
+					g.fillRect(s.x0, s.y0, s.w, s.h);
 				} else
 					nodes[i].render(g);
 		}
@@ -251,13 +243,13 @@ public class Quadtree {
 
 
 
-	public void getEntities(Shape shape, List<Entity> list) {
+	public void getEntities(Rectangle rect, List<Entity> list) {
 		for (Entity e:entities)
-			if (e.getShape().intersects(shape))
+			if (e.getShape().intersects(rect))
 				list.add(e);
 		if (nodes!=null)
 			for (Quadtree node:nodes)
-				if (node.getArea().intersects(shape))
-					node.getEntities(shape, list);
+				if (node.getArea().intersects(rect))
+					node.getEntities(rect, list);
 	}
 }

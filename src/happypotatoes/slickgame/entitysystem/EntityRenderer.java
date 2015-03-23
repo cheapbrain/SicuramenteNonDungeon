@@ -9,7 +9,7 @@ import java.util.List;
 public class EntityRenderer {
 	private static List<RenderComponent> tasks = new LinkedList<RenderComponent>();
 	
-	public void addRenderTask(RenderComponent task) {
+	public static void addRenderTask(RenderComponent task) {
 		if (!tasks.isEmpty()) {
 			float y = task.depth;
 			for (int i=0;i<tasks.size();i++)
@@ -21,9 +21,11 @@ public class EntityRenderer {
 		tasks.add(task);
 	}
 
-	public void render() {
+	public static void render() {
 		for (RenderComponent task : tasks)
 			task.render();
+		
+		tasks.clear();
 	}
 	
 }

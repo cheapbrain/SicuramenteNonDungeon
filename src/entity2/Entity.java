@@ -3,11 +3,12 @@ package entity2;
 import happypotatoes.slickgame.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class Entity {
 	public long id;
 	public float x,y;	
-	ArrayList<Component> components;
+	List<Component> components = new ArrayList<Component>();
 	
 	public Component getComponent(Class<?> c){
 		for(Component component:components)

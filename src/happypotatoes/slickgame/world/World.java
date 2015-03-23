@@ -5,35 +5,40 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
+import entity2.Entity;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.Lighting;
+import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
-import happypotatoes.slickgame.oldentity.Entity;
-import happypotatoes.slickgame.oldentity.Mob;
-import happypotatoes.slickgame.oldentity.Player;
+import happypotatoes.slickgame.entitysystem.EntityRenderer;
+import happypotatoes.slickgame.entitysystem.entity.Player;
+import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
-	private Lighting lighting;
+	public GameContainer container;
 	private Camera camera;
+	private LightingBrutto lighting;
 	private int[][] terrainType;
 	private int[][] terrain;
-	private Quadtree quadtree;
+	//private Quadtree quadtree;
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	
 	private int size;
 	private int maxdelay = 30;
+	
+	private Entity player;
 
 	public World(GameContainer container) {
+		this.container = container;
 		System.out.println(Math.atan2(.1, -1));
 		System.out.println(Math.atan2(1, .1));
 		System.out.println(Math.atan2(.1, 1));
@@ -54,12 +59,11 @@ public class World {
 		size=terrain.length;
 		terrainType = terrain;
 		this.terrain = new int[size][size];
-		lighting = new Lighting(container, terrainType);
 		
 		for (y=size-1;y>-1;y--)
 			for (x=0;x<size;x++) 
 				if(terrain[x][y]==0)
-					this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random()*.6)*9;
+					this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random())*9;
 				else 
 					if(x==0||y==0||x==size-1||y==size-1)
 						this.terrain[x][y] = 0;
@@ -94,100 +98,62 @@ public class World {
 					}
 					
 		terrain = this.terrain;
-		
-		quadtree = new Quadtree(5, 6, null, new Rectangle(0, 0, size, size));
-		
-		Entity player = new Player();
-		player.setPosition(2+.5f, 2+.5f);
-		add(player);
+		lighting = new LightingBrutto();
 				
-		int count = 1;
-		for (y=0;y<size;y++)
-			for (x=0;x<size;x++) 
-				if (MaterialManager.getMaterial(terrain[x][y]).isWalkable()){
-					if (Math.random()>2) {
-						Entity dummy = new Mob("mouse");
-						dummy.setPosition(x+.5f, y+.5f);
-						add(dummy);
-						count++;
-					}
-				}
-		
-		for(int i=0; i<gen.getAllTraps().size(); i++)
-			add(gen.getAllTraps().get(i));
-
-		
-		System.out.println(count);
-		System.out.println(count*count/2);
-		
+		player = Player.create();
+		player.x = 2.5f;
+		player.y = 2.5f;
+				
 		camera.setTarget(player);
+		lighting.add(new Light(player, 5));
 
 		update(container, 0);
 	}
 	
 	boolean renderquad = false;
 	public void render(Graphics g) {
-		float unit = camera.getUnit();
-		float cx = (int)(camera.getX1()*unit)/unit;
-		float cy = (int)(camera.getY1()*unit)/unit;
 
-		g.clear();
 		g.pushTransform();
 		camera.applyTrasform(g);
+		
+		Rectangle rect = camera.getRekt();
 
-		int sx = (int)camera.getX1();
-		int sy = (int)camera.getY1();
-		int ex = (int)camera.getX2()+1;
-		int ey = (int)camera.getY2()+1;
+		int sx = (int)rect.x0;
+		int sy = (int)rect.y0;
+		int ex = (int)rect.x1+1;
+		int ey = (int)rect.y1+1;
+		int cw = ex-sx;
+		int ch = ey-sy;
 		if (sx<0) sx = 0;
 		if (sy<0) sy = 0;
 		if (ex>size) ex = size;
 		if (ey>size) ey = size;
 		
+		float[][] lightMap = lighting.calculateLights(terrainType, cw, ch, sx, sy, ex, ey);
+		
 		for (int y=sy;y<ey;y++)
 			for (int x=sx;x<ex;x++)
 				if (terrain[x][y]>0) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
-					m.getTexture().draw(x, y, 1, 1);
+					m.getTexture().draw(x, y, 1, 1, new Color(1f, 1f, 1f, lightMap[x-sx][y-sy]));
 				}
-		
-		if (renderquad)
-			quadtree.render(g);
 
-		List<Entity> renderizable = new ArrayList<Entity>();
-		quadtree.getRenderizable(camera.getRekt(), renderizable);
-		for(Entity e:renderizable)
-			e.render();
+		EntityRenderer.render();
 
-		//lighting.generate();
 		g.popTransform();
-
-		//lighting.render(g);
 	}
 	
 	public void update(GameContainer container, int delta) {
-		Input input = container.getInput();
-		if (input.isKeyPressed(Input.KEY_UP))
-			camera.scale(1.5f);
-		if (input.isKeyPressed(Input.KEY_DOWN))
-			camera.scale(1/1.5f);
-		if (input.isKeyPressed(Input.KEY_TAB))
-			renderquad = !renderquad;
-		
+				
 		if (delta>maxdelay) delta = maxdelay;
-		
-		quadtree.collisions(null);
-
-		quadtree.update(container, this, delta);
+		player.update(this, delta);
 		
 		EntityCommand c;
 		while((c = eCommands.poll())!=null) {
 			switch(c.action) {
 				case EntityCommand.ADD:
-					quadtree.add(c.e);
 					break;
 				case EntityCommand.REMOVE:
-					quadtree.remove(c.e);
 					break;
 				case EntityCommand.REFRESH:
 					break;
@@ -198,15 +164,7 @@ public class World {
 		
 		camera.update(delta);
 	}
-	
-	public List<Entity> getEntities(Shape shape) {
-		List<Entity> list = new ArrayList<Entity>();
 		
-		quadtree.getEntities(shape, list);
-		
-		return list;
-	}
-	
 	public void add(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
 	}

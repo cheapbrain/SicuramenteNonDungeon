@@ -33,7 +33,7 @@ public class GameState extends BasicGameState {
 		test.add(new Label("ebola", 0, 0, 100, 50));
 		test.add(new Button("omg", 150, 0, 50, 30));
 		ui.add(test);
-		container.getGraphics().setBackground(new Color(100,100,0,255));
+		container.getGraphics().setBackground(new Color(0,0,0,255));
 	}
 
 	@Override
