@@ -1,20 +1,16 @@
 package happypotatoes.slickgame.world;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import entity2.Entity;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.Light;
-import happypotatoes.slickgame.Lighting;
 import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
@@ -105,7 +101,10 @@ public class World {
 		player.y = 2.5f;
 				
 		camera.setTarget(player);
-		lighting.add(new Light(player, 5));
+		lighting.add(new Light(player, 0, 0, 10, 1f));
+		lighting.add(new Light(2, 2, 10, 1f));
+		lighting.add(new Light(15, 2, 10, 1f));
+
 
 		update(container, 0);
 	}
@@ -120,8 +119,8 @@ public class World {
 
 		int sx = (int)rect.x0;
 		int sy = (int)rect.y0;
-		int ex = (int)rect.x1+1;
-		int ey = (int)rect.y1+1;
+		int ex = (int)Math.ceil(rect.x1);
+		int ey = (int)Math.ceil(rect.y1);
 		int cw = ex-sx;
 		int ch = ey-sy;
 		if (sx<0) sx = 0;
