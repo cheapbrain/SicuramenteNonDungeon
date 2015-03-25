@@ -24,8 +24,9 @@ public class EntityRenderer {
 	public static void render() {
 		for (RenderComponent task : tasks)
 			task.render();
-		
-		tasks.clear();
 	}
 	
+	public static void clear() {
+		tasks.clear();
+	}
 }

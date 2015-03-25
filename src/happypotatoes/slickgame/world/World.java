@@ -143,8 +143,9 @@ public class World {
 	}
 	
 	public void update(GameContainer container, int delta) {
-				
 		if (delta>maxdelay) delta = maxdelay;
+		
+		EntityRenderer.clear();
 		player.update(this, delta);
 		
 		EntityCommand c;
