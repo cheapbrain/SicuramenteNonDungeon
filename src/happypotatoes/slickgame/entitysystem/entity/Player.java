@@ -1,13 +1,13 @@
 package happypotatoes.slickgame.entitysystem.entity;
 
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.HitBox;
+import happypotatoes.slickgame.entitysystem.component.Movement;
+import happypotatoes.slickgame.entitysystem.component.PlayerInput;
+import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
+import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
-import entity2.Entity;
-import entity2.HitBox;
-import entity2.Movement;
-import entity2.PlayerInput;
-import entity2.TerrainCollision;
-import entity2.Walker;
 
 public class Player {
 	public static Entity create() {

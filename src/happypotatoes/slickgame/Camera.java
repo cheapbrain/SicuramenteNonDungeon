@@ -2,7 +2,7 @@ package happypotatoes.slickgame;
 
 import org.newdawn.slick.Graphics;
 
-import entity2.Entity;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.geom.Rectangle;
 
 public class Camera {

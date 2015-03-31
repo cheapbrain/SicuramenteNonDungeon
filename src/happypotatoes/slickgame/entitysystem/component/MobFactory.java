@@ -1,4 +1,6 @@
-package entity2;
+package happypotatoes.slickgame.entitysystem.component;
+
+import happypotatoes.slickgame.entitysystem.Entity;
 
 import java.io.File;
 import java.io.FileInputStream;

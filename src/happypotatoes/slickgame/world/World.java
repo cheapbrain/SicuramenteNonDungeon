@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.world;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -8,12 +10,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import entity2.Entity;
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.geom.Rectangle;
@@ -31,7 +33,7 @@ public class World {
 	private int size;
 	private int maxdelay = 30;
 	
-	private Entity player;
+	private List<Entity> entities = new ArrayList<Entity>();
 
 	public World(GameContainer container) {
 		this.container = container;
@@ -96,9 +98,10 @@ public class World {
 		terrain = this.terrain;
 		lighting = new LightingBrutto();
 				
-		player = Player.create();
+		Entity player = Player.create();
 		player.x = 2.5f;
 		player.y = 2.5f;
+		entities.add(player);
 				
 		camera.setTarget(player);
 		lighting.add(new Light(player, 0, 0, 10, 1f));
@@ -146,16 +149,17 @@ public class World {
 		if (delta>maxdelay) delta = maxdelay;
 		
 		EntityRenderer.clear();
-		player.update(this, delta);
+		for (Entity entity:entities)
+			entity.update(this, delta);
 		
 		EntityCommand c;
 		while((c = eCommands.poll())!=null) {
 			switch(c.action) {
 				case EntityCommand.ADD:
+					entities.add(c.e);
 					break;
 				case EntityCommand.REMOVE:
-					break;
-				case EntityCommand.REFRESH:
+					entities.remove(c.e);
 					break;
 					
 			}
@@ -167,10 +171,6 @@ public class World {
 		
 	public void add(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
-	}
-	
-	public void move(Entity e) {
-		eCommands.add(new EntityCommand(e, EntityCommand.REFRESH));
 	}
 	
 	public void remove(Entity e) {

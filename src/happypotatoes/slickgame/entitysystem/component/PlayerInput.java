@@ -1,7 +1,9 @@
-package entity2;
+package happypotatoes.slickgame.entitysystem.component;
 
 import org.newdawn.slick.Input;
 
+import happypotatoes.slickgame.entitysystem.Component;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {

@@ -1,4 +1,4 @@
-package entity2;
+package happypotatoes.slickgame.entitysystem;
 
 import happypotatoes.slickgame.world.World;
 

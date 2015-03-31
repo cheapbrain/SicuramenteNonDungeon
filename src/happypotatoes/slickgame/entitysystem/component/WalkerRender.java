@@ -6,9 +6,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.geom.Rectangle;
-import entity2.Entity;
-import entity2.Walker;
 
 public class WalkerRender extends RenderComponent{
 	Walker walker;

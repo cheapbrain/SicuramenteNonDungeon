@@ -1,8 +1,8 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import entity2.Component;
-import entity2.Entity;
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.entitysystem.Component;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.world.World;

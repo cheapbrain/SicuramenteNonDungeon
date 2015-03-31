@@ -1,6 +1,6 @@
 package happypotatoes.slickgame.world;
 
-import entity2.Entity;
+import happypotatoes.slickgame.entitysystem.Entity;
 
 
 public class EntityCommand {
