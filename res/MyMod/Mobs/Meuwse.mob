@@ -1,0 +1,14 @@
+#
+#Thu Apr 02 09:53:34 CEST 2015
+HealthRegeneration=1
+Type=Bestia
+Dangerousness=Normale
+Drop0=Cappello.item
+Name=Meuwse
+SkillProb0=100
+Title=
+Skill0=Morso.skill
+Health=500
+Damage=50
+DropProb0=50
+AttackSpeed=1

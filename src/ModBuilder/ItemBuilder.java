@@ -1,7 +1,5 @@
-package happypotatoes.slickgame.monsterbuilder;
+package ModBuilder;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -17,6 +15,7 @@ import java.util.Properties;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,13 +26,13 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
-public class MonsterBuilder extends JFrame{
+public class ItemBuilder extends JFrame{
 	private JPanel pnl1, pnl2, pnl3;
 	private JTextField name, health, healthRegeneration, damage;
 	private JButton done, sprite, folder;
 	private JLabel output;
-	public MonsterBuilder(){
-		super("MOBuilder");
+	public ItemBuilder(){
+		super("ItemBuilder");
 		initGraphic();
 		initListeners();
 		initWindowSettings();				
@@ -113,13 +112,16 @@ public class MonsterBuilder extends JFrame{
 		damage = addTextField(pnl1, "Damage");
 		//panel2
 		pnl2.setLayout(new BoxLayout(pnl2, BoxLayout.Y_AXIS));
+		String[] s = {"ciao", "miao"};
+		JComboBox cb = new JComboBox(s);
+		pnl2.add(cb);
 		//panel3
+		pnl3.setLayout(new BoxLayout(pnl3, BoxLayout.Y_AXIS));
 		folder = addButton(pnl3, "Folder");
 		sprite = addButton(pnl3, "Sprite");
 		done = addButton(pnl3, "Done");
 		output = new JLabel();
 		pnl3.add(output);
-		pnl3.setLayout(new BoxLayout(pnl3, BoxLayout.Y_AXIS));
 		add(pnl1);
 		add(new JSeparator(JSeparator.VERTICAL));
 		add(pnl2);
@@ -180,7 +182,6 @@ public class MonsterBuilder extends JFrame{
 		return tf;
 	}
 	private void initWindowSettings() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		this.pack();
 	}
