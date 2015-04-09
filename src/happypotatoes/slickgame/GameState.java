@@ -1,8 +1,12 @@
 package happypotatoes.slickgame;
 
 
+import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.component.Health;
+import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.Window;
+import happypotatoes.slickgame.gui.component.HealthBar;
 import happypotatoes.slickgame.gui.component.Button;
 import happypotatoes.slickgame.gui.component.Label;
 import happypotatoes.slickgame.world.World;
@@ -27,11 +31,24 @@ public class GameState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		
+		
 		world = new World(container);
+		Entity player = Player.create();
+		player.x = 2.5f;
+		player.y = 2.5f;
+		world.add(player);
+		world.setCameraTarget(player);
+		LightingBrutto lighting = new LightingBrutto();
+		lighting.add(new Light(player, 0, 0, 10, 1f));
+		lighting.add(new Light(2, 2, 10, 1f));
+		lighting.add(new Light(15, 2, 10, 1f));
+		world.setLighting(lighting);
 		ui = new UI(container, game);
 		Window test = new Window("test", 200, 550, 400, 50);
 		test.add(new Label("ebola", 0, 0, 100, 50));
 		test.add(new Button("omg", 150, 0, 50, 30));
+		test.add(new HealthBar((Health) player.getComponent(Health.class), 300,0,100,25));
 		ui.add(test);
 		container.getGraphics().setBackground(new Color(0,0,0,255));
 	}

@@ -15,12 +15,16 @@ public class WalkerRender extends RenderComponent{
 	private int state;
 	private float ox, oy;
 	private Rectangle rect;
+	private int frameTime;
+	private int frames;
 
 	public WalkerRender(Entity owner, Walker walker, String spriteFolder, int frames, int frameTime, float offsetX, float offsetY) {
 		super(owner);
 		this.walker = walker;
 		ox = offsetX;
 		oy = offsetY;
+		this.frames = frames;
+		this.frameTime = frameTime;
 		float unit = Camera.camera.getUnit();
 		animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
@@ -56,10 +60,14 @@ public class WalkerRender extends RenderComponent{
 		
 		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
-
 	@Override
 	public Rectangle getRect() {
 		return rect;
 	}
-
+	public int getFrames() {
+		return frames;
+	}
+	public int getFrameTime() {
+		return frameTime;
+	}
 }

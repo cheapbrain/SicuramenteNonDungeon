@@ -15,26 +15,30 @@ public class PlayerInput extends Component {
 		this.walker = walker;
 		this.movement = movement;
 	}
-
-	@Override
 	public void update(World w, long delta) {
 		Input input = w.container.getInput();
 		movement.speedy = 0;
 		movement.speedx = 0;
-		if (input.isKeyDown(Input.KEY_W)) {
-			movement.speedy = -speed;
-		}
-		if (input.isKeyDown(Input.KEY_S)) {
-			movement.speedy = speed;
-		}
-		if (input.isKeyDown(Input.KEY_A)) {
-			movement.speedx = -speed;
-		}
-		if (input.isKeyDown(Input.KEY_D)) {
-			movement.speedx = speed;
+		if(walker.state==0){
+			if (input.isKeyDown(Input.KEY_W)) {
+				movement.speedy = -speed;
+			}
+			if (input.isKeyDown(Input.KEY_S)) {
+				movement.speedy = speed;
+			}
+			if (input.isKeyDown(Input.KEY_A)) {
+				movement.speedx = -speed;
+			}
+			if (input.isKeyDown(Input.KEY_D)) {
+				movement.speedx = speed;
+			}
+			//tmp
+			if (input.isKeyDown(Input.KEY_E)&&((Health) owner.getComponent(Health.class)).getHealth()>0) {
+				walker.state=1;
+				((Health) owner.getComponent(Health.class)).setHealth(((Health) owner.getComponent(Health.class)).getHealth()-20);
+			}
 		}
 		if (movement.speedx!=0||movement.speedy!=0)
 			walker.setFacing(movement.speedx, movement.speedy);
 	}
-
 }

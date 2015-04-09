@@ -29,10 +29,8 @@ public class World {
 	private int[][] terrain;
 	//private Quadtree quadtree;
 	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
-	
 	private int size;
 	private int maxdelay = 30;
-	
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public World(GameContainer container) {
@@ -93,22 +91,8 @@ public class World {
 						}
 						
 						this.terrain[x][y] = value+MaterialManager.WALLS;
-					}
-					
+					}					
 		terrain = this.terrain;
-		lighting = new LightingBrutto();
-				
-		Entity player = Player.create();
-		player.x = 2.5f;
-		player.y = 2.5f;
-		entities.add(player);
-				
-		camera.setTarget(player);
-		lighting.add(new Light(player, 0, 0, 10, 1f));
-		lighting.add(new Light(2, 2, 10, 1f));
-		lighting.add(new Light(15, 2, 10, 1f));
-
-
 		update(container, 0);
 	}
 	
@@ -176,7 +160,12 @@ public class World {
 	public void remove(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.REMOVE));
 	}
-	
+	public void setCameraTarget(Entity target){
+		camera.setTarget(target);
+	}
+	public void setLighting(LightingBrutto light){
+		lighting = light;
+	}
 	public boolean isWalkable(float x, float y) {
 		return MaterialManager.getMaterial(terrain[(int)x][(int)y]).isWalkable();
 	}

@@ -1,5 +1,9 @@
 package entity2;
 
+import happypotatoes.slickgame.entitysystem.Component;
+import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.component.Movement;
+import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.world.World;
 
 public class MobInput extends Component{
