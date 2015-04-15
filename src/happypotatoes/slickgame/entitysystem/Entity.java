@@ -7,7 +7,8 @@ import java.util.List;
 
 public final class Entity {
 	public long id;
-	public float x,y;	
+	public float x,y;
+	private String name = "default";
 	List<Component> components = new ArrayList<Component>();
 	
 	public Component getComponent(Class<?> c){
@@ -16,7 +17,11 @@ public final class Entity {
 				return component;
 		return null;
 	}
-	
+	public float getDist(Entity entity) {
+		float dx = this.x-entity.x;
+		float dy = this.y-entity.y;
+		return (float) Math.sqrt(dx*dx+dy*dy);
+	}
 	public void addComponent(Component c){
 		if(!components.isEmpty()) {
 			for(int i=0;i<components.size();i++)
@@ -38,7 +43,11 @@ public final class Entity {
 				component.update(w, delta);
 	}
 
-	public Entity(long id){
+	public Entity(long id, String nome){
 		this.id = id;
+		name = nome;
+	}
+	public String getName() {
+		return name;
 	}
 }

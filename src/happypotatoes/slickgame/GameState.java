@@ -2,10 +2,13 @@ package happypotatoes.slickgame;
 
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Player;
+import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.Window;
+import happypotatoes.slickgame.gui.component.EnergyBar;
 import happypotatoes.slickgame.gui.component.HealthBar;
 import happypotatoes.slickgame.gui.component.Button;
 import happypotatoes.slickgame.gui.component.Label;
@@ -38,6 +41,10 @@ public class GameState extends BasicGameState {
 		player.x = 2.5f;
 		player.y = 2.5f;
 		world.add(player);
+		Entity stupid = StupidEntity.create();
+		stupid.x= 3.5f;
+		stupid.y = 2.5f;
+		world.add(stupid);
 		world.setCameraTarget(player);
 		LightingBrutto lighting = new LightingBrutto();
 		lighting.add(new Light(player, 0, 0, 10, 1f));
@@ -48,7 +55,8 @@ public class GameState extends BasicGameState {
 		Window test = new Window("test", 200, 550, 400, 50);
 		test.add(new Label("ebola", 0, 0, 100, 50));
 		test.add(new Button("omg", 150, 0, 50, 30));
-		test.add(new HealthBar((Health) player.getComponent(Health.class), 300,0,100,25));
+		test.add(new EnergyBar((Energy) player.getComponent(Energy.class), 300,25,100,20));
+		test.add(new HealthBar((Health) player.getComponent(Health.class), 150,0,100,20));
 		ui.add(test);
 		container.getGraphics().setBackground(new Color(0,0,0,255));
 	}

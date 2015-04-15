@@ -35,7 +35,7 @@ public class PlayerInput extends Component {
 			//tmp
 			if (input.isKeyDown(Input.KEY_E)&&((Health) owner.getComponent(Health.class)).getHealth()>0) {
 				walker.state=1;
-				((Health) owner.getComponent(Health.class)).setHealth(((Health) owner.getComponent(Health.class)).getHealth()-20);
+				((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
 			}
 		}
 		if (movement.speedx!=0||movement.speedy!=0)

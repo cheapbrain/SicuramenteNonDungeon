@@ -156,7 +156,17 @@ public class World {
 	public void add(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
 	}
-	
+	public Entity getNearest(Entity e){
+		Entity near = null;
+		float dist = 1000;
+		for(Entity tmp: entities){
+			if(e.getDist(tmp)<dist && !tmp.equals(e)){
+				dist = e.getDist(tmp);
+				near = tmp;
+			}
+		}
+		return near;
+	}
 	public void remove(Entity e) {
 		eCommands.add(new EntityCommand(e, EntityCommand.REMOVE));
 	}
