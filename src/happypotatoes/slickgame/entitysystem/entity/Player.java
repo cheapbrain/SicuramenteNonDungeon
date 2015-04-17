@@ -6,6 +6,7 @@ import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
+import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
@@ -24,6 +25,7 @@ public class Player {
 		Attack attack = new Attack(e, 0, walker, walkerRender, 20);
 		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 5);
+		Inventory inventory = new Inventory(e,0, 10);
 		return e;
 	}
 }
