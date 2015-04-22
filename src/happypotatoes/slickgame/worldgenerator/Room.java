@@ -1,8 +1,5 @@
 package happypotatoes.slickgame.worldgenerator;
 
-import happypotatoes.slickgame.entity.Plate;
-import happypotatoes.slickgame.entity.Stairs;
-import happypotatoes.slickgame.entity.StaticEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,7 +9,7 @@ public class Room {
 	public int height, width;
 	//info varie
 	private ArrayList<Cell> corridors = new ArrayList<Cell>();
-	private ArrayList<StaticEntity> staticEntities = new ArrayList<StaticEntity>();
+	//private ArrayList<StaticEntity> staticEntities = new ArrayList<StaticEntity>();
 	
 	public Room(int width, int height){
 		this.width=width;
@@ -25,12 +22,14 @@ public class Room {
 		this.y=y;
 	}
 	
+	/*
 	private void createPlates() {
 		int nTraps = Generator.getR().nextInt(3);
 		for(int i=0; i<nTraps; i++){
 			staticEntities.add(new Plate(this));
 		}
 	}
+	*/
 	
 	public void addCorridor(Cell a){
 		corridors.add(a);
@@ -72,13 +71,15 @@ public class Room {
 			return true;
 		else return false;
 	}
-
+	
+	/*
 	public void generate() {
 		createPlates();	
 	}
 	public ArrayList<StaticEntity> getTraps(){
 		return this.staticEntities;
 	}
+	*/
 
 	public void fix() {
 		x*=2;
@@ -91,9 +92,10 @@ public class Room {
 		}
 	}
 
+	/*
 	public void addStairs() {
-		staticEntities.add(new Stairs(this));
-		
+		staticEntities.add(new Stairs(this));	
 	}
+	*/
 
 }

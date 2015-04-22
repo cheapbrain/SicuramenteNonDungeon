@@ -6,6 +6,7 @@ import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
+import happypotatoes.slickgame.entitysystem.entity.Wolf;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.Window;
 import happypotatoes.slickgame.gui.component.EnergyBar;
@@ -44,7 +45,7 @@ public class GameState extends BasicGameState {
 		Entity stupid = StupidEntity.create();
 		stupid.x= 3.5f;
 		stupid.y = 2.5f;
-		world.add(stupid);
+		//world.add(stupid);
 		world.setCameraTarget(player);
 		LightingBrutto lighting = new LightingBrutto();
 		lighting.add(new Light(player, 0, 0, 10, 1f));
@@ -59,6 +60,7 @@ public class GameState extends BasicGameState {
 		test.add(new HealthBar((Health) player.getComponent(Health.class), 150,0,100,20));
 		ui.add(test);
 		container.getGraphics().setBackground(new Color(0,0,0,255));
+		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 	}
 
 	@Override
