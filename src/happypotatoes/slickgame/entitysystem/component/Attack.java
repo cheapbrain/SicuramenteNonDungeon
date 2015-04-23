@@ -16,7 +16,7 @@ public class Attack extends Component{
 		totalTimeAttack = walkerRender.getFrames()* walkerRender.getFrameTime();
 	}
 	public void update(World w, long delta) {
-		if(walker.state==1){
+		if(walker.state==2){
 			if(timeAttack>totalTimeAttack){
 				Health EnemyHp = ((Health) w.getNearest(owner).getComponent(Health.class));
 				EnemyHp.setHealth(EnemyHp.getHealth()-damage);

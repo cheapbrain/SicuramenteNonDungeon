@@ -2,15 +2,14 @@ package happypotatoes.slickgame.entitysystem.entity;
 
 import java.io.File;
 
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.HitBox;
+import happypotatoes.slickgame.entitysystem.component.MobInput;
+import happypotatoes.slickgame.entitysystem.component.Movement;
+import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
+import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
-import entity2.Entity;
-import entity2.HitBox;
-import entity2.MobInput;
-import entity2.Movement;
-import entity2.PlayerInput;
-import entity2.TerrainCollision;
-import entity2.Walker;
 
 public class Mob {
 	public static Entity create(String mod, String name){
@@ -18,7 +17,7 @@ public class Mob {
 		if(!modFile.exists()) return null;
 		File mobFile = new File("./res/"+mod+"/Mobs/"+name+".mob");
 		if(!mobFile.exists()) return null;
-		Entity e = new Entity(EntitySystem.getFreeID());
+		Entity e = new Entity(EntitySystem.getFreeID(), "mob");
 		Movement movement = new Movement(e, 0);
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);

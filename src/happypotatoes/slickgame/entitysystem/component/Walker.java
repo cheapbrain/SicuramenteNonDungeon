@@ -24,7 +24,7 @@ public class Walker extends Component{
 	
 	public void setFacing(float dx, float dy) {
 		float angle = (float)(Math.atan2(dx, dy)/Math.PI/2+1);
-		facing = (int)(angle*directions+4)%directions;
+		facing = (int)Math.round(angle*directions+4)%directions;
 	}
 
 }

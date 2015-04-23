@@ -13,7 +13,7 @@ public class MobFactory {
 		File f;
 		Properties props = new Properties();
 	    InputStream is = null;
-		Entity mob = new Entity(0);
+		Entity mob = new Entity(0, "");
 		if(path.equals(null)) return null;		
 		f= new File(folder+path+".mob");
 		if(!f.exists()) return null;

@@ -9,7 +9,7 @@ import happypotatoes.slickgame.world.World;
 
 public abstract class RenderComponent extends Component{
 	
-	public float x, y, w, h, depth;
+	public float depth;
 
 	public RenderComponent(Entity owner) {
 		super(owner, Float.MAX_VALUE);
@@ -19,6 +19,7 @@ public abstract class RenderComponent extends Component{
 	@Override
 	public void update(World w, long delta) {
 		if (Camera.camera.getRekt().intersect(getRect())) {
+			depth = owner.y;
 			EntityRenderer.addRenderTask(this);
 		}
 	}
