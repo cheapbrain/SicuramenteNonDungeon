@@ -2,6 +2,7 @@ package happypotatoes.slickgame;
 
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Player;
@@ -35,18 +36,21 @@ public class GameState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		
+
+		Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 		
 		world = new World(container);
 		Entity player = Player.create();
 		player.x = 2.5f;
 		player.y = 2.5f;
 		world.add(player);
-		Entity stupid = StupidEntity.create();
-		stupid.x= 3.5f;
-		stupid.y = 2.5f;
-		//world.add(stupid);
-		world.setCameraTarget(player);
+
+		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
+		
+		Camera.camera.setTarget(player);
+		
+		EntitySystem.getInstance().update(world, 0);
+		
 		LightingBrutto lighting = new LightingBrutto();
 		lighting.add(new Light(player, 0, 0, 10, 1f));
 		lighting.add(new Light(2, 2, 10, 1f));
@@ -60,7 +64,6 @@ public class GameState extends BasicGameState {
 		test.add(new HealthBar((Health) player.getComponent(Health.class), 150,0,100,20));
 		ui.add(test);
 		container.getGraphics().setBackground(new Color(0,0,0,255));
-		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 	}
 
 	@Override
@@ -81,7 +84,6 @@ public class GameState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

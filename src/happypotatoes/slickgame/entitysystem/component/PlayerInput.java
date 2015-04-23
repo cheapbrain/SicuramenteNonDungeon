@@ -12,7 +12,7 @@ public class PlayerInput extends Component {
 	
 	Walker walker;
 	Movement movement;
-	float speed = 0.005f;
+	float speed = 0.002f;
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);
 		this.walker = walker;
@@ -25,12 +25,7 @@ public class PlayerInput extends Component {
 		if (Math.abs(movement.speedx)<0.0001&&Math.abs(movement.speedy)<0.0001&&walker.state==1) {
 			walker.state = 0;
 		}
-		
-		if (walker.state!=1) {
-			movement.speedx = 0;
-			movement.speedy = 0;
-		}
-		
+				
 		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			destx = input.getMouseX()/(float)c.getUnit()+c.getRekt().x0;
 			desty = input.getMouseY()/(float)c.getUnit()+c.getRekt().y0;
@@ -42,16 +37,20 @@ public class PlayerInput extends Component {
 			float dx = destx-owner.x;
 			float dy = desty-owner.y;
 			float d = (float)Math.sqrt(dx*dx+dy*dy);
+			float msx = 0;
+			float msy = 0;
 			if (d<.1) {
 				walker.state=0;
 				movement.speedx = 0;
 				movement.speedy = 0;
 			} else {
-				movement.speedx = dx/d*speed;
-				movement.speedy = dy/d*speed;
+				msx = dx/d*speed;
+				msy = dy/d*speed;
+				movement.speedx += msx;
+				movement.speedy += msy;
 			}
-			if (movement.speedx!=0||movement.speedy!=0)
-				walker.setFacing(movement.speedx, movement.speedy);
+			if (msx!=0||msy!=0)
+				walker.setFacing(msx, msy);
 		}			
 			
 		if (input.isKeyDown(Input.KEY_E)&&((Health) owner.getComponent(Health.class)).getHealth()>0&&walker.state<2) {

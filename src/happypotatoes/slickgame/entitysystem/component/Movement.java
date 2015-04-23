@@ -21,5 +21,8 @@ public class Movement extends Component {
 		
 		owner.x += speedx*delta;
 		owner.y += speedy*delta;
+		
+		speedx /= 2;
+		speedy /= 2;
 	}
 }

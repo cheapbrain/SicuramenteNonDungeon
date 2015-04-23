@@ -30,7 +30,7 @@ public class Health extends Component{
 	public void setHealth(float health) {
 		if(health>0) this.health = health;
 		else death = true;
-		System.out.println(this.health+"  "+owner.getName());
+		//System.out.println(this.health+"  "+owner.getName());
 	}
 	public float getHealthRegeneration() {
 		return healthRegeneration;

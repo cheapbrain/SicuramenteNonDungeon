@@ -1,23 +1,18 @@
 package happypotatoes.slickgame.world;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.Camera;
-import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
-import happypotatoes.slickgame.entitysystem.entity.Player;
+import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
 
@@ -27,13 +22,12 @@ public class World {
 	private LightingBrutto lighting;
 	private int[][] terrainType;
 	private int[][] terrain;
-	//private Quadtree quadtree;
-	private Queue<EntityCommand> eCommands = new LinkedBlockingQueue<EntityCommand>();
 	private int size;
 	private int maxdelay = 30;
-	private List<Entity> entities = new ArrayList<Entity>();
+	EntitySystem es = EntitySystem.getInstance();
 
 	public World(GameContainer container) {
+		camera = Camera.camera;
 		this.container = container;
 		System.out.println(Math.atan2(.1, -1));
 		System.out.println(Math.atan2(1, .1));
@@ -47,8 +41,6 @@ public class World {
 			e.printStackTrace();
 		}
 		Generator gen = new Generator();
-
-		camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 		
 		int[][] terrain = gen.getTerrain();
 		
@@ -93,7 +85,17 @@ public class World {
 						this.terrain[x][y] = value+MaterialManager.WALLS;
 					}					
 		terrain = this.terrain;
+		
+		for (x=5;x<20;x++)
+			if (terrainType[x][2]==0){
+				Entity stupid = StupidEntity.create();
+				stupid.x= x+3.5f;
+				stupid.y = 2.5f;
+				add(stupid);
+			}
+				
 		update(container, 0);
+		System.out.println(es.getAll().size());
 	}
 	
 	boolean renderquad = false;
@@ -133,33 +135,16 @@ public class World {
 		if (delta>maxdelay) delta = maxdelay;
 		
 		EntityRenderer.clear();
-		for (Entity entity:entities)
-			entity.update(this, delta);
-		
-		EntityCommand c;
-		while((c = eCommands.poll())!=null) {
-			switch(c.action) {
-				case EntityCommand.ADD:
-					entities.add(c.e);
-					break;
-				case EntityCommand.REMOVE:
-					entities.remove(c.e);
-					break;
-					
-			}
-		}
+		es.update(this, delta);
 		
 		
 		camera.update(delta);
 	}
-		
-	public void add(Entity e) {
-		eCommands.add(new EntityCommand(e, EntityCommand.ADD));
-	}
+
 	public Entity getNearest(Entity e){
 		Entity near = null;
 		float dist = 1000;
-		for(Entity tmp: entities){
+		for(Entity tmp: es.getAll()){
 			if(e.getDist(tmp)<dist && !tmp.equals(e)){
 				dist = e.getDist(tmp);
 				near = tmp;
@@ -167,16 +152,19 @@ public class World {
 		}
 		return near;
 	}
-	public void remove(Entity e) {
-		eCommands.add(new EntityCommand(e, EntityCommand.REMOVE));
-	}
-	public void setCameraTarget(Entity target){
-		camera.setTarget(target);
-	}
+		
 	public void setLighting(LightingBrutto light){
 		lighting = light;
 	}
 	public boolean isWalkable(float x, float y) {
 		return MaterialManager.getMaterial(terrain[(int)x][(int)y]).isWalkable();
+	}
+
+	public void add(Entity e) {
+		es.addEntity(e);
+	}
+
+	public void remove(Entity e) {
+		es.removeEntity(e);
 	}
 }
