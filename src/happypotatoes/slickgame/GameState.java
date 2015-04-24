@@ -8,6 +8,7 @@ import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
+import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.Window;
 import happypotatoes.slickgame.gui.component.EnergyBar;
@@ -52,12 +53,12 @@ public class GameState extends BasicGameState {
 		EntitySystem.getInstance().update(world, 0);
 		
 		LightingBrutto lighting = new LightingBrutto();
-		lighting.add(new Light(player, 0, 0, 10, 1f));
-		lighting.add(new Light(2, 2, 10, 1f));
-		lighting.add(new Light(15, 2, 10, 1f));
+		lighting.add(new Light(player, 0, 0, 5, 1f));
 		world.setLighting(lighting);
 		ui = new UI(container, game);
-		Window test = new Window("test", 200, 550, 400, 50);
+		Window test = new Window("test", 0, 0, 400, 50);
+		test.setVerticalAlign(Component.SOUTH);
+		test.setHorizontalAlign(Component.CENTER);
 		test.add(new Label("ebola", 0, 0, 100, 50));
 		test.add(new Button("omg", 150, 0, 50, 30));
 		test.add(new EnergyBar((Energy) player.getComponent(Energy.class), 300,25,100,20));

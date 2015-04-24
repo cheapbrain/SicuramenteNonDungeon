@@ -17,6 +17,14 @@ public class Component {
 	protected boolean acceptMouseInput = false;
 	protected Container container;
 	
+	public static final int WEST = 0;
+	public static final int EAST = 1;
+	public static final int NORTH = 0;
+	public static final int SOUTH = 1;
+	public static final int CENTER = 2;
+	
+	private int valign = NORTH;
+	private int halign = WEST;
 	
 	public void paint(Graphics g) {
 		paintComponent(g);
@@ -24,6 +32,14 @@ public class Component {
 	
 	protected void paintComponent(Graphics g) {
 		
+	}
+	
+	public void setVerticalAlign(int align) {
+		valign = align;
+	}
+	
+	public void setHorizontalAlign(int align) {
+		halign = align;
 	}
 	
 	public void setContainer(Container container) {
@@ -61,7 +77,7 @@ public class Component {
 	}
 	
 	public int getWidth() {
-		return width;
+		return width;		
 	}
 	
 	public int getHeight() {
@@ -69,19 +85,33 @@ public class Component {
 	}
 
 	public int getX() {
-		return x;
+		switch(halign) {
+		case CENTER:
+			return (container.getWidth()-getWidth())/2;
+		case EAST:
+			return container.getWidth()-x-getWidth();
+		default:
+			return x;
+		}
 	}
 
 	public int getY() {
-		return y;
+		switch(valign) {
+		case CENTER:
+			return (container.getHeight()-getHeight())/2;
+		case SOUTH:
+			return container.getHeight()-y-getHeight();
+		default:
+			return y;
+		}
 	}
 
 	public int getAbsoluteX() {
-		return container.getAbsoluteX()+x;
+		return container.getAbsoluteX()+getX();
 	}
 
 	public int getAbsoluteY() {
-		return container.getAbsoluteY()+y;
+		return container.getAbsoluteY()+getY();
 	}
 	
 

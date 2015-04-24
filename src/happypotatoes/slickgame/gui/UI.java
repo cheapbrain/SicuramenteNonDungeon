@@ -18,6 +18,11 @@ public class UI extends Container implements InputListener{
 	public UI(GameContainer container, StateBasedGame game) {
 		(input = container.getInput()).addPrimaryListener(this);
 		Fonts.init();
+		x = 0;
+		y = 0;
+		width = container.getWidth();
+		height = container.getHeight();
+		System.out.println(width+" "+height);
 	}
 		
 	public void update(GameContainer container) {

@@ -1,17 +1,29 @@
 package happypotatoes.slickgame;
 
+import happypotatoes.slickgame.geom.Rectangle;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LightingBrutto {
-	public float[][] lightMap = new float[1][1];
-	public float[][] tempMap = new float[1][1];
+	public static LightingBrutto lighting;
+	public float[][] lightMap;
+	public float[][] tempMap;
 	
 	private List<Light> lights = new ArrayList<Light>();
 	
 	int[][] terr;
 	int ssx,ssy;
 	int w,h;
+	
+	public LightingBrutto() {
+		Rectangle rect = Camera.camera.getRekt();
+		int w = (int) rect.w+3;
+		int h = (int) rect.h+3;
+		lightMap = new float[w][h];
+		tempMap = new float[w][h];
+		lighting = this;
+	}
 
 	public float[][] calculateLights(
 			int[][] terrain, 
@@ -24,13 +36,6 @@ public class LightingBrutto {
 		ssy = sy;
 		
 		terr = terrain;
-		
-		if (lightMap.length<w+1||lightMap[0].length<h+1) {
-			lightMap = new float[w+1][h+1];
-			tempMap = new float[w+1][h+1];
-			System.out.println(lightMap.length+" "+lightMap[0].length);
-			
-		}
 		
 		int tx, ty;
 
@@ -55,7 +60,7 @@ public class LightingBrutto {
 
 			for (tx=0;tx<=w;tx++)			
 				for (ty=0;ty<=h;ty++)
-					lightMap[tx][ty] = Math.min(1, lightMap[tx][ty]+tempMap[tx][ty]);;
+					lightMap[tx][ty] = Math.min(1, lightMap[tx][ty]+tempMap[tx][ty]);
 		}
 		
 		for (tx=0;tx<w;tx++)			
@@ -69,7 +74,7 @@ public class LightingBrutto {
 	}
 
 	public void drawLine(Light light, int x2, int y2) {
-		float r = light.r;
+		float r = light.r*light.r;
 		int x1 = (int)light.getX();
 		int y1 = (int)light.getY();
 		float x0 = light.getX();
@@ -88,7 +93,7 @@ public class LightingBrutto {
 		    if (terr[x1][y1]!=0) {
 		    	break;
 		    }
-		    float l = (float) Math.sqrt((x1-x0+.5f)*(x1-x0+.5f)+(y1-y0+.5f)*(y1-y0+.5f));
+		    float l = (x1-x0+.5f)*(x1-x0+.5f)+(y1-y0+.5f)*(y1-y0+.5f);
 			    
 		    int xl = x1-ssx;
 		    int yl = y1-ssy;

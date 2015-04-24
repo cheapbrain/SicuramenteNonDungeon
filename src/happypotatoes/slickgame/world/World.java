@@ -26,13 +26,14 @@ public class World {
 	private int maxdelay = 30;
 	EntitySystem es = EntitySystem.getInstance();
 
+	public int getSize() {
+		return size;
+	}
+	
 	public World(GameContainer container) {
 		camera = Camera.camera;
 		this.container = container;
-		System.out.println(Math.atan2(.1, -1));
-		System.out.println(Math.atan2(1, .1));
-		System.out.println(Math.atan2(.1, 1));
-		System.out.println(Math.atan2(-1, .1));
+		
 		int x = 0, y = 0;
 		
 		try {
@@ -97,7 +98,7 @@ public class World {
 		update(container, 0);
 		System.out.println(es.getAll().size());
 	}
-	
+		
 	boolean renderquad = false;
 	public void render(Graphics g) {
 
@@ -117,13 +118,13 @@ public class World {
 		if (ex>size) ex = size;
 		if (ey>size) ey = size;
 		
-		float[][] lightMap = lighting.calculateLights(terrainType, cw, ch, sx, sy, ex, ey);
+		lighting.calculateLights(terrainType, cw, ch, sx, sy, ex, ey);
 		
 		for (int y=sy;y<ey;y++)
 			for (int x=sx;x<ex;x++)
 				if (terrain[x][y]>0) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
-					m.getTexture().draw(x, y, 1, 1, new Color(1f, 1f, 1f, lightMap[x-sx][y-sy]));
+					m.getTexture().draw(x, y, 1, 1, new Color(1f, 1f, 1f, lighting.lightMap[x-sx][y-sy]));
 				}
 
 		EntityRenderer.render();

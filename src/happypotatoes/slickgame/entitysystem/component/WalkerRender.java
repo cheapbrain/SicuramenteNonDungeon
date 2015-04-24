@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.entitysystem.component;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -51,12 +52,12 @@ public class WalkerRender extends RenderComponent{
 	}
 
 	@Override
-	public void render() {
+	public void render(float i) {
 		if(state!=walker.state)
 			animations[state][walker.facing].start();
 		state = walker.state;
 		
-		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h);
+		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
 		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
