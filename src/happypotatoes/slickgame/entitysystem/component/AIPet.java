@@ -4,10 +4,11 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
 
 public class AIPet extends AI{
-
+	Entity focus;
+	
 	public AIPet(Entity owner, float priority, Walker walker,
-			Movement movement, float speed, AIType type) {
-		super(owner, priority, walker, movement, speed, type);
+			Movement movement, float speed) {
+		super(owner, priority, walker, movement, speed);
 	}
 	
 	@Override
@@ -15,7 +16,8 @@ public class AIPet extends AI{
 		time+=delta;
 		if(time>=100){
 			
-			time=0;
+			
+			time=0;			
 		}
 	}
 	

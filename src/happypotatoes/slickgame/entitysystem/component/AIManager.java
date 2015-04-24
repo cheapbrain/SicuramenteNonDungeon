@@ -28,22 +28,19 @@ public class AIManager {
 		this.type=type;
 	}
 	
-	public AI get() {
-		
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public AI get() { 
+		//trova la verità		
 		Class c = null;
-		Constructor con = null;
-		AI xyz = null;
-			
+		Constructor<AI> con = null;
+		AI xyz = null;			
 		try{
-			c = Class.forName("happypotatoes.slickgame.entitysystem.component.AI"+type.name());
-			
+			c = Class.forName("happypotatoes.slickgame.entitysystem.component.AI"+type.name());			
 			con = c.getConstructor(Entity.class, float.class, Walker.class, Movement.class, float.class,  AIType.class);
 			xyz = (AI) con.newInstance(e, priority, walker, movement, speed, type);	
 			
 		}
-		catch(Exception e){ };
-		
-		
+		catch(Exception e){ };			
 		return xyz;		
 	}
 	

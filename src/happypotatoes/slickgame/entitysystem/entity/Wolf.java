@@ -4,6 +4,7 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.AIManager;
+import happypotatoes.slickgame.entitysystem.component.AIPet;
 import happypotatoes.slickgame.entitysystem.component.AIType;
 import happypotatoes.slickgame.entitysystem.component.EntityCollision;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
@@ -24,7 +25,8 @@ public class Wolf {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 1);
-		AI intelligence = (new AIManager(e, 0f, walker, movement, speed, AIType.Pet)).get();
+		//AI intelligence = (new AIManager(e, 0f, walker, movement, speed, AIType.Pet)).get();
+		AI intelligence = (AI) (new AIPet(e, 0f, walker, movement, speed));
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 10, 50, -.75f, -0.8f);	
 		return e;
 	}

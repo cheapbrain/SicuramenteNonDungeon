@@ -15,16 +15,14 @@ public class AI extends Component {
 	int intelligence;
 	float speed, time;
 	Random r = new Random();
-	public AIType type;
 	
 	
 	
-	public AI(Entity owner, float priority, Walker walker, Movement movement,  float speed, AIType type) {
+	public AI(Entity owner, float priority, Walker walker, Movement movement,  float speed) {
 		super(owner, priority);
 		this.walker = walker;
 		this.movement = movement;		
 		this.speed=speed;
-		this.type=type;
 	}
 
 	@Override
@@ -37,10 +35,10 @@ public class AI extends Component {
 
 		switch(s){
 		case "right": case "r":
-			angle+=Math.PI/4;
+			angle-=Math.PI/4;
 			break;
 		case "left": case "l":
-			angle-=Math.PI/4;
+			angle+=Math.PI/4;
 			break;	
 		}
 		movement.speedx= (float) (Math.sin(angle)*speed);
