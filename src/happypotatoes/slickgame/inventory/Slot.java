@@ -30,8 +30,14 @@ public class Slot {
 		if(nItems!=0){
 			nItems--;
 			tmp=idItem;
-			if(nItems==0) idItem="";
+			if(nItems==0){
+				nMaxItems = 0;
+				idItem="";
+			}
 		}
 		return tmp;
+	}
+	public String getItemId() {
+		return idItem;
 	}
 }
