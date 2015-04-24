@@ -15,6 +15,7 @@ public class AI extends Component {
 	int intelligence;
 	float speed, time;
 	Random r = new Random();
+	Entity target;
 	
 	
 	
