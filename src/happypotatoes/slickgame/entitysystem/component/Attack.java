@@ -17,14 +17,21 @@ public class Attack extends Component{
 	}
 	public void update(World w, long delta) {
 		if(walker.state==2){
+			if(owner.getComponent(AI.class)!= null)
+				System.out.println("OWNER: mob");
+			/*
 			if(timeAttack>totalTimeAttack){
-				Health EnemyHp = ((Health) w.getNearest(owner).getComponent(Health.class));
+				
+				Entity focus = owner.getComponent(AI.class).focus;
+				Health EnemyHp = ((Health) focus.getComponent(Health.class));
 				EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+				
 				walker.state=0;
 				timeAttack=0;
 			} else{
 				timeAttack+=delta;
-			}
+			}*/
+			walker.state=0;
 		}
 	}
 }

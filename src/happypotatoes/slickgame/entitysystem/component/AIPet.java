@@ -1,5 +1,8 @@
 package happypotatoes.slickgame.entitysystem.component;
 
+import java.util.Iterator;
+import java.util.List;
+
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
@@ -12,6 +15,7 @@ public class AIPet extends AI{
 	
 	long delay = 100;
 	long time = 0;
+	private List<Entity> inSight;
 	
 	public AIPet(Entity owner, float priority, Walker walker,
 			Movement movement, float speed) {
@@ -21,19 +25,39 @@ public class AIPet extends AI{
 	
 	@Override
 	public void update(World w, long delta) {
-		if(focus==null) focus = EntitySystem.getInstance().getEntities(PlayerInput.class).get(0);
-		
+		inSight = getEntitiesInSight();
+		focus = getFocus();	
 		time -= delta;
-		if (time<=0) {
-			time = delay;
-			dx = focus.x-owner.x;
-			dy = focus.y-owner.y;
-			d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
+		if(focus != null) {
+			if (time<=0) {
+				time = delay;
+				dx = focus.x-owner.x;
+				dy = focus.y-owner.y;	
+			}
+			goTo(dx,dy);
 		}
+	}
+
+	
+	@Override
+	public Entity getFocus() {
+		Iterator<Entity> iterator = inSight.iterator();
+		while(iterator.hasNext()){
+			Entity t = iterator.next();
+			if(t.getComponent(PlayerInput.class) != null)
+				return t;
+		}
+		return null;
+	}
+	
+	
 		
+	@Override
+	public void goTo(float dx, float dy){
+		float d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 		if (d>1.4&&walker.state<2) {
 			float nsx = dx/d*speed*(d-1.2f);
-			float nsy = dy/d*speed*(d-1.2f);
+			float nsy = dy/d*speed*(d-1.2f);;
 			movement.speedx += nsx;
 			movement.speedy += nsy;
 			walker.setFacing(nsx, nsy);
@@ -42,5 +66,4 @@ public class AIPet extends AI{
 			walker.state = 0;
 		}
 	}
-	
 }

@@ -16,7 +16,7 @@ public final class Entity {
 	
 	public <T extends Component> T getComponent(Class<T> c){
 		for(Component component:components)
-			if (component.getClass()==c)
+			if (c.isAssignableFrom(component.getClass()))
 				return (T) component;
 		return null;
 	}
