@@ -56,7 +56,6 @@ public class WalkerRender extends RenderComponent{
 		if(state!=walker.state)
 			animations[state][walker.facing].start();
 		state = walker.state;
-		
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
 		rect.setPosition(owner.x+ox, owner.y+oy);
@@ -70,5 +69,10 @@ public class WalkerRender extends RenderComponent{
 	}
 	public int getFrameTime() {
 		return frameTime;
+	}
+
+	@Override
+	public void renderShadow(float i) {
+		animations[state][walker.facing].drawFlash(rect.x0-.2f, rect.y0-.1f, rect.w+.4f, rect.h+.2f, new Color(i,0,0,1));
 	}
 }

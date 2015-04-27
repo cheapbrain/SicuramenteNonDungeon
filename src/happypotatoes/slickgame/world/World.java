@@ -127,7 +127,7 @@ public class World {
 					m.getTexture().draw(x, y, 1, 1, new Color(1f, 1f, 1f, lighting.lightMap[x-sx][y-sy]));
 				}
 
-		EntityRenderer.render();
+		EntityRenderer.render(g);
 
 		g.popTransform();
 	}

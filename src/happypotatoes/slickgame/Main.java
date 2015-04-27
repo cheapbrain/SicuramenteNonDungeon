@@ -15,8 +15,5 @@ public class Main {
 		AppGameContainer app = new AppGameContainer(new GameStateController());
 		app.setDisplayMode(width, height, true);
         app.start();
-
-
-
 	}
 }

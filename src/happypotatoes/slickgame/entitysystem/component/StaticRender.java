@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.entitysystem.component;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -24,12 +25,21 @@ public class StaticRender extends RenderComponent{
 				e.printStackTrace();
 			}		
 	}
-	@Override
-	public void render() {
-		texture.draw(rect.x0, rect.y0, rect.w, rect.h);
-	}
+
 	@Override
 	public Rectangle getRect() {
 		return rect;
+	}
+	
+	@Override
+	public void render(float i) {
+		texture.draw(rect.x0, rect.y0, rect.w, rect.h);
+		
+	}
+	
+	@Override
+	public void renderShadow(float i) {
+		// TODO Auto-generated method stub
+		
 	}
 }

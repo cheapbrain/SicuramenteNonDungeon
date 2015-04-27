@@ -8,9 +8,13 @@ import happypotatoes.slickgame.geom.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.newdawn.slick.Graphics;
+
 
 public class EntityRenderer {
 	private static List<RenderComponent> tasks = new LinkedList<RenderComponent>();
+	public static float selecty;
+	public static float selectx;
 	
 	public static void addRenderTask(RenderComponent task) {
 		if (!tasks.isEmpty()) {
@@ -24,7 +28,8 @@ public class EntityRenderer {
 		tasks.add(task);
 	}
 
-	public static void render() {
+	public static void render(Graphics g) {
+		
 		for (RenderComponent task : tasks) {
 			float[][] map = LightingBrutto.lighting.lightMap;
 			Rectangle rect = Camera.camera.getRekt();
@@ -40,6 +45,9 @@ public class EntityRenderer {
 				e.y>=sy&&e.y<sy+map[0].length)
 				i = map[(int)e.x-sx][(int)e.y-sy];
 			
+
+			if (task.getRect().contain(selectx, selecty))
+				task.renderShadow(i);
 			task.render(i);
 		}
 	}

@@ -26,6 +26,8 @@ public abstract class RenderComponent extends Component{
 	
 	public abstract void render(float i);
 	
+	public abstract void renderShadow(float i);
+	
 	public abstract Rectangle getRect();
 	
 }

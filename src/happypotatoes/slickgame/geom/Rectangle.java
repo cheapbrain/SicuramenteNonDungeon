@@ -47,4 +47,12 @@ public class Rectangle {
 	public void render(Graphics g) {
 		g.drawRect(x0, y0, w, h);
 	}
+
+	public boolean contain(float x, float y) {
+		return
+				x0<=x&&
+				x1>=x&&
+				y0<=y&&
+				y1>=y;
+	}
 }
