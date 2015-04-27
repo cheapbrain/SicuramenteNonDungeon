@@ -60,9 +60,15 @@ public class GameState extends BasicGameState {
 		test.setVerticalAlign(Component.SOUTH);
 		test.setHorizontalAlign(Component.CENTER);
 		test.add(new Label("ebola", 0, 0, 100, 50));
-		test.add(new Button("omg", 150, 0, 50, 30));
-		test.add(new EnergyBar((Energy) player.getComponent(Energy.class), 300,25,100,20));
-		test.add(new HealthBar((Health) player.getComponent(Health.class), 150,0,100,20));
+		test.add(new Button("omg", 100, 0, 50, 30));
+		test.add(new HealthBar((Health) player.getComponent(Health.class), 200,0,100,20));
+		test.add(new EnergyBar((Energy) player.getComponent(Energy.class), 200,25,100,20));
+		
+		ui.add(test);
+
+		test = new Window("eee", 0, 0, 400, 50);
+		test.setVerticalAlign(Component.NORTH);
+		test.setHorizontalAlign(Component.WEST);
 		ui.add(test);
 		container.getGraphics().setBackground(new Color(0,0,0,255));
 	}
