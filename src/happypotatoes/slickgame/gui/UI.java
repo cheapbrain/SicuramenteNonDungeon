@@ -22,7 +22,6 @@ public class UI extends Container implements InputListener{
 		y = 0;
 		width = container.getWidth();
 		height = container.getHeight();
-		System.out.println(width+" "+height);
 	}
 		
 	public void update(GameContainer container) {

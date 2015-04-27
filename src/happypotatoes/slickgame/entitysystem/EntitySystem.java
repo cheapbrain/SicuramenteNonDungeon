@@ -37,12 +37,12 @@ public class EntitySystem {
 		return entities;
 	}
 	
-	public <T extends Component> List<Entity> getEntities(Class<T>... components) {
+	public List<Entity> getEntities(Class<?>... components) {
 		List<Entity> list = new ArrayList<Entity>();
 		for (Entity e:entities) {
 			boolean hasComponents = true;
-			for (Class<T> c:components)
-				if (e.getComponent(c)==null) {
+			for (Class<?> c:components)
+				if (e.getComponent((Class<? extends Component>) c)==null) {
 					hasComponents = false;
 					break;
 				}

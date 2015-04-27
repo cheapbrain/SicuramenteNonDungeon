@@ -2,11 +2,9 @@ package happypotatoes.slickgame.entitysystem.component;
 
 import java.util.Random;
 
-import org.newdawn.slick.Input;
 
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.component.PlayerAction.State;
 import happypotatoes.slickgame.world.World;
 
 public class AI extends Component {
