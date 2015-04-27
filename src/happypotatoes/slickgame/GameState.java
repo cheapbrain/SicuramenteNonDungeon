@@ -6,7 +6,6 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Player;
-import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
 import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.UI;
@@ -20,6 +19,7 @@ import happypotatoes.slickgame.world.World;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -53,7 +53,7 @@ public class GameState extends BasicGameState {
 		EntitySystem.getInstance().update(world, 0);
 		
 		LightingBrutto lighting = new LightingBrutto();
-		lighting.add(new Light(player, 0, 0, 5, 1f));
+		lighting.add(new Light(player, 0, 0, 6, 1f));
 		world.setLighting(lighting);
 		ui = new UI(container, game);
 		Window test = new Window("test", 0, 0, 400, 50);
@@ -78,6 +78,9 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		
+		if (container.getInput().isKeyDown(Input.KEY_ESCAPE))
+			System.exit(0);
 		
 		ui.update(container);
 		world.update(container, delta);
