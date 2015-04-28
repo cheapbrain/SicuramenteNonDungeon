@@ -13,7 +13,7 @@ public class Item {
 		Entity item = new Entity(EntitySystem.getInstance().getFreeID(), "Item");
 		ItemInfo info = ItemSystem.get(id);
 		ItemEntity itemEntity = new ItemEntity(item, 0, id);
-		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/Spada.png");	
+		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/Spada.png",-0.5f, -0.3f);	
 		return item;
 	}
 }

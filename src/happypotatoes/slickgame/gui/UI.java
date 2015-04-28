@@ -100,8 +100,19 @@ public class UI extends Container implements InputListener{
 
 	@Override
 	public void keyPressed(int key, char c) {
-		// TODO Auto-generated method stub
-		
+		switch(key){
+			case Input.KEY_B: {	
+				InventoryWindow tmp = GuiSystem.getInventory();
+				if(tmp!=null){
+					tmp.setOpen(!tmp.isOpen());
+				}
+				break;
+			}
+			case Input.KEY_ESCAPE:{
+				System.exit(0);
+				break;
+			}
+		}
 	}
 
 	@Override

@@ -1,15 +1,24 @@
 package happypotatoes.slickgame.inventory;
 
+import happypotatoes.slickgame.entitysystem.component.Inventory;
+
 public class Slot {
 	private int nItems, nMaxItems;
 	private String idItem;
-	public Slot(){
+	private Inventory owner;
+	public Slot(Inventory owner){
 		nItems = 0;
 		nMaxItems = 0;
 		idItem = "";
+		this.owner = owner;
+	}
+	public Inventory getOwner(){
+		return owner;
 	}
 	public boolean isFree(){
-		if(idItem.equals("")) return true;
+		if(idItem.equals("")){
+			return true;
+		}
 		return false;
 	}
 	public boolean addItem(String id){	

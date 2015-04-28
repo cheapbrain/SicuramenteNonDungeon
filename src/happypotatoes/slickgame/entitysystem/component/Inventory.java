@@ -11,13 +11,20 @@ public class Inventory extends Component{
 	public Inventory(Entity owner, float priority, int nSlots) {
 		super(owner, priority);
 		slots = new Slot[nSlots];
+		for(int i=0; i<nSlots; i++)
+			slots[i] = new Slot(this);
+	}
+	public int getDim(){
+		return slots.length;
+	}
+	public Slot getSlot(int pos){
+		return slots[pos];
 	}
 	public boolean add(String id){
 		Slot slot=null;
 		for(Slot tmp:slots){
-			if(tmp.getItem().equals(id)){
+			if(tmp.getItemId().equals(id)){
 				if(tmp.addItem(id))	return true;
-				else return false;
 			}
 		}
 		for(Slot tmp:slots){
@@ -38,6 +45,9 @@ public class Inventory extends Component{
 	}
 	public String takeOut(int pos){
 		return slots[pos].getItem();
+	}
+	public String takeOut(Slot slot){
+		return slot.getItem();
 	}
 	public void update(World w, long delta) {
 	}

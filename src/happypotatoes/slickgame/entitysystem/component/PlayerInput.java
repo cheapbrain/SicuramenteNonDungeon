@@ -69,6 +69,11 @@ public class PlayerInput extends Component {
 			walker.state=2;
 			((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
 		}
-		
+		if(input.isKeyPressed(Input.KEY_A)){
+			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada.item");
+		}
+		if(input.isKeyPressed(Input.KEY_S)){
+			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada2.item");
+		}
 	}
 }

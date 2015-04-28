@@ -27,7 +27,7 @@ public class Player {
 		Attack attack = new Attack(e, 0, walker, walkerRender, 20);
 		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 5);
-		Inventory inventory = new Inventory(e,0, 10);
+		Inventory inventory = new Inventory(e,0, 16);
 		return e;
 	}
 }

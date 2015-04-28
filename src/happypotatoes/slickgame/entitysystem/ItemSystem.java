@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.newdawn.slick.Image;
+
 public class ItemSystem {
 	private static Map<String, ItemInfo> items = new HashMap();
 	public static void load(){
@@ -20,6 +22,9 @@ public class ItemSystem {
 				if (tmp.exists()) loadItems(tmp);
 			}
 		}
+	}
+	public static Image getTexture(String id){
+		return items.get(id).getTexture();
 	}
 	private static void loadItems(File file) {
 		File[] modItems = file.listFiles();

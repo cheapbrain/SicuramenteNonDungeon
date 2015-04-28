@@ -1,24 +1,21 @@
 package happypotatoes.slickgame.entitysystem.entity;
 
-import happypotatoes.slickgame.entitysystem.component.ArmourComponent;
-import happypotatoes.slickgame.entitysystem.component.MeleeWeaponComponent;
-import happypotatoes.slickgame.entitysystem.component.RangedWeaponComponent;
-import happypotatoes.slickgame.entitysystem.component.StaticRender;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Map.Entry;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class ItemInfo {
 	private Map<String, String> info = new HashMap();
+	private Image texture;
 	public ItemInfo(File fileInfo){
 		Properties props = new Properties();
 		InputStream input = null;
@@ -34,8 +31,18 @@ public class ItemInfo {
 			String[] tmp = new String[2];
 			info.put(key, props.getProperty(key));
 		}
+		String name = fileInfo.getPath().split(".item")[0];
+		name =name.substring(name.lastIndexOf("\\"));
+		try {
+			texture = new Image((fileInfo.getPath().split("Items")[0])+"Sprites/Items"+name+".png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	public String get(String property) {
 		return info.get(property);
+	}
+	public Image getTexture(){
+		return texture;
 	}
 }
