@@ -20,7 +20,7 @@ public class WalkerRender extends RenderComponent{
 	private int frames;
 
 	public WalkerRender(Entity owner, Walker walker, String spriteFolder, int frames, int frameTime, float offsetX, float offsetY) {
-		super(owner);
+		super(owner, false);
 		this.walker = walker;
 		ox = offsetX;
 		oy = offsetY;
@@ -72,7 +72,11 @@ public class WalkerRender extends RenderComponent{
 	}
 
 	@Override
-	public void renderShadow(float i) {
-		animations[state][walker.facing].drawFlash(rect.x0-.2f, rect.y0-.1f, rect.w+.4f, rect.h+.2f, new Color(i,0,0,1));
+	public Color getPixel(float selectx, float selecty) {
+		Camera c = Camera.camera;
+		int unit = c.getUnit();
+		int x = (int) ((selectx-getRect().x0)*unit);
+		int y = (int) ((selecty-getRect().y0)*unit);
+		return animations[state][walker.facing].getCurrentFrame().getColor(x, y);
 	}
 }

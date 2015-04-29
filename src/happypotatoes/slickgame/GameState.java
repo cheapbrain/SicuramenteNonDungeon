@@ -2,27 +2,19 @@ package happypotatoes.slickgame;
 
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
-import happypotatoes.slickgame.entitysystem.component.Energy;
-import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.entity.Item;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
-import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
-import happypotatoes.slickgame.gui.Window;
-import happypotatoes.slickgame.gui.component.EnergyBar;
-import happypotatoes.slickgame.gui.component.HealthBar;
-import happypotatoes.slickgame.gui.component.Button;
-import happypotatoes.slickgame.gui.component.Label;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -36,6 +28,7 @@ public class GameState extends BasicGameState {
 	}
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
 
+		EntityRenderer.init();
 		ItemSystem.load();
 		Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 		world = new World(container);

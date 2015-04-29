@@ -1,7 +1,6 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.util.List;
-
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 
 import happypotatoes.slickgame.Camera;
@@ -9,7 +8,6 @@ import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {
@@ -18,10 +16,12 @@ public class PlayerInput extends Component {
 	Walker walker;
 	Movement movement;
 	float speed = 0.002f;
+	
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);
 		this.walker = walker;
 		this.movement = movement;
+		
 	}
 	public void update(World w, long delta) {
 		Camera c = Camera.camera;
@@ -31,12 +31,22 @@ public class PlayerInput extends Component {
 			walker.state = 0;
 		}
 		
-		
 		float selectx = input.getMouseX()/(float)c.getUnit()+c.getRekt().x0;
 		float selecty = input.getMouseY()/(float)c.getUnit()+c.getRekt().y0;
 		
-		EntityRenderer.selectx = selectx;
-		EntityRenderer.selecty = selecty;
+		Entity selected = null;
+		float depth = Float.NEGATIVE_INFINITY;
+		for (Entity e:EntitySystem.getInstance().getAll()) {
+			RenderComponent rc = e.getComponent(RenderComponent.class);
+			if (rc!=null&&rc.getRect().contain(selectx, selecty)&&rc.depth>=depth) {
+				depth = rc.depth;
+				selected = e;
+			}
+		}
+		EntityRenderer.hover = selected;
+		
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+			EntityRenderer.click = selected;
 		
 		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			destx = selectx;

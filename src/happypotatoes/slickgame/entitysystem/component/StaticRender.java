@@ -1,10 +1,8 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entitysystem.Entity;
@@ -14,8 +12,8 @@ public class StaticRender extends RenderComponent{
 	private Rectangle rect;
 	private float ox, oy;
 	private Image texture;
-	public StaticRender(Entity owner, String spritePath, float offX, float offY) {
-		super(owner);
+	public StaticRender(Entity owner, String spritePath, float offX, float offY, boolean isFloor) {
+		super(owner, isFloor);
 		ox=offX;
 		oy=offY;
 		float unit = Camera.camera.getUnit();
@@ -36,13 +34,16 @@ public class StaticRender extends RenderComponent{
 	
 	@Override
 	public void render(float i) {
-		texture.draw(rect.x0, rect.y0, rect.w, rect.h);
 		rect.setPosition(owner.x+ox, owner.y+oy);
+		texture.draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 	}
-	
+
 	@Override
-	public void renderShadow(float i) {
-		texture.drawFlash(rect.x0-.2f, rect.y0-.1f, rect.w+.4f, rect.h+.2f, new Color(i,0,0,1));
-		
+	public Color getPixel(float selectx, float selecty) {
+		Camera c = Camera.camera;
+		int unit = c.getUnit();
+		int x = (int) ((selectx-getRect().x0)*unit);
+		int y = (int) ((selecty-getRect().y0)*unit);
+		return texture.getColor(x, y);
 	}
 }
