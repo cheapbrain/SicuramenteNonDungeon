@@ -17,11 +17,12 @@ public class Attack extends Component{
 		super(owner, priority);
 		this.walker = walker;
 		this.damage = damage;
-		totalTimeAttack = walkerRender.getFrames()* walkerRender.getFrameTime();
+		totalTimeAttack = walkerRender.getFrames(2)* walkerRender.getFrameTime();
 	}
 	public void update(World w, long delta) {
 		if(walker.state==2){
-			if(timeAttack>totalTimeAttack){
+			timeAttack+=delta;
+			if(timeAttack>=totalTimeAttack){
 				Entity focus;
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
@@ -34,7 +35,6 @@ public class Attack extends Component{
 				walker.state=0;
 				timeAttack=0;
 			} else{
-				timeAttack+=delta;
 			}
 		}
 	}

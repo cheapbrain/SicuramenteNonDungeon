@@ -23,7 +23,6 @@ public class WalkerRender extends RenderComponent{
 		this.walker = walker;
 		ox = offsetX;
 		oy = offsetY;
-		this.frameTime = frameTime;
 		float unit = Camera.camera.getUnit();
 		animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
@@ -52,8 +51,10 @@ public class WalkerRender extends RenderComponent{
 
 	@Override
 	public void render(float i) {
-		if(state!=walker.state)
-			animations[state][walker.facing].start();
+		if(state!=walker.state) {
+			animations[state][walker.facing].restart();
+			System.out.println(animations[state][walker.facing].getFrame());
+		}
 		state = walker.state;
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
@@ -77,7 +78,7 @@ public class WalkerRender extends RenderComponent{
 		return animations[state][walker.facing].getCurrentFrame().getColor(x, y);
 	}
 
-	public int getFrames() {
-		return animations[state][walker.facing].getFrameCount();
+	public int getFrames(int i) {
+		return animations[i][walker.facing].getFrameCount();
 	}
 }

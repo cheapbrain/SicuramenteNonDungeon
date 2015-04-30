@@ -15,7 +15,7 @@ public class Defend extends Component{
 	public Defend(Entity owner, float priority, Walker walker, WalkerRender walkerRender) {
 		super(owner, priority);
 		this.walker = walker;
-		animationTotalTime = walkerRender.getFrames()* walkerRender.getFrameTime();
+		animationTotalTime = walkerRender.getFrames(4)* walkerRender.getFrameTime();
 	}
 	
 	public void update(World w, long delta) {

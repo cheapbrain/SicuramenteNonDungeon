@@ -15,7 +15,7 @@ public class PlayerInput extends Component {
 	
 	Walker walker;
 	Movement movement;
-	float speed = 0.002f;
+	float speed = 0.001f;
 	
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);
@@ -75,12 +75,12 @@ public class PlayerInput extends Component {
 				walker.setFacing(msx, msy);
 		}			
 			
-		if (input.isKeyDown(Input.KEY_E)&&walker.state!=3) {
+		if (input.isKeyDown(Input.KEY_E)&&walker.state<2) {
 			walker.state=2;
 			//((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
 		}
 		
-		if (input.isKeyDown(Input.KEY_D)&&walker.state!=3) {
+		if (input.isKeyDown(Input.KEY_D)&&walker.state<2) {
 			walker.state=4;
 		}
 		else{
