@@ -25,6 +25,7 @@ public class AIPet extends AI{
 	
 	@Override
 	public void update(World w, long delta) {
+		super.update(w, delta);
 		inSight = getEntitiesInSight();
 		focus = getFocus();	
 		time -= delta;
@@ -33,8 +34,9 @@ public class AIPet extends AI{
 				time = delay;
 				dx = focus.x-owner.x;
 				dy = focus.y-owner.y;	
+				d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 			}
-			goTo(dx,dy);
+			goTo(dx,dy,d);
 		}
 	}
 
@@ -53,8 +55,7 @@ public class AIPet extends AI{
 	
 		
 	@Override
-	public void goTo(float dx, float dy){
-		float d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
+	public void goTo(float dx, float dy, float d){
 		if (d>1.4&&walker.state<2) {
 			float nsx = dx/d*speed*(d-1.2f);
 			float nsy = dy/d*speed*(d-1.2f);;

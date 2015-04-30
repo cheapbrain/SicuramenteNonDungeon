@@ -39,12 +39,7 @@ public abstract class AI extends Component {
 		return (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 	}
 	
-	public void goTo(Entity e){
-		goTo(e.x-owner.x, e.y-owner.y);
-	}
-	
-	public void goTo(float dx, float dy){
-		float d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
+	public void goTo(float dx, float dy, float d){
 		if (d>1.4&&walker.state<2) {
 			float nsx = dx/d*speed;
 			float nsy = dy/d*speed;

@@ -87,13 +87,7 @@ public class World {
 					}					
 		terrain = this.terrain;
 		
-		for (x=5;x<20;x++)
-			if (terrainType[x][2]==0){
-				Entity stupid = StupidEntity.create();
-				stupid.x= x+3.5f;
-				stupid.y = 2.5f;
-				add(stupid);
-			}
+		
 				
 		update(container, 0);
 		System.out.println(es.getAll().size());

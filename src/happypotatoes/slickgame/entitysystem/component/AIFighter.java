@@ -6,15 +6,18 @@ import java.util.List;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
 
-public class AIMad extends AI{
+public class AIFighter extends AI{
 	
 	List<Entity> inSight;
 	long delay = 100;
 	float dx, dy, d;
-	
 	float speed;
+	Attack focusAttack;
+	Health focusHealth;
+	Energy focusEnergy;
 	
-	public AIMad(Entity owner, float priority, Walker walker,
+	
+	public AIFighter(Entity owner, float priority, Walker walker,
 			Movement movement, float speed) {
 		super(owner, priority, walker, movement, speed);
 		
@@ -25,21 +28,22 @@ public class AIMad extends AI{
 		inSight = getEntitiesInSight();
 		focus = getFocus();	
 		time -= delta;
-		if(focus != null) {
+		if((focus != null)&&(focus.getComponent(Walker.class).state!=3)) {
 			if (time<=0) {
+				
 				time = delay;
 				dx = focus.x-owner.x;
 				dy = focus.y-owner.y;
 				d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
+				//if(focusAttack)
 				if(getDistance(focus)<1.5f){
 					walker.state=2;
 				}
 			}
-			goTo(dx,dy,d);
-			
-			
+			goTo(dx,dy,d);	
 		}
 	}
+	
 
 	@Override
 	public Entity getFocus() {
