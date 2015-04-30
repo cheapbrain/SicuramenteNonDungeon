@@ -1,7 +1,11 @@
 package happypotatoes.slickgame.entitysystem.component;
 
+import java.util.List;
+import java.util.Random;
+
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
@@ -17,21 +21,21 @@ public class Attack extends Component{
 	}
 	public void update(World w, long delta) {
 		if(walker.state==2){
-			if(owner.getComponent(AI.class)!= null)
-				System.out.println("OWNER: mob");
-			/*
 			if(timeAttack>totalTimeAttack){
-				
-				Entity focus = owner.getComponent(AI.class).focus;
+				Entity focus;
+				if (owner.getComponent(AI.class)!=null)
+					focus = owner.getComponent(AI.class).focus;
+				else {
+					List<Entity> l = EntitySystem.getInstance().getAll();
+					focus = l.get((new Random()).nextInt(l.size()-2)+2);
+				}
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
 				EnemyHp.setHealth(EnemyHp.getHealth()-damage);
-				
 				walker.state=0;
 				timeAttack=0;
 			} else{
 				timeAttack+=delta;
-			}*/
-			walker.state=0;
+			}
 		}
 	}
 }
