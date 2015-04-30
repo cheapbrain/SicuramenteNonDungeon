@@ -5,6 +5,7 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
+import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
 import happypotatoes.slickgame.entitysystem.entity.Item;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
@@ -41,6 +42,7 @@ public class GameState extends BasicGameState {
 		item.y=2.5f;
 		world.add(item);
 		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
+		world.add(FighterEntity.create(3,3));
 		
 		Camera.camera.setTarget(player);
 		

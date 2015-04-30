@@ -75,9 +75,16 @@ public class PlayerInput extends Component {
 				walker.setFacing(msx, msy);
 		}			
 			
-		if (input.isKeyDown(Input.KEY_E)&&((Health) owner.getComponent(Health.class)).getHealth()>0&&walker.state<2) {
+		if (input.isKeyDown(Input.KEY_E)&&walker.state!=3) {
 			walker.state=2;
-			((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
+			//((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
+		}
+		
+		if (input.isKeyDown(Input.KEY_D)&&walker.state!=3) {
+			walker.state=4;
+		}
+		else{
+			if(walker.state==4) walker.state=0;
 		}
 		if(input.isKeyPressed(Input.KEY_A)){
 			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada.item");

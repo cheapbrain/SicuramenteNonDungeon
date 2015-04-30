@@ -26,11 +26,17 @@ public class StupidEntity {
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
-		Walker walker = new Walker(e, 0, 8, 3);
+		Walker walker = new Walker(e, 0, 8, 4);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 170, 189, -1.3f, -2.4f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Attack attack = new Attack(e, 0, walker, walkerRender, 10);
 		Health health = new Health(e, 0, 100, 0);
+		return e;
+	}
+	
+	public static Entity create(int x, int y ){
+		Entity e = create();
+		e.x=x; e.y=y;
 		return e;
 	}
 }
