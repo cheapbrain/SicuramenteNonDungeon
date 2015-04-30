@@ -27,7 +27,7 @@ public class StupidEntity {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 3);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 12, 50, -.5f, -1.6f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 170, 189, -1.3f, -2.4f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Attack attack = new Attack(e, 0, walker, walkerRender, 10);
 		Health health = new Health(e, 0, 100, 0);

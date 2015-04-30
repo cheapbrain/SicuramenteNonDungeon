@@ -26,7 +26,7 @@ public class Wolf {
 		Walker walker = new Walker(e, 0, 8, 2);
 		//AI intelligence = (new AIManager(e, 0f, walker, movement, speed, AIType.Pet)).get();
 		AI intelligence = (AI) (new AIPet(e, 0f, walker, movement, speed));
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 10, 50, -.75f, -0.8f);	
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 96, 54, -.75f, -0.8f);	
 		return e;
 	}
 	

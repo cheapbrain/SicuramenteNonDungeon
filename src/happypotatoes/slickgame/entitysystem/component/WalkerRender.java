@@ -16,23 +16,22 @@ public class WalkerRender extends RenderComponent{
 	private int state;
 	private float ox, oy;
 	private Rectangle rect;
-	private int frameTime;
-	private int frames;
+	private int frameTime = (int)Math.round(1000f/24);
 
-	public WalkerRender(Entity owner, Walker walker, String spriteFolder, int frames, int frameTime, float offsetX, float offsetY) {
+	public WalkerRender(Entity owner, Walker walker, String spriteFolder, int width, int height, float offsetX, float offsetY) {
 		super(owner, false);
 		this.walker = walker;
 		ox = offsetX;
 		oy = offsetY;
-		this.frames = frames;
 		this.frameTime = frameTime;
 		float unit = Camera.camera.getUnit();
 		animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
 			try {
 				Image texture = new Image(spriteFolder+i+".png");
-				int w = texture.getWidth()/frames;
-				int h = texture.getHeight()/walker.directions;
+				int frames = texture.getWidth()/width;
+				int w = width;
+				int h = height;
 				
 				if (i==0)
 					rect = new Rectangle(owner.x+ox, owner.y+oy, w/unit, h/unit);
@@ -64,9 +63,7 @@ public class WalkerRender extends RenderComponent{
 	public Rectangle getRect() {
 		return rect;
 	}
-	public int getFrames() {
-		return frames;
-	}
+	
 	public int getFrameTime() {
 		return frameTime;
 	}
@@ -78,5 +75,9 @@ public class WalkerRender extends RenderComponent{
 		int x = (int) ((selectx-getRect().x0)*unit);
 		int y = (int) ((selecty-getRect().y0)*unit);
 		return animations[state][walker.facing].getCurrentFrame().getColor(x, y);
+	}
+
+	public int getFrames() {
+		return animations[state][walker.facing].getFrameCount();
 	}
 }
