@@ -22,12 +22,13 @@ public class Attack extends Component{
 	public void update(World w, long delta) {
 		if(walker.state==2){
 			if(timeAttack>totalTimeAttack){
-				Entity focus;
+				Entity focus = null;
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
 				else {
 					List<Entity> l = EntitySystem.getInstance().getAll();
-					focus = l.get((new Random()).nextInt(l.size()-2)+2);
+					while((focus==null)||(focus.getComponent(AI.class)!=null))
+						focus = l.get((new Random()).nextInt(l.size()-2)+2);
 				}
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
 				EnemyHp.setHealth(EnemyHp.getHealth()-damage);
