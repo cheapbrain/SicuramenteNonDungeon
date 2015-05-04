@@ -53,7 +53,6 @@ public class WalkerRender extends RenderComponent{
 	public void render(float i) {
 		if(state!=walker.state) {
 			animations[state][walker.facing].restart();
-			System.out.println(animations[state][walker.facing].getFrame());
 		}
 		state = walker.state;
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));

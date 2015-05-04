@@ -37,7 +37,7 @@ public class PlayerInput extends Component {
 		Entity selected = null;
 		float depth = Float.NEGATIVE_INFINITY;
 		for (Entity e:EntitySystem.getInstance().getAll()) {
-			RenderComponent rc = e.getComponent(RenderComponent.class);
+			SelectComponent rc = e.getComponent(SelectComponent.class);
 			if (rc!=null&&rc.getRect().contain(selectx, selecty)&&rc.depth>=depth) {
 				depth = rc.depth;
 				selected = e;

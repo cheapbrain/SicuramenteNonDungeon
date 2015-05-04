@@ -9,6 +9,7 @@ import happypotatoes.slickgame.entitysystem.component.AIType;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.EntityCollision;
 import happypotatoes.slickgame.entitysystem.component.Health;
+import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Movement;
@@ -31,6 +32,7 @@ public class Wolf {
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 96, 54, -.75f, -0.8f);	
 		Attack attack = new Attack(e, 0, walker, walkerRender, 10);
 		Health health = new Health(e, 0, 100, 0);
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-.8f, 1, 1);
 		return e;
 	}
 	
