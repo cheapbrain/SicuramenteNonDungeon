@@ -7,19 +7,25 @@ import happypotatoes.slickgame.inventory.Slot;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.InputListener;
+import org.newdawn.slick.SlickException;
 
 public class InventorySlot extends Component{
+	private Image img;
 	private Slot slot;
 	public InventorySlot(int x, int y, int dim, Slot slot){
 		setSize(dim, dim);
 		setPosition(x, y);
 		this.slot = slot;
+		try {
+			img = new Image("./res/popup/Frame.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	protected void paintComponent(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(0, 0, width, height);
 		if(!slot.getItemId().equals("")){
 			ItemSystem.getTexture(slot.getItemId()).draw(0,0,width,height);
 		}
@@ -30,5 +36,6 @@ public class InventorySlot extends Component{
 		if (mx>x&&mx<x+width&&my>y&&my<y+height)
 			if (UI.mb0)
 				slot.getOwner().takeOut(slot);
+		img.draw(0,0,width,height);
 	}
 }

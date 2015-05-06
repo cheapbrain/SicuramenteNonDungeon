@@ -1,5 +1,8 @@
 package happypotatoes.slickgame.gui;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
@@ -23,13 +26,20 @@ public class GuiSystem {
 		return iw;
 	}
 	private static Window hud(UI ui, Entity player){
-		Window hud = new Window("hud", 0, 0, 400, 50);
+		Image image = null;
+		try {
+			image = new Image("./res/GUI.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		int xNuova = ui.width*2/3;
+		Window hud = new Window("hud", 0, 0, xNuova, xNuova*image.getHeight()/image.getWidth());
 		hud.setVerticalAlign(Component.SOUTH);
 		hud.setHorizontalAlign(Component.CENTER);
-		hud.add(new Label("ebola", 0, 0, 100, 50));
-		hud.add(new Button("omg", 100, 0, 50, 30));
-		hud.add(new HealthBar((Health) player.getComponent(Health.class), 200,0,100,20));
-		hud.add(new EnergyBar((Energy) player.getComponent(Energy.class), 200,25,100,20));
+		hud.setBackground(image);
+		float k = (ui.width*2f/3)/image.getWidth();
+		hud.add(new HealthBar((Health) player.getComponent(Health.class), k));
+		hud.add(new EnergyBar((Energy) player.getComponent(Energy.class), k));
 		ui.add(hud);	
 		return hud;
 	}
