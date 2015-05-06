@@ -7,6 +7,7 @@ import java.util.List;
 
 public class LightingBrutto {
 	public static LightingBrutto lighting;
+	public float[][] finalMap;
 	public float[][] lightMap;
 	public float[][] tempMap;
 	
@@ -20,6 +21,7 @@ public class LightingBrutto {
 		Rectangle rect = Camera.camera.getRekt();
 		int w = (int) rect.w+3;
 		int h = (int) rect.h+3;
+		finalMap = new float[w][h];
 		lightMap = new float[w][h];
 		tempMap = new float[w][h];
 		lighting = this;
@@ -40,8 +42,10 @@ public class LightingBrutto {
 		int tx, ty;
 
 		for (tx=0;tx<=w;tx++)			
-			for (ty=0;ty<=h;ty++)
+			for (ty=0;ty<=h;ty++) {
 				lightMap[tx][ty] = 0;
+				finalMap[tx][ty] = 0;
+			}
 		
 
 		for (Light light:lights) {
