@@ -1,11 +1,7 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.util.List;
-import java.util.Random;
-
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
@@ -33,7 +29,9 @@ public class Attack extends Component{
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
-				EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-focus.getComponent(Defend.class).mitigation));
+				Defend defend = focus.getComponent(Defend.class);
+				float mitigation = defend!=null?defend.mitigation:1;
+				EnemyHp.setHealth(EnemyHp.getHealth()-damage*mitigation);
 				walker.state=0;
 				timeAttack=0;
 			} else{
