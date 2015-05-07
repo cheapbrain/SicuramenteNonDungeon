@@ -37,7 +37,7 @@ public class GameState extends BasicGameState {
 		player.x = 2.5f;
 		player.y = 2.5f;
 		world.add(player);
-		Entity item = Item.create(".\\res\\MyMod\\Sprites\\Items\\Spada.png");
+		Entity item = Item.create(".\\res\\MyMod\\Items\\Spada.item");
 		item.x=3.5f;
 		item.y=2.5f;
 		world.add(item);

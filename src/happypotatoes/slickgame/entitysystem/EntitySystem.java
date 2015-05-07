@@ -66,7 +66,7 @@ public class EntitySystem {
 			entities.add(toAdd.poll());
 		
 		while (!toRemove.isEmpty())
-			entities.remove(toAdd.poll());
+			entities.remove(toRemove.poll());
 		
 		for (Entity entity : entities)
 			entity.update(w, delta);

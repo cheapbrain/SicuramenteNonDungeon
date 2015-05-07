@@ -16,6 +16,7 @@ public class Container extends Component{
 	public void paint(Graphics g) {
 		paintComponent(g);
 		paintChildren(g);
+		
 	}
 	
 	protected void paintComponent(Graphics g) {

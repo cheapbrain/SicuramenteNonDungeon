@@ -34,6 +34,9 @@ public class Inventory extends Component{
 			}
 		}
 		if(slot!=null){
+			System.out.println(id);
+			System.out.println(ItemSystem.get(id));
+			System.out.println(ItemSystem.get(id).get("MaxStack"));
 			int maxStack = Integer.parseInt(ItemSystem.get(id).get("MaxStack"));
 			slot.setSlotItem(id, maxStack);
 			slot.addItem(id);

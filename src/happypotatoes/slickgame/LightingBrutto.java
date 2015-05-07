@@ -64,12 +64,22 @@ public class LightingBrutto {
 
 			for (tx=0;tx<=w;tx++)			
 				for (ty=0;ty<=h;ty++)
-					lightMap[tx][ty] = Math.min(1, lightMap[tx][ty]+tempMap[tx][ty]);
+					finalMap[tx][ty] = Math.min(1, finalMap[tx][ty]+tempMap[tx][ty]);
 		}
 		
 		for (tx=0;tx<w;tx++)			
 			for (ty=0;ty<h;ty++) {
-				
+				if (terr[tx+sx][ty+sy]==1) {
+					float i = 0;
+					for (int j=-1;j<2;j++)
+						for (int k=-1;k<2;k++)
+							if (tx+j>0&&tx+j<lightMap.length&&ty+k>0&&ty+k<lightMap[0].length+k) {
+								i = Math.max(i, finalMap[tx+j][ty+k]);
+							}
+					lightMap[tx][ty] = i;
+				} else {
+					lightMap[tx][ty] = finalMap[tx][ty];
+				}
 			}
 				
 		
@@ -94,9 +104,6 @@ public class LightingBrutto {
 
 		while (true) {
 
-		    if (terr[x1][y1]!=0) {
-		    	break;
-		    }
 		    float l = (x1-x0+.5f)*(x1-x0+.5f)+(y1-y0+.5f)*(y1-y0+.5f);
 			    
 		    int xl = x1-ssx;
@@ -119,6 +126,9 @@ public class LightingBrutto {
 		    if (e2 < dx) {
 		        err = err + dx;
 		        y1 = y1 + sy;
+		    }
+		    if (terr[x1][y1]!=0) {
+		    	break;
 		    }
 		}
 			

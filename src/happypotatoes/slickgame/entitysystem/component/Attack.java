@@ -13,23 +13,25 @@ public class Attack extends Component{
 	private Walker walker;
 	private int totalTimeAttack = 0;
 	private float damage;
+	private Entity focus;
 	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float damage) {
 		super(owner, priority);
 		this.walker = walker;
 		this.damage = damage;
 		totalTimeAttack = walkerRender.getFrames(2)* walkerRender.getFrameTime();
 	}
+	
+	public void attack(Entity focus) {
+		walker.state = 2;
+		this.focus = focus;
+	}
+	
 	public void update(World w, long delta) {
 		if(walker.state==2){
 			timeAttack+=delta;
 			if(timeAttack>=totalTimeAttack){
-				Entity focus;
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
-				else {
-					List<Entity> l = EntitySystem.getInstance().getAll();
-					focus = l.get((new Random()).nextInt(l.size()-2)+2);
-				}
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
 				EnemyHp.setHealth(EnemyHp.getHealth()-damage);
 				walker.state=0;

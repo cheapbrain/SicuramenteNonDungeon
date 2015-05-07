@@ -12,10 +12,11 @@ import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {
 	float destx, desty;
+	Entity interactTarget = null;
 	
 	Walker walker;
 	Movement movement;
-	float speed = 0.001f;
+	float speed = 0.005f;
 	
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);
@@ -37,6 +38,8 @@ public class PlayerInput extends Component {
 		Entity selected = null;
 		float depth = Float.NEGATIVE_INFINITY;
 		for (Entity e:EntitySystem.getInstance().getAll()) {
+			if (e==owner)
+				continue;
 			SelectComponent rc = e.getComponent(SelectComponent.class);
 			if (rc!=null&&rc.getRect().contain(selectx, selecty)&&rc.depth>=depth) {
 				depth = rc.depth;
@@ -45,14 +48,22 @@ public class PlayerInput extends Component {
 		}
 		EntityRenderer.hover = selected;
 		
-		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			EntityRenderer.click = selected;
+		}
 		
 		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
-			destx = selectx;
-			desty = selecty;
+			
 			if (walker.state==0)
 				walker.state = 1;
+			interactTarget = selected;
+			if (selected!=null) {
+				destx = selected.x;
+				desty = selected.y;
+			} else {
+				destx = selectx;
+				desty = selecty;
+			}
 		}
 		
 		if(walker.state==1) {
@@ -61,10 +72,25 @@ public class PlayerInput extends Component {
 			float d = (float)Math.sqrt(dx*dx+dy*dy);
 			float msx = 0;
 			float msy = 0;
-			if (d<.1) {
+			if (d<1&&interactTarget!=null) {
+				walker.setFacing(dx, dy);
+				Interact inter = interactTarget.getComponent(Interact.class);
+				Health health = interactTarget.getComponent(Health.class);
+				if (inter!=null) {
+					inter.interact(owner);
+					interactTarget = null;
+					walker.state = 0;
+				} else if (health!=null){
+					owner.getComponent(Attack.class).attack(interactTarget);
+				}
+				movement.speedx = 0;
+				movement.speedy = 0;
+			}
+			else if (d<.1) {
 				walker.state = 0;
 				movement.speedx = 0;
 				movement.speedy = 0;
+				
 			} else {
 				msx = dx/d*speed;
 				msy = dy/d*speed;
@@ -76,7 +102,7 @@ public class PlayerInput extends Component {
 		}			
 			
 		if (input.isKeyDown(Input.KEY_E)&&walker.state<2) {
-			walker.state=2;
+			//walker.state=2;
 			//((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
 		}
 		
