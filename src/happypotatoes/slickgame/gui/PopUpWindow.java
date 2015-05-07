@@ -1,7 +1,5 @@
 package happypotatoes.slickgame.gui;
 
-import happypotatoes.slickgame.gui.component.GrabbableComponent;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -25,7 +23,6 @@ public class PopUpWindow extends Window{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		add(new GrabbableComponent());
 		
 	}
 	public void paint(Graphics g) {
