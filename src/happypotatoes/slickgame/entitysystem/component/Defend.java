@@ -12,6 +12,8 @@ public class Defend extends Component{
 	private float animationTime = 0;
 	private Walker walker;
 	private float animationTotalTime;
+	public float mitigation; //da 0 a 1
+	
 	public Defend(Entity owner, float priority, Walker walker, WalkerRender walkerRender) {
 		super(owner, priority);
 		this.walker = walker;
@@ -19,16 +21,19 @@ public class Defend extends Component{
 	}
 	
 	public void update(World w, long delta) {
-		if(walker.state==4){
+		if(walker.state==4||walker.state==5){
 			if(animationTime>animationTotalTime){
-				//setta la roba per difendersi
+				mitigation = 0.99f;
+				walker.state = 5;
 			} else{
-				animationTime+=delta;
+				animationTime+=delta;	
 			}
 		}
 		else{
 			animationTime=0;
+			mitigation = 0f;
 		}
+		
 	}
 	
 	public boolean isDefending(){

@@ -30,7 +30,6 @@ public class AIFighter extends AI{
 		time -= delta;
 		if((focus != null)&&(focus.getComponent(Walker.class).state!=3)) {
 			if (time<=0) {
-				
 				time = delay;
 				dx = focus.x-owner.x;
 				dy = focus.y-owner.y;
