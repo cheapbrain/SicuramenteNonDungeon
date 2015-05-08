@@ -18,6 +18,7 @@ public class GameStateController extends StateBasedGame {
 		//per andare nel gioco
 		//per andare nel menu
 		addState(new MenuState());
+		addState(new LoadingState());
         addState(new GameState());
     }
 }

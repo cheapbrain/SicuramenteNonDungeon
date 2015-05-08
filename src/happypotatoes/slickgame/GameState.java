@@ -1,19 +1,9 @@
 package happypotatoes.slickgame;
 
 
-import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.EntityRenderer;
-import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.ItemSystem;
-import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
-import happypotatoes.slickgame.entitysystem.entity.Item;
-import happypotatoes.slickgame.entitysystem.entity.Player;
-import happypotatoes.slickgame.entitysystem.entity.Wolf;
-import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.world.World;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,13 +12,13 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class GameState extends BasicGameState {
-	World world;
-	UI ui;
+	public World world;
+	public UI ui;
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 	}
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
-
+		/*
 		EntityRenderer.init();
 		ItemSystem.load();
 		Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
@@ -53,6 +43,7 @@ public class GameState extends BasicGameState {
 		ui = new UI(container, game);
 		GuiSystem.init(ui, player);		
 		container.getGraphics().setBackground(new Color(0,0,0,255));
+		*/
 	}
 
 	@Override

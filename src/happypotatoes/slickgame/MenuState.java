@@ -39,7 +39,7 @@ public class MenuState extends BasicGameState{
 		play.setActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(Component source) {
-				game.enterState(1);
+				game.enterState(2);
 			}
 		});
 		exit = new Button("",0,height/19*15,140,40,"./res/menu/Exit");
