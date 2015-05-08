@@ -14,7 +14,7 @@ public class MaterialManager {
 		
 	public static void init() throws SlickException {
 
-		Image texture = new Image("./res/sheet2.png");
+		Image texture = new Image("./res/sheet.png");
 		SpriteSheet sheet = new SpriteSheet(texture, 64, 64);
 		texture.setFilter(Image.FILTER_NEAREST);
 		materials = new ArrayList<Material>();

@@ -1,5 +1,6 @@
 package happypotatoes.slickgame;
 
+import happypotatoes.slickgame.gui.ActionListener;
 import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Button;
@@ -32,10 +33,23 @@ public class MenuState extends BasicGameState{
 		}
 		ui = new UI(container, game);
 		play = new Button("",0,0,180,50,"./res/menu/Play");
+		
 		play.setVerticalAlign(Component.CENTER);
 		play.setHorizontalAlign(Component.CENTER);
+		play.setActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(Component source) {
+				game.enterState(1);
+			}
+		});
 		exit = new Button("",0,height/19*15,140,40,"./res/menu/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
+		exit.setActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(Component source) {
+				System.exit(0);
+			}
+		});
 		ui.add(exit);
 		ui.add(play);
 	}

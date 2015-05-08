@@ -9,6 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class UI extends Container implements InputListener{
 	public GameContainer container;
 	public StateBasedGame game;
+	public Component eventOwner;
 	public Component activeComponent;
 	public Input input;
 	
@@ -39,6 +40,29 @@ public class UI extends Container implements InputListener{
 	public int getAbsoluteY() {
 		return 0;
 	}
+	
+	public boolean sendMouseEvent(MouseEvent e) {
+		if (enabled&&contain(e.x, e.y)) {
+			for (Component child:children)
+				if (child.sendMouseEvent(e))
+					return true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean sendMouseMovementEvent(MouseMovementEvent e) {
+		boolean mousewas = contain(e.oldx, e.oldy);
+		boolean mouseis = contain(e.x, e.y);
+		if (enabled&&(mousewas||mouseis)) {
+			for (Component child:children)
+				child.sendMouseMovementEvent(e);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	public void mouseWheelMoved(int change) {
@@ -46,11 +70,6 @@ public class UI extends Container implements InputListener{
 		
 	}
 
-	@Override
-	public void mouseClicked(int button, int x, int y, int clickCount) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
@@ -67,6 +86,7 @@ public class UI extends Container implements InputListener{
 		}
 		mx = x;
 		my = y;
+		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.PRESSED));
 	}
 
 	@Override
@@ -84,18 +104,21 @@ public class UI extends Container implements InputListener{
 		}
 		mx = x;
 		my = y;
+		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.RELEASED));
 	}
 
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		mx = newx;
 		my = newy;
+		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.MOVE));
 	}
 
 	@Override
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		mx = newx;
 		my = newy;
+		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.DRAG));
 	}
 
 	@Override
@@ -117,28 +140,6 @@ public class UI extends Container implements InputListener{
 
 	@Override
 	public void keyReleased(int key, char c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setInput(Input input) {
-		this.input = input;
-	}
-
-	@Override
-	public boolean isAcceptingInput() {
-		return true;
-	}
-
-	@Override
-	public void inputEnded() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void inputStarted() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,6 +3,8 @@ package happypotatoes.slickgame.gui;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JButton;
+
 import org.newdawn.slick.Graphics;
 
 public class Container extends Component{
@@ -16,11 +18,11 @@ public class Container extends Component{
 	public void paint(Graphics g) {
 		paintComponent(g);
 		paintChildren(g);
-		
+		JButton b;
 	}
 	
 	protected void paintComponent(Graphics g) {
-		
+		MouseEvent e;
 	}
 	
 	protected void paintChildren(Graphics g) {
@@ -36,5 +38,43 @@ public class Container extends Component{
 				child.paint(g);
 			}
 		g.translate(-ddx, -ddy);
+	}
+	
+	public boolean sendMouseEvent(MouseEvent e) {
+		if (enabled&&contain(e.x, e.y)) {
+			for (Component child:children)
+				if (child.sendMouseEvent(e))
+					return true;
+				
+			if (e.action == MouseEvent.PRESSED) {
+				this.mousePressed(e.button, e.x, e.y);
+			} else {
+				this.mouseReleased(e.button, e.x, e.y);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean sendMouseMovementEvent(MouseMovementEvent e) {
+		boolean mousewas = contain(e.oldx, e.oldy);
+		boolean mouseis = contain(e.x, e.y);
+		if (enabled&&(mousewas||mouseis)) {
+			for (Component child:children)
+				child.sendMouseMovementEvent(e);
+			if (mousewas&&mouseis) {
+				if (e.type==MouseMovementEvent.MOVE) {
+					mouseMoved(e.oldx, e.oldy, e.x, e.y);
+				} 
+			} else if (mouseis) {
+				mouseEntered();
+			} else if (mousewas) {
+				mouseLeft();
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
