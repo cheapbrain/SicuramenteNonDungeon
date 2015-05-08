@@ -37,6 +37,8 @@ public class GameState extends BasicGameState {
 		player.x = 2.5f;
 		player.y = 2.5f;
 		world.add(player);
+		LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
+		
 		Entity item = Item.create(".\\res\\MyMod\\Items\\Spada.item");
 		item.x=3.5f;
 		item.y=2.5f;
@@ -48,9 +50,6 @@ public class GameState extends BasicGameState {
 		
 		EntitySystem.getInstance().update(world, 0);
 		
-		LightingBrutto lighting = new LightingBrutto();
-		lighting.add(new Light(player, 0, 0, 6, 1f));
-		world.setLighting(lighting);
 		ui = new UI(container, game);
 		GuiSystem.init(ui, player);		
 		container.getGraphics().setBackground(new Color(0,0,0,255));
