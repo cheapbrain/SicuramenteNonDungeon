@@ -14,6 +14,10 @@ public class GameStateController extends StateBasedGame {
 
 	@Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        addState(new GameState());
+		//uno dei due deve essere commentato:
+		//per andare nel gioco
+        //addState(new GameState());
+		//per andare nel menu
+		addState(new MenuState());
     }
 }

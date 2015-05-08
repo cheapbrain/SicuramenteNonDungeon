@@ -20,7 +20,7 @@ public class EnergyBar extends Component{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		setPosition(480,10);
+		setPosition((int)(k*838),(int)(k*16));
 		setSize((int)(k*bar.getWidth()), (int)(k*bar.getHeight()));
 		}
 	protected void paintComponent(Graphics g) {
