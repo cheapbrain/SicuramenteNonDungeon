@@ -1,15 +1,19 @@
 package happypotatoes.slickgame.worldgenerator;
 
 
+import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 public class Room {
 	public int x, y;
 	public int height, width;
 	//info varie
 	private ArrayList<Cell> corridors = new ArrayList<Cell>();
-	//private ArrayList<StaticEntity> staticEntities = new ArrayList<StaticEntity>();
+	private ArrayList<Entity> mobs = new ArrayList<Entity>();
 	
 	public Room(int width, int height){
 		this.width=width;
@@ -22,14 +26,16 @@ public class Room {
 		this.y=y;
 	}
 	
-	/*
-	private void createPlates() {
-		int nTraps = Generator.getR().nextInt(3);
+	private void createMobs() {
+		Random r = Generator.getR();
+		int nTraps = r.nextInt(3);
 		for(int i=0; i<nTraps; i++){
-			staticEntities.add(new Plate(this));
+			int x = r.nextInt(width)+this.x;
+			int y = r.nextInt(height)+this.y;
+			Entity e = FighterEntity.create(x, y);
+			mobs.add(e);
 		}
 	}
-	*/
 	
 	public void addCorridor(Cell a){
 		corridors.add(a);
@@ -72,14 +78,12 @@ public class Room {
 		else return false;
 	}
 	
-	/*
 	public void generate() {
-		createPlates();	
+		createMobs();	
 	}
-	public ArrayList<StaticEntity> getTraps(){
-		return this.staticEntities;
+	public ArrayList<Entity> getMobs(){
+		return this.mobs;
 	}
-	*/
 
 	public void fix() {
 		x*=2;

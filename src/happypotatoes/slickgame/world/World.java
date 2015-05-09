@@ -1,5 +1,8 @@
 package happypotatoes.slickgame.world;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,6 +21,7 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
+import happypotatoes.slickgame.worldgenerator.Room;
 
 public class World {
 	public GameContainer container;
@@ -45,6 +49,10 @@ public class World {
 			e.printStackTrace();
 		}
 		Generator gen = new Generator();
+		
+		List<Entity> mobs = gen.getAllMobs();
+		for (Entity e:mobs)
+			es.addEntity(e);
 		
 		int[][] terrain = gen.getTerrain();
 		

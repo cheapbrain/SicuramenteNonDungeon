@@ -1,6 +1,8 @@
 package happypotatoes.slickgame.worldgenerator;
 
 
+import happypotatoes.slickgame.entitysystem.Entity;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +16,7 @@ public class Generator {
 	private Room rooms[];
 	private ArrayList<Room> roomList = new ArrayList<Room>();
 	private ArrayList<Corridor> corridorList = new ArrayList<Corridor>();
-	//private ArrayList<StaticEntity> allTraps = new ArrayList<StaticEntity>();
+	private ArrayList<Entity> allMobs = new ArrayList<Entity>();
 	private int maxW=13, minW=5, maxH=13, minH=5; //dimensioni stanze
 	private int tempTerrain[][];
 	private int terrain[][];
@@ -89,8 +91,8 @@ public class Generator {
 		
 		for(int i=0; i<roomList.size()-1; i++){
 			roomList.get(i).fix();
-			//roomList.get(i).generate();
-			//allTraps.addAll(roomList.get(i).getTraps());
+			roomList.get(i).generate();
+			allMobs.addAll(roomList.get(i).getMobs());
 		}
 	}
 	
@@ -189,15 +191,13 @@ public class Generator {
 		this.corridorList = corridorList;
 	}
 
-	/*
-	public ArrayList<StaticEntity> getAllTraps() {
-		return allTraps;
+	public ArrayList<Entity> getAllMobs() {
+		return allMobs;
 	}
 
-	public void setAllTraps(ArrayList<StaticEntity> allTraps) {
-		this.allTraps = allTraps;
+	public void setAllMobs(ArrayList<Entity> allMobs) {
+		this.allMobs = allMobs;
 	}
-	*/
 	
 	public int getMaxW() {
 		return maxW;
