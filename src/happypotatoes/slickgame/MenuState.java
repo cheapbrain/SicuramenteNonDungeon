@@ -57,6 +57,11 @@ public class MenuState extends BasicGameState{
 			throws SlickException {
 		
 	}
+	
+	public void leave(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		ui.dispose();
+	}
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {

@@ -45,6 +45,11 @@ public class GameState extends BasicGameState {
 		container.getGraphics().setBackground(new Color(0,0,0,255));
 		*/
 	}
+	
+	public void leave(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		ui.dispose();
+	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)

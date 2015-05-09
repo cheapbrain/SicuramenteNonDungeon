@@ -24,6 +24,10 @@ public class UI extends Container implements InputListener{
 		width = container.getWidth();
 		height = container.getHeight();
 	}
+	
+	public void dispose() {
+		input.removeListener(this);
+	}
 		
 	public void update(GameContainer container) {
 		
@@ -128,6 +132,7 @@ public class UI extends Container implements InputListener{
 				InventoryWindow tmp = GuiSystem.getInventory();
 				if(tmp!=null){
 					tmp.setOpen(!tmp.isOpen());
+					System.out.println(tmp.isOpen());
 				}
 				break;
 			}
