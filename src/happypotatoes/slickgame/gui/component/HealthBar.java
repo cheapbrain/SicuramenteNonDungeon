@@ -18,7 +18,7 @@ public class HealthBar extends Component{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		setPosition(165,10);
+		setPosition((int)(k*289),(int)(k*16));
 		setSize((int)(k*bar.getWidth()), (int)(k*bar.getHeight()));
 		this.maxValue = health.getHealth();
 		this.health = health;		
@@ -26,6 +26,6 @@ public class HealthBar extends Component{
 	protected void paintComponent(Graphics g) {
 		g.setColor(new Color(0,0,0,1));
 		g.fillRect(0, 0, health.getHealth()*width/maxValue, height);
-		bar.draw(0,0,width, height);
+		bar.draw(0,0,health.getHealth()*width/maxValue, height,0,0, bar.getTextureWidth()*health.getHealth()/maxValue, bar.getTextureHeight());
 	}
 }

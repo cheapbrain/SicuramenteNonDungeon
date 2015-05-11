@@ -1,11 +1,17 @@
 package happypotatoes.slickgame.world;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.CustomRender;
+import happypotatoes.slickgame.Light;
+import happypotatoes.slickgame.LightingBello;
 import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
@@ -15,11 +21,12 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
+import happypotatoes.slickgame.worldgenerator.Room;
 
 public class World {
 	public GameContainer container;
 	private Camera camera;
-	private LightingBrutto lighting;
+	private LightingBello lighting;
 	private int[][] terrainType;
 	private int[][] terrain;
 	private int size;
@@ -43,11 +50,17 @@ public class World {
 		}
 		Generator gen = new Generator();
 		
+		List<Entity> mobs = gen.getAllMobs();
+		for (Entity e:mobs)
+			es.addEntity(e);
+		
 		int[][] terrain = gen.getTerrain();
 		
 		size=terrain.length;
 		terrainType = terrain;
 		this.terrain = new int[size][size];
+		
+		lighting = new LightingBello(terrainType);
 		
 		for (y=size-1;y>-1;y--)
 			for (x=0;x<size;x++) 
@@ -109,16 +122,20 @@ public class World {
 		int ch = ey-sy;
 		if (sx<0) sx = 0;
 		if (sy<0) sy = 0;
-		if (ex>size) ex = size;
-		if (ey>size) ey = size;
+		if (ex>=size) ex = size-1;
+		if (ey>=size) ey = size-1;
 		
-		lighting.calculateLights(terrainType, cw, ch, sx, sy, ex, ey);
+		float[][] lightMap = lighting.calculate();
 		
 		for (int y=sy;y<ey;y++)
 			for (int x=sx;x<ex;x++)
 				if (terrain[x][y]>0) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
-					m.getTexture().draw(x, y, 1, 1, new Color(1f, 1f, 1f, lighting.lightMap[x-sx][y-sy]));
+					CustomRender.draw(m.getTexture(), x, y, 1, 1,
+							lightMap[x][y],
+							lightMap[x][y+1],
+							lightMap[x+1][y+1],
+							lightMap[x+1][y]);
 				}
 
 		EntityRenderer.render(g);
@@ -196,10 +213,7 @@ public class World {
 			}
 		}
 	}
-		
-	public void setLighting(LightingBrutto light){
-		lighting = light;
-	}
+	
 	public boolean isWalkable(float x, float y) {
 		return MaterialManager.getMaterial(terrain[(int)x][(int)y]).isWalkable();
 	}

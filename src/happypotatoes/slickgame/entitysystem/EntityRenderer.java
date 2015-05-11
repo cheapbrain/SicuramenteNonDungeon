@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.entitysystem;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.LightingBello;
 import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
 import happypotatoes.slickgame.geom.Rectangle;
@@ -40,7 +41,7 @@ public class EntityRenderer {
 	}
 
 	public static void render(Graphics g) {
-		float[][] map = LightingBrutto.lighting.lightMap;
+		LightingBello light = LightingBello.lighting;
 		Rectangle rect = Camera.camera.getRekt();
 		int sx = (int)rect.x0;
 		int sy = (int)rect.y0;
@@ -51,18 +52,12 @@ public class EntityRenderer {
 		float i = 0;
 		
 		if (hover!=null&&hover!=click) {
-			i = 0;
-			if (hover.x>=sx&&hover.x<sx+map.length&&
-					hover.y>=sy&&hover.y<sy+map[0].length)
-					i = map[(int)hover.x-sx][(int)hover.y-sy];
+			i = light.getColorAt(hover.x, hover.y);
 			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, new Color(1, 0, 0.7f, i));
 		}
 		
 		if (click!=null) {
-			i = 0;
-			if (click.x>=sx&&click.x<sx+map.length&&
-					click.y>=sy&&click.y<sy+map[0].length)
-					i = map[(int)click.x-sx][(int)click.y-sy];
+			i = light.getColorAt(click.x, click.y);
 			select.draw(click.x-.5f, click.y-.25f, 1, .5f, new Color(0, 1, 0.7f, i));
 		}
 		
@@ -70,12 +65,8 @@ public class EntityRenderer {
 			
 			
 			Entity e = task.owner;
-			
-			i = 0;
-			if (e.x>=sx&&e.x<sx+map.length&&
-				e.y>=sy&&e.y<sy+map[0].length)
-				i = map[(int)e.x-sx][(int)e.y-sy];
-			
+
+			i = light.getColorAt(e.x, e.y);
 			task.render(i);
 		}
 	}
