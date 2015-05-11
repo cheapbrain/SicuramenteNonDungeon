@@ -9,9 +9,9 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public class Defend extends Component{
-	private float animationTime = 0;
+	public float animationTime = 0;
 	private Walker walker;
-	private float animationTotalTime;
+	public float animationTotalTime;
 	public float mitigation; //da 0 a 1
 	
 	public Defend(Entity owner, float priority, Walker walker, WalkerRender walkerRender) {

@@ -9,16 +9,16 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
-	private int timeAttack = 0;
+	public int animationTime = 0;
 	private Walker walker;
-	private int totalTimeAttack = 0;
+	public int animationTotalTime = 0;
 	private float damage;
 	private Entity focus;
 	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float damage) {
 		super(owner, priority);
 		this.walker = walker;
 		this.damage = damage;
-		totalTimeAttack = walkerRender.getFrames(2)* walkerRender.getFrameTime();
+		animationTotalTime = walkerRender.getFrames(2)* walkerRender.getFrameTime();
 	}
 	
 	public void attack(Entity focus) {
@@ -28,14 +28,16 @@ public class Attack extends Component{
 	
 	public void update(World w, long delta) {
 		if(walker.state==2){
-			timeAttack+=delta;
-			if(timeAttack>=totalTimeAttack){
+			animationTime+=delta;
+			if(animationTime>=animationTotalTime){
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
-				EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-focus.getComponent(Defend.class).mitigation));
+				if(focus.getComponent(Defend.class)!=null)
+						EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
+					else EnemyHp.setHealth(EnemyHp.getHealth()-damage);
 				walker.state=0;
-				timeAttack=0;
+				animationTime=0;
 			} else{
 			}
 		}

@@ -26,7 +26,9 @@ public class AIFighter extends AI{
 	@Override
 	public void update(World w, long delta) {
 		inSight = getEntitiesInSight();
-		focus = getFocus();	
+		focus = getFocus();
+		Attack atk = null;
+		if(focus!=null) atk = focus.getComponent(Attack.class);
 		time -= delta;
 		if((focus != null)&&(focus.getComponent(Walker.class).state!=3)) {
 			if (time<=0) {
@@ -34,12 +36,16 @@ public class AIFighter extends AI{
 				dx = focus.x-owner.x;
 				dy = focus.y-owner.y;
 				d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
-				//if(focusAttack)
-				if(getDistance(focus)<1.5f){
+				walker.state=1;
+				if(getDistance(focus)<1.5f&&walker.state!=4){
 					walker.state=2;
+					if(atk!=null)
+						if(atk.animationTime>0
+								&&(atk.animationTotalTime-atk.animationTime)>owner.getComponent(Defend.class).animationTotalTime)
+							if(walker.state!=5) walker.state=4;						
 				}
 			}
-			goTo(dx,dy,d);	
+			if(walker.state==1) goTo(dx,dy,d);	
 		}
 	}
 	
