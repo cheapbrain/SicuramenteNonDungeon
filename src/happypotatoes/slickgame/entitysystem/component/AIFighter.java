@@ -41,7 +41,6 @@ public class AIFighter extends AI{
 			int r = state.update(delta);
 			
 			if(r!=0){
-				//if(r==1) walker.state=3;
 				try {
 					state=(states[state.pointers[r-1]-1].getClass().getDeclaredConstructor(AI.class,Integer[].class).newInstance(this,states[state.pointers[r-1]-1].pointers));
 					
@@ -49,7 +48,6 @@ public class AIFighter extends AI{
 					e.printStackTrace();
 				} 
 			}
-			//if(state instanceof Idle) walker.state=3;
 		}
 		
 	}

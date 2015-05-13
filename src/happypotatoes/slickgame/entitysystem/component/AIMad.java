@@ -4,41 +4,49 @@ import java.util.Iterator;
 import java.util.List;
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.states.Chase;
+import happypotatoes.slickgame.states.Fight;
+import happypotatoes.slickgame.states.Idle;
+import happypotatoes.slickgame.states.State;
 import happypotatoes.slickgame.world.World;
 
 public class AIMad extends AI{
-	
 	List<Entity> inSight;
-	long delay = 100;
-	float dx, dy, d;
+	State state;
+	State states[]={new Idle(this,2), new Chase(this,1,3), new Fight(this,1,2)};
 	
 	float speed;
 	
 	public AIMad(Entity owner, float priority, Walker walker,
 			Movement movement, float speed) {
 		super(owner, priority, walker, movement, speed);
+		try {
+			state=states[0].getClass().getDeclaredConstructor(AI.class,Integer[].class).newInstance(this,states[0].pointers);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 	
 	@Override
 	public void update(World w, long delta) {
-		inSight = getEntitiesInSight();
-		focus = getFocus();	
-		time -= delta;
-		if(focus != null) {
-			if (time<=0) {
-				time = delay;
-				dx = focus.x-owner.x;
-				dy = focus.y-owner.y;
-				d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
-				if(getDistance(focus)<1.5f){
-					walker.state=2;
+		//update AI
+		if(walker.state!=3){
+				inSight = getEntitiesInSight();
+				focus = getFocus();
+				time -= delta;
+				//update stati
+				int r = state.update(delta);
+				
+				if(r!=0){
+					try {
+						state=(states[state.pointers[r-1]-1].getClass().getDeclaredConstructor(AI.class,Integer[].class).newInstance(this,states[state.pointers[r-1]-1].pointers));
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
 				}
 			}
-			goTo(dx,dy,d);
-			
-			
-		}
 	}
 
 	@Override

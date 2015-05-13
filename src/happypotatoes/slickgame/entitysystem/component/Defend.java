@@ -1,11 +1,7 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.util.List;
-import java.util.Random;
-
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public class Defend extends Component{
@@ -21,10 +17,9 @@ public class Defend extends Component{
 	}
 	
 	public void update(World w, long delta) {
-		if(walker.state==4||walker.state==5){
+		if(walker.state==4){
 			if(animationTime>animationTotalTime){
 				mitigation = 0.99f;
-				walker.state = 5;
 			} else{
 				animationTime+=delta;	
 			}
