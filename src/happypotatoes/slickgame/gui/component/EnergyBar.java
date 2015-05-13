@@ -20,12 +20,10 @@ public class EnergyBar extends Component{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		setPosition((int)(k*838),(int)(k*16));
+		setPosition((int)(k*1132),(int)(k*197));
 		setSize((int)(k*bar.getWidth()), (int)(k*bar.getHeight()));
 		}
 	protected void paintComponent(Graphics g) {
-		g.setColor(new Color(0,0,0,1));
-		g.fillRect(0, 0, energy.getEnergy()*width/maxValue, height);
-		bar.draw(0,0,width, height);
+		bar.draw(0,height*(1-energy.getEnergy()/maxValue),width,height, 0, bar.getHeight()*(1-energy.getEnergy()/maxValue), bar.getWidth(), bar.getHeight());
 	}
 }

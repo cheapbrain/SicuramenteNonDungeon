@@ -1,13 +1,10 @@
 package happypotatoes.slickgame;
 
-import happypotatoes.slickgame.entity.Entity;
-import happypotatoes.slickgame.items.ItemArmor;
-
 
 public class Attributes {
 
 
-	private Entity Owner;
+	
 	
 	private float forza; //da 0 a 25 -- 8 è un punteggio normale/di base
 	private float destrezza;
@@ -31,18 +28,13 @@ public class Attributes {
 	private float mitigazione; //da 0 a 100
 	
 	
-	public void calcolaMitigazione(ItemArmor a){
+	public void calcolaMitigazione(){
 		Float mit=(float) 0;
 		mit=(float) ((Math.sqrt(costituzione/8)*10)-10)*3; //ci abbiamo perso un'ora
 		//mit=mit+a.getmitigation();
 		if (mit>100) mit=(float) 100;
 	}
 	
-	public void calcolaMitigazione(){ //se non ha armatura
-		Float mit=(float) 0;
-		mit=(float) ((Math.sqrt(costituzione/8)*10)-10)*3;
-		if (mit>100) mit=(float) 100;
-	}
 	
 	public void incrementamaestria(int tipo){ //tipo: 1=taglio, 2=contundente, 3=arco, 4=armadafuoco; 5=arcana;
 		switch (tipo){

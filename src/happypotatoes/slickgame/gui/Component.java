@@ -1,12 +1,13 @@
 package happypotatoes.slickgame.gui;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Component implements MouseListener{
-	
+	protected Image background = null;
 	protected TrueTypeFont font = Fonts.font1;
 	protected boolean focusable = true;
 	protected boolean visible = true;
@@ -31,7 +32,12 @@ public class Component implements MouseListener{
 	}
 	
 	protected void paintComponent(Graphics g) {
-		
+		if(background!=null){
+			background.draw(0,0,width, height);
+		}
+	}
+	public void setBackground(Image img){
+		background=img;
 	}
 	
 	public boolean sendMouseEvent(MouseEvent e) {

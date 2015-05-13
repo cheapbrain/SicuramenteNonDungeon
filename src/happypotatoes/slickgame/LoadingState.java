@@ -78,9 +78,6 @@ public class LoadingState extends BasicGameState {
 		case 6:
 			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 			break;
-		case 7:
-			world.add(FighterEntity.create(3,3));
-			break;
 		case 8:
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
 			Camera.camera.setTarget(player);
@@ -95,11 +92,7 @@ public class LoadingState extends BasicGameState {
 			game.enterState(1);
 			break;
 		default:
-			try {
-				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
 		}
 		if (step<100)
 		step++;

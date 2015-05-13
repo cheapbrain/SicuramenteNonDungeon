@@ -14,12 +14,13 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.world.World;
 
 public abstract class AI extends Component {
-	Walker walker;
-	Movement movement;
-	int intelligence;
-	float speed, time;
-	Random r = new Random();
-	Entity focus=null;
+	public Walker walker;
+	public Movement movement;
+	public int intelligence;
+	public float speed;
+	public float time;
+	public Random r = new Random();
+	public Entity focus=null;
 		
 	
 	public AI(Entity owner, float priority, Walker walker, Movement movement,  float speed) {
@@ -39,7 +40,7 @@ public abstract class AI extends Component {
 		return (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 	}
 	
-	public void goTo(float dx, float dy, float d){
+	public int goTo(float dx, float dy, float d){ //0 raggiunto, 1 non raggiunto
 		if (d>1.4&&walker.state<2) {
 			float nsx = dx/d*speed;
 			float nsy = dy/d*speed;
@@ -47,9 +48,13 @@ public abstract class AI extends Component {
 			movement.speedy += nsy;
 			walker.setFacing(nsx, nsy);
 			walker.state = 1;
-		} else if (walker.state==1){
-			walker.state = 0;
-		}
+			return 1;
+		} 
+		else{ 
+			if (walker.state==1)
+				walker.state = 0;
+			return 0;
+			}
 	}
 	
 	public List<Entity> getEntitiesInSight(){

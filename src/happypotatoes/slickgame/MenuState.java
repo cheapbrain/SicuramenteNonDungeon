@@ -32,8 +32,6 @@ public class MenuState extends BasicGameState{
 			
 			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
 			ps.addEmitter(pe);
-			
-			
 			background  = new Image("./res/menu/BackGround.png");
 			foreground  = new Image("./res/menu/ForeGround.png");
 			height=Toolkit.getDefaultToolkit().getScreenSize().height;

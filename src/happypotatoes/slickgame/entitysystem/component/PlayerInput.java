@@ -8,6 +8,7 @@ import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {
@@ -73,6 +74,7 @@ public class PlayerInput extends Component {
 			float msx = 0;
 			float msy = 0;
 			if (d<1&&interactTarget!=null) {
+				
 				walker.setFacing(dx, dy);
 				Interact inter = interactTarget.getComponent(Interact.class);
 				Health health = interactTarget.getComponent(Health.class);
@@ -81,6 +83,13 @@ public class PlayerInput extends Component {
 					interactTarget = null;
 					walker.state = 0;
 				} else if (health!=null){
+					for(int i=0;i<10;i++){
+						float angle = (float) (Math.random()+Math.PI/5*i);
+						float speedx = (float) Math.cos(angle)*.001f;
+						float speedy = (float) Math.sin(angle)*.001f;
+						EntitySystem.getInstance().addEntity(ParticleBuilder.create(interactTarget.x, interactTarget.y, 2, 5000, speedx, speedy, 0, 0.99999f));
+					}
+					
 					owner.getComponent(Attack.class).attack(interactTarget);
 				}
 				movement.speedx = 0;
