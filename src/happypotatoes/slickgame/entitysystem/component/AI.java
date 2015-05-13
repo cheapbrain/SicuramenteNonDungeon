@@ -31,8 +31,7 @@ public abstract class AI extends Component {
 	}
 
 	@Override
-	public void update(World w, long delta) {
-	}
+	public abstract void update(World w, long delta);
 	
 	public float getDistance(Entity focus){
 		float dx = focus.x-owner.x;

@@ -12,18 +12,26 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.particles.ParticleEmitter;
+import org.newdawn.slick.particles.ParticleSystem;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MenuState extends BasicGameState{
 	private Image background, foreground;
+	private ParticleSystem ps;
 	private Button play, exit;
 	private int width =0;
 	private int height =0;
 	private UI ui;
-	private int i=0, time=0;
-	public void enter(GameContainer container, final StateBasedGame game)	throws SlickException {
-	try {
+	private float i=0; 
+	private int  time=0, max=1500;
+	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
+		try {
+			ps = new ParticleSystem(new Image("./res/light.png"), 1000);
+			
+			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
+			ps.addEmitter(pe);
 			background  = new Image("./res/menu/BackGround.png");
 			foreground  = new Image("./res/menu/ForeGround.png");
 			height=Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -66,18 +74,19 @@ public class MenuState extends BasicGameState{
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		background.draw(0,0,width,height);
+		ps.render();
 		ui.render(g);
 		foreground.draw(0,0,width,height);
-		g.setColor(new Color(0,0,0,255-i));
+		g.setColor(new Color(0,0,0,i));
 		g.fillRect(0, 0, width, height);
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		time+=delta;
-		if((time>=10)&&(i<=255)){
-			time=0;
-			i++;
+		ps.update(delta);
+		if((time<max)){
+			i = 1-(float)time/max;
+			time += delta;
 		}
 	}
 

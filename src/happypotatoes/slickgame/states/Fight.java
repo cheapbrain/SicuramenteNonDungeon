@@ -2,6 +2,7 @@ package happypotatoes.slickgame.states;
 
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.Attack;
+import happypotatoes.slickgame.entitysystem.component.Defend;
 import happypotatoes.slickgame.entitysystem.component.Health;
 
 public class Fight extends State {
@@ -24,6 +25,7 @@ public class Fight extends State {
 			if(thisHealth.getHealth()<thisHealth.getMaxHealth()/10f)
 				return 3;
 		}
+		Defend thisDefend = owner.owner.getComponent(Defend.class);
 		
 		
 		//componenti del focus
@@ -39,9 +41,11 @@ public class Fight extends State {
 		else{
 			return 1;
 		}
-		if(atk!=null){
-			if(atk.animationTime>0)
-				if(owner.walker.state!=5) owner.walker.state=4;
+		if(thisDefend!=null){
+			if(atk!=null){
+				if(atk.animationTime>0)
+					if(owner.walker.state!=5) owner.walker.state=4;
+			}
 		}
 		return 0;
 		
