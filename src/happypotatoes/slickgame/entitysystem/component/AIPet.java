@@ -55,7 +55,7 @@ public class AIPet extends AI{
 	
 		
 	@Override
-	public void goTo(float dx, float dy, float d){
+	public int goTo(float dx, float dy, float d){
 		if (d>1.4&&walker.state<2) {
 			float nsx = dx/d*speed*(d-1.2f);
 			float nsy = dy/d*speed*(d-1.2f);;
@@ -63,8 +63,11 @@ public class AIPet extends AI{
 			movement.speedy += nsy;
 			walker.setFacing(nsx, nsy);
 			walker.state = 1;
-		} else if (walker.state==1){
-			walker.state = 0;
+			return 1;
+		} else{
+			if (walker.state==1)
+				walker.state = 0;
+			return 0;
 		}
 	}
 }

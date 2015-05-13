@@ -38,4 +38,7 @@ public class Health extends Component{
 	public void setHealthRegeneration(float healthRegeneration) {
 		this.healthRegeneration = healthRegeneration;
 	}
+	public float getMaxHealth() {
+		return maxHealth;
+	}
 }

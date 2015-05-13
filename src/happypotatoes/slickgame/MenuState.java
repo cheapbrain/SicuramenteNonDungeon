@@ -22,7 +22,7 @@ public class MenuState extends BasicGameState{
 	private int height =0;
 	private UI ui;
 	private int i=0, time=0;
-	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
+	public void enter(GameContainer container, final StateBasedGame game)	throws SlickException {
 	try {
 			background  = new Image("./res/menu/BackGround.png");
 			foreground  = new Image("./res/menu/ForeGround.png");
