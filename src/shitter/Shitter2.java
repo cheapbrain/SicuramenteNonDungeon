@@ -116,7 +116,7 @@ public class Shitter2 implements ActionListener{
 					try {
 						BufferedImage sprite;
 						if (frames>1)
-							sprite = ImageIO.read(new File(path+name+dirs[i]+" ("+(k+1)+").png"));
+							sprite = ImageIO.read(new File(path+name+" "+dirs[i]+" ("+(k+1)+").png"));
 						else
 							sprite = ImageIO.read(new File(path+name+dirs[i]+".png"));
 						g.drawImage(sprite, k*width, i*height, null);
