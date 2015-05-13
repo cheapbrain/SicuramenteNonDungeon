@@ -18,6 +18,7 @@ import happypotatoes.slickgame.material.MaterialManager;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
@@ -101,9 +102,8 @@ public class World {
 		terrain = this.terrain;
 		
 		
-				
+
 		update(container, 0);
-		System.out.println(es.getAll().size());
 	}
 		
 	boolean renderquad = false;
@@ -145,7 +145,6 @@ public class World {
 	
 	public void update(GameContainer container, int delta) {
 		if (delta>maxdelay) delta = maxdelay;
-		
 		EntityRenderer.clear();
 		es.update(this, delta);
 		

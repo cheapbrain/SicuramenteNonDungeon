@@ -15,6 +15,9 @@ public class Slot {
 	public Inventory getOwner(){
 		return owner;
 	}
+	public int HowManyStacked(){
+		return nItems;
+	}
 	public boolean isFree(){
 		if(idItem.equals("")){
 			return true;

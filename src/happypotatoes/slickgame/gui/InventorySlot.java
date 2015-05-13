@@ -37,5 +37,9 @@ public class InventorySlot extends Component{
 			if (UI.mb0)
 				slot.getOwner().takeOut(slot);
 		img.draw(0,0,width,height);
+		int n = slot.HowManyStacked();
+		g.setColor(Color.black);
+		g.setFont(font);
+		if(n>0)	g.drawString(slot.HowManyStacked()+"",0,0);
 	}
 }

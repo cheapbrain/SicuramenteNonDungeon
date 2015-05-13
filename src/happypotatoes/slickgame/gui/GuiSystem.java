@@ -28,19 +28,29 @@ public class GuiSystem {
 	private static Window hud(UI ui, Entity player){
 		Image image = null;
 		try {
-			image = new Image("./res/GUI.png");
+			image = new Image("./res/Background.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		int xNuova = ui.width*2/3;
+		int xNuova = ui.width;
 		Window hud = new Window("hud", 0, 0, xNuova, xNuova*image.getHeight()/image.getWidth());
 		hud.setVerticalAlign(Component.SOUTH);
 		hud.setHorizontalAlign(Component.CENTER);
 		hud.setBackground(image);
-		float k = (ui.width*2f/3)/image.getWidth();
+		float k = (float)(ui.width)/image.getWidth();
 		hud.add(new HealthBar((Health) player.getComponent(Health.class), k));
 		hud.add(new EnergyBar((Energy) player.getComponent(Energy.class), k));
+		Component cp = new Component();
+		cp.setPosition(hud.x, hud.y);
+		cp.setSize(hud.width, hud.height);
+		try {
+			cp.setBackground(new Image("./res/ForegroundGui.png"));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		hud.add(cp);
 		ui.add(hud);	
+		
 		return hud;
 	}
 	private static InventoryWindow inventory(UI ui, Entity player){

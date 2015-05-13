@@ -43,11 +43,12 @@ public class LightingBello {
 		float kx0 = 1-kx1;
 		float ky1 = y-y0;
 		float ky0 = 1-ky1;
-		
-		float it0 = lightMap[x0][y0]*kx0+lightMap[x1][y0];
-		float it1 = lightMap[x0][y1]*kx0+lightMap[x1][y1];
-		
-		return it0*ky0+it1*ky1;
+		if(x0>=0&&y0>=0&&x1<lightMap.length&&y1<lightMap[0].length){
+			float it0 = lightMap[x0][y0]*kx0+lightMap[x1][y0];
+			float it1 = lightMap[x0][y1]*kx0+lightMap[x1][y1];
+			return it0*ky0+it1*ky1;
+		}else 
+			return 0;
 	}
 	
 	public void updateLight(Light light) {

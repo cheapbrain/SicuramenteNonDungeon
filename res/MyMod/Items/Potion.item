@@ -1,0 +1,9 @@
+#
+#Thu Apr 02 09:53:34 CEST 2015
+Type=1
+BasicDescription=Emette un gradevole odore
+AdvancedDescription=Carica 10 punti vita
+MaxStack=5
+Value=10
+Damage=100
+Weight=100
