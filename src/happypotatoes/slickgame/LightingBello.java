@@ -44,8 +44,8 @@ public class LightingBello {
 		float ky1 = y-y0;
 		float ky0 = 1-ky1;
 		
-		float it0 = lightMap[x0][y0]*kx0+lightMap[x1][y0];
-		float it1 = lightMap[x0][y1]*kx0+lightMap[x1][y1];
+		float it0 = lightMap[x0][y0]*kx0+lightMap[x1][y0]*kx1;
+		float it1 = lightMap[x0][y1]*kx0+lightMap[x1][y1]*kx1;
 		
 		return it0*ky0+it1*ky1;
 	}
