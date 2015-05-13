@@ -24,12 +24,13 @@ public class MenuState extends BasicGameState{
 	private int width =0;
 	private int height =0;
 	private UI ui;
-	private float i=0; 
+	private float i=1; 
 	private int  time=0, max=1500;
+	private StateBasedGame basedGame;
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
 		try {
 			ps = new ParticleSystem(new Image("./res/light.png"), 1000);
-			
+			basedGame = game;
 			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
 			ps.addEmitter(pe);
 			background  = new Image("./res/menu/BackGround.png");
@@ -40,17 +41,15 @@ public class MenuState extends BasicGameState{
 			e.printStackTrace();
 		}
 		ui = new UI(container, game);
-		play = new Button("",0,0,180,50,"./res/menu/Play");
-		
-		play.setVerticalAlign(Component.CENTER);
+		play = new Button("",0,height*693/1366,180,50,"./res/menu/Play");
 		play.setHorizontalAlign(Component.CENTER);
 		play.setActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(Component source) {
-				game.enterState(2);
+				basedGame.enterState(2);
 			}
 		});
-		exit = new Button("",0,height/19*15,140,40,"./res/menu/Exit");
+		exit = new Button("",0,height*1120/1366,140,40,"./res/menu/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
 		exit.setActionListener(new ActionListener() {
 			@Override

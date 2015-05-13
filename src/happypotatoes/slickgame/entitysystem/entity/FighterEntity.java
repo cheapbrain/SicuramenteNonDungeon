@@ -3,7 +3,6 @@ package happypotatoes.slickgame.entitysystem.entity;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.AI;
-import happypotatoes.slickgame.entitysystem.component.AIFighter;
 import happypotatoes.slickgame.entitysystem.component.AIMad;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Defend;
@@ -26,7 +25,7 @@ public class FighterEntity {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 170, 189, -1.3f, -2.4f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 278, 237, -1.3f, -2.4f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Attack attack = new Attack(e, 0, walker, walkerRender, 5);
 		Health health = new Health(e, 0, 200, 0);
