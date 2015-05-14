@@ -97,8 +97,6 @@ public class World {
 								value += 5;
 							else if (terrain[x+1][y+1]==0)
 								value += 6;
-							else
-								value = -MaterialManager.WALLS;
 						}
 						
 						this.terrain[x][y] = value+MaterialManager.WALLS;
@@ -195,7 +193,6 @@ public class World {
 		if (delta>maxdelay) delta = maxdelay;
 		EntityRenderer.clear();
 		es.update(this, delta);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		
 		
 		camera.update(delta);
