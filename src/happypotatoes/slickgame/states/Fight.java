@@ -42,10 +42,9 @@ public class Fight extends State {
 			return 1;
 		}
 		if(thisDefend!=null){
-			if(atk!=null){
-				if(atk.animationTime>0)
-					if(owner.walker.state!=5) owner.walker.state=4;
-			}
+			if(atk!=null)
+				if(atk.isAttacking())
+					owner.walker.state=4;
 		}
 		return 0;
 		

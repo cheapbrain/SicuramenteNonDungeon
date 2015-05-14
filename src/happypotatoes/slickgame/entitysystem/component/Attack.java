@@ -41,5 +41,11 @@ public class Attack extends Component{
 			} else{
 			}
 		}
+		else animationTime=0;
+	}
+	
+	public boolean isAttacking(){
+		if(walker.state==2&&animationTime>0) return true;
+		else return false;
 	}
 }
