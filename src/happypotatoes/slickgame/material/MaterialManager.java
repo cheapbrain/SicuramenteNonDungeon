@@ -14,7 +14,7 @@ public class MaterialManager {
 		
 	public static void init() throws SlickException {
 
-		Image texture = new Image("./res/sheet.png");
+		Image texture = new Image("./res/sheet3.png");
 		SpriteSheet sheet = new SpriteSheet(texture, 64, 64);
 		texture.setFilter(Image.FILTER_NEAREST);
 		materials = new ArrayList<Material>();
@@ -28,13 +28,22 @@ public class MaterialManager {
 				materials.add(new Material(sheet.getSprite(x, y), true, 0, 1));
 
 		WALLS = materials.size();
-		for (int y=0;y<4;y++)
-			for (int x=0;x<3;x++)
-				materials.add(new Material(sheet.getSprite(x+3, y), false, 0, 1));
 
+
+		for (int x=0;x<3;x++)
+			materials.add(new Material(sheet.getSprite(x+3, 0), false, -1, 1));
+		
+
+		for (int x=0;x<3;x++)
+			materials.add(new Material(sheet.getSprite(x+3, 1), false, -1, 1));
+		
+
+		for (int x=0;x<3;x++)
+			materials.add(new Material(sheet.getSubImage((x+3)*64, 128, 64, 128), false, -1, 2));
+		
 		for (int y=0;y<2;y++)
 			for (int x=0;x<2;x++)
-				materials.add(new Material(sheet.getSprite(x+3, y+3), false, 0, 1));
+				materials.add(new Material(sheet.getSprite(x+3, y+4), false, -1, 1));
 				
 	}
 

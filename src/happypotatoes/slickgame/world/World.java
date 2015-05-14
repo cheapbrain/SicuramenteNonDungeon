@@ -1,7 +1,10 @@
 package happypotatoes.slickgame.world;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -18,6 +21,7 @@ import happypotatoes.slickgame.material.MaterialManager;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.RenderComponent;
 import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
 import happypotatoes.slickgame.geom.Rectangle;
@@ -86,13 +90,13 @@ public class World {
 						
 						if (value==4) {
 							if (terrain[x-1][y-1]==0)
-								value += 8;
+								value += 7;
 							else if (terrain[x+1][y-1]==0)
-								value += 9;
+								value += 8;
 							else if (terrain[x-1][y+1]==0)
-								value += 10;
+								value += 5;
 							else if (terrain[x+1][y+1]==0)
-								value += 11;
+								value += 6;
 							else
 								value = -MaterialManager.WALLS;
 						}
@@ -106,6 +110,7 @@ public class World {
 		update(container, 0);
 	}
 		
+	Queue<RenderComponent> renderqueue = new LinkedBlockingQueue<RenderComponent>();
 	boolean renderquad = false;
 	public void render(Graphics g) {
 
@@ -131,15 +136,58 @@ public class World {
 			for (int x=sx;x<ex;x++)
 				if (terrain[x][y]>0) {
 					Material m = MaterialManager.getMaterial(terrain[x][y]);
-					CustomRender.draw(m.getTexture(), x, y, 1, 1,
-							lightMap[x][y],
-							lightMap[x][y+1],
-							lightMap[x+1][y+1],
-							lightMap[x+1][y]);
+					if (m.getOffset()==0) {
+						CustomRender.draw(m.getTexture(), x, y+m.getOffset(), 1, m.getHeight(),
+								lightMap[x][y],
+								lightMap[x][y+1],
+								lightMap[x+1][y+1],
+								lightMap[x+1][y]);
+					}
 				}
-
-		EntityRenderer.render(g);
-
+		
+		
+		List<RenderComponent> sprites = EntityRenderer.getTaskes();
+		renderqueue.clear();
+		for (RenderComponent sprite:sprites) {
+			renderqueue.add(sprite);
+		}
+		
+		for (int y=sy;y<ey;y++) {
+			while (!renderqueue.isEmpty()) {
+				RenderComponent sprite = renderqueue.peek();
+				if (sprite.depth< y+1) {
+					EntityRenderer.renderTask(sprite);
+					renderqueue.poll();
+				} else 
+					break;
+			}
+			
+			for (int x=sx;x<ex;x++) 
+				if (terrain[x][y]>0) {
+					Material m = MaterialManager.getMaterial(terrain[x][y]);
+					if (m.getOffset()<0) {
+						if (m.getHeight()==1) {
+							CustomRender.draw(m.getTexture(), x, y+m.getOffset(), 1, m.getHeight(),
+									lightMap[x][y],
+									lightMap[x][y+1],
+									lightMap[x+1][y+1],
+									lightMap[x+1][y]);
+						} else {
+							CustomRender.draw(m.getTexture().getSubImage(0, 0, 64, 64), x, y+m.getOffset(), 1, 1,
+									lightMap[x][y],
+									lightMap[x][y+1],
+									lightMap[x+1][y+1],
+									lightMap[x+1][y]);
+							CustomRender.draw(m.getTexture().getSubImage(0, 64, 64, 64), x, y+m.getOffset()+1, 1, 1,
+									lightMap[x][y+1],
+									lightMap[x][y+1],
+									lightMap[x+1][y+1],
+									lightMap[x+1][y+1]);
+						}
+					}
+					
+				}
+		}
 		g.popTransform();
 	}
 	
@@ -147,6 +195,7 @@ public class World {
 		if (delta>maxdelay) delta = maxdelay;
 		EntityRenderer.clear();
 		es.update(this, delta);
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		
 		
 		camera.update(delta);

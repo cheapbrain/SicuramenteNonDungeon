@@ -55,4 +55,8 @@ public class Rectangle {
 				y0<=y&&
 				y1>=y;
 	}
+
+	public void move(float x, float y) {
+		setPosition(x+x0, y+y0);
+	}
 }

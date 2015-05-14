@@ -1,6 +1,5 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 
 import happypotatoes.slickgame.Camera;
@@ -85,9 +84,9 @@ public class PlayerInput extends Component {
 				} else if (health!=null){
 					for(int i=0;i<10;i++){
 						float angle = (float) (Math.random()+Math.PI/5*i);
-						float speedx = (float) Math.cos(angle)*.001f;
-						float speedy = (float) Math.sin(angle)*.001f;
-						EntitySystem.getInstance().addEntity(ParticleBuilder.create(interactTarget.x, interactTarget.y, 2, 5000, speedx, speedy, 0, 0.99999f));
+						float speedx = (float) Math.cos(angle)*.004f;
+						float speedy = (float) Math.sin(angle)*.004f;
+						EntitySystem.getInstance().addEntity(ParticleBuilder.create("./res/blood.png", interactTarget.x, interactTarget.y, 1, 500, speedx, speedy, 0, 0.99999f, .1f));
 					}
 					
 					owner.getComponent(Attack.class).attack(interactTarget);

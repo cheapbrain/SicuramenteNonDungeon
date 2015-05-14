@@ -35,8 +35,8 @@ public class MenuState extends BasicGameState{
 			ps.addEmitter(pe);
 			background  = new Image("./res/menu/BackGround.png");
 			foreground  = new Image("./res/menu/ForeGround.png");
-			height=Toolkit.getDefaultToolkit().getScreenSize().height;
-			width=Toolkit.getDefaultToolkit().getScreenSize().width;
+			width=container.getWidth();
+			height=container.getHeight();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -2,8 +2,6 @@ package happypotatoes.slickgame.entitysystem.component;
 
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
-import happypotatoes.slickgame.gui.component.HealthBar;
 import happypotatoes.slickgame.world.World;
 
 public class Health extends Component{

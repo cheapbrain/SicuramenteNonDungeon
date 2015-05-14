@@ -21,7 +21,7 @@ public class Wolf {
 	static float speed = 0.002f;
 	
 	public static Entity create() {
-		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"");
+		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"wolf");
 		Movement movement = new Movement(e, 0);
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);

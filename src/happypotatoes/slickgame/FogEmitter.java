@@ -26,7 +26,7 @@ public class FogEmitter implements ParticleEmitter{
 			timer = interval;
 			Particle p = system.getNewParticle(this, ttl);
 			
-			float minc = 0.2f;
+			float minc = 0.4f;
 			float rangec = 0.4f;
 			float c = (float) (Math.random()*rangec+minc);
 			

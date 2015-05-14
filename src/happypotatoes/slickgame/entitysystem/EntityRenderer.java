@@ -1,11 +1,9 @@
 package happypotatoes.slickgame.entitysystem;
 
-import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.LightingBello;
-import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
-import happypotatoes.slickgame.geom.Rectangle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +14,7 @@ import org.newdawn.slick.SlickException;
 
 
 public class EntityRenderer {
-	private static List<RenderComponent> tasks = new LinkedList<RenderComponent>();
+	private static List<RenderComponent> tasks = new ArrayList<RenderComponent>();
 	private static Image select;
 	public static Entity click = null, hover = null;
 	
@@ -42,12 +40,6 @@ public class EntityRenderer {
 
 	public static void render(Graphics g) {
 		LightingBello light = LightingBello.lighting;
-		Rectangle rect = Camera.camera.getRekt();
-		int sx = (int)rect.x0;
-		int sy = (int)rect.y0;
-		if (sx<0) sx = 0;
-		if (sy<0) sy = 0;
-		
 
 		float i = 0;
 		
@@ -62,13 +54,27 @@ public class EntityRenderer {
 		}
 		
 		for (RenderComponent task : tasks) {
-			
-			
 			Entity e = task.owner;
 
 			i = light.getColorAt(e.x, e.y);
 			task.render(i);
 		}
+	}
+	
+	public static void renderTask(RenderComponent task) {
+		LightingBello light = LightingBello.lighting;
+		Entity e = task.owner;
+		float i = light.getColorAt(e.x, e.y);
+		if (e==click) {
+			select.draw(click.x-.5f, click.y-.25f, 1, .5f, new Color(0, 1, 0.7f, i));
+		} else if (e==hover) {
+			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, new Color(1, 0, 0.7f, i));
+		}
+		task.render(i);
+	}
+	
+	public static List<RenderComponent> getTaskes(){
+		return tasks;
 	}
 	
 	public static void clear() {
