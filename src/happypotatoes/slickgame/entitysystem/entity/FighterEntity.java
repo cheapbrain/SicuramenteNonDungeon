@@ -21,16 +21,16 @@ public class FighterEntity {
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Stupid");
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox = new HitBox(e, .6f, .6f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 278, 237, -1.3f, -2.4f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 278, 237, -2.2f, -2.2f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Attack attack = new Attack(e, 0, walker, walkerRender, 5);
 		Health health = new Health(e, 0, 200, 0);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.8f);
 		return e;
 	}
 	

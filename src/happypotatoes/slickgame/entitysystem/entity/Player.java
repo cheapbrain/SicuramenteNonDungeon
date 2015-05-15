@@ -21,7 +21,7 @@ public class Player {
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Player");
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox = new HitBox(e, .4f, .3f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
@@ -32,8 +32,7 @@ public class Player {
 		Energy energy = new Energy(e, 0, 100, 5);
 		Inventory inventory = new Inventory(e,0, 16);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
-		WeaponRender weaponRender = new WeaponRender(e, "res/MyMod/Sprites/Items/Spada.png", 69, 39, -1, -.4f);
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.9f, .8f, 2);
 		return e;
 	}
 }

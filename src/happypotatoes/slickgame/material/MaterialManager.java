@@ -41,9 +41,11 @@ public class MaterialManager {
 		for (int x=0;x<3;x++)
 			materials.add(new Material(sheet.getSubImage((x+3)*64, 128, 64, 128), false, -1, 2));
 		
-		for (int y=0;y<2;y++)
-			for (int x=0;x<2;x++)
-				materials.add(new Material(sheet.getSprite(x+3, y+4), false, -1, 1));
+		materials.add(new Material(sheet.getSubImage(3*64, 4*64, 64, 128), false, -1, 2));
+		materials.add(new Material(sheet.getSubImage(4*64, 4*64, 64, 128), false, -1, 2));
+
+		materials.add(new Material(sheet.getSprite(3, 6), false, -1, 1));
+		materials.add(new Material(sheet.getSprite(4, 6), false, -1, 1));
 				
 	}
 
