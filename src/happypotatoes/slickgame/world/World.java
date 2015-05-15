@@ -23,7 +23,7 @@ import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
 import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
-import happypotatoes.slickgame.entitysystem.entity.StupidEntity;
+import happypotatoes.slickgame.entitysystem.entity.Mowse;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
 import happypotatoes.slickgame.worldgenerator.Room;

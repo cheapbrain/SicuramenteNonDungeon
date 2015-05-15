@@ -9,7 +9,7 @@ public class Walker extends Component{
 	public int states;
 	
 	public int facing = 0;
-	public int state = 0;
+	private int state = 0;
 	
 	public Walker(Entity owner, float priority, int directions, int states) {
 		super(owner, priority);
@@ -26,5 +26,31 @@ public class Walker extends Component{
 		float angle = (float)(Math.atan2(dx, dy)/Math.PI/2+1);
 		facing = (int)Math.round(angle*directions+4)%directions;
 	}
+	
+	public void setState(int state){
+		this.state=state;
+	}
+	public int getState(){
+		return state;
+	}
+	
+	public void setStill(){
+		this.state=0;
+	}
+	public void setWalking(){
+		this.state=1;
+	}
+	public void setAttacking(){
+		this.state=2;
+	}
+	public void setDead(){
+		if(owner.getComponent(AI.class)!=null) 
+			owner.getComponent(AI.class).focus=null;
+		this.state=3;
+	}
+	public void setDefending(){
+		this.state=4;
+	}
+	
 
 }

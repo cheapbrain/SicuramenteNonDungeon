@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 
+
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
@@ -21,6 +22,7 @@ public abstract class AI extends Component {
 	public float time;
 	public Random r = new Random();
 	public Entity focus=null;
+	public List<Entity> inSight;
 		
 	
 	public AI(Entity owner, float priority, Walker walker, Movement movement,  float speed) {
@@ -40,18 +42,18 @@ public abstract class AI extends Component {
 	}
 	
 	public int goTo(float dx, float dy, float d){ //0 raggiunto, 1 non raggiunto
-		if (d>1.4&&walker.state<2) {
+		if (d>1.4&&walker.getState()<2) {
 			float nsx = dx/d*speed;
 			float nsy = dy/d*speed;
 			movement.speedx += nsx;
 			movement.speedy += nsy;
 			walker.setFacing(nsx, nsy);
-			walker.state = 1;
+			walker.setWalking();
 			return 1;
 		} 
 		else{ 
-			if (walker.state==1)
-				walker.state = 0;
+			if (walker.getState()==1)
+				walker.setStill();
 			return 0;
 			}
 	}
@@ -62,6 +64,9 @@ public abstract class AI extends Component {
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
 			float d = (float) Math.sqrt(((owner.x-t.x)*(owner.x-t.x))+((owner.y-t.y)*(owner.y-t.y)));
+			if(t==this.owner){
+				iterator.remove();
+			}
 			if(d>6){
 				iterator.remove();
 			}
@@ -71,4 +76,16 @@ public abstract class AI extends Component {
 	
 	public abstract Entity getFocus();
 	
+	public Entity isAttacked(Entity e){
+		Iterator<Entity> iterator = inSight.iterator();
+		while(iterator.hasNext()){
+			Entity t = iterator.next();
+			if(t.getComponent(AI.class) != null){
+				if(t.getComponent(AI.class).focus == e){
+					return t;
+				}
+			}
+		}
+		return null;
+	}
 }

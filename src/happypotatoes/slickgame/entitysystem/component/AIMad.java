@@ -11,7 +11,6 @@ import happypotatoes.slickgame.states.State;
 import happypotatoes.slickgame.world.World;
 
 public class AIMad extends AI{
-	List<Entity> inSight;
 	State state;
 	State states[]={new Idle(this,2), new Chase(this,1,3), new Fight(this,1,2)};
 	
@@ -31,7 +30,7 @@ public class AIMad extends AI{
 	@Override
 	public void update(World w, long delta) {
 		//update AI
-		if(walker.state!=3){
+		if(walker.getState()!=3){
 				inSight = getEntitiesInSight();
 				focus = getFocus();
 				time -= delta;
@@ -52,6 +51,12 @@ public class AIMad extends AI{
 	@Override
 	public Entity getFocus() {
 		Iterator<Entity> iterator = inSight.iterator();
+		while(iterator.hasNext()){
+			Entity t = iterator.next();
+			if(t==focus)
+				return t;
+		}
+		iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
 			if(t.getComponent(PlayerInput.class) != null)

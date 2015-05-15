@@ -18,7 +18,7 @@ import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
 public class Wolf {
-	static float speed = 0.002f;
+	static float speed = 0.001f;
 	
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"wolf");
@@ -27,7 +27,6 @@ public class Wolf {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 4);
-		//AI intelligence = (new AIManager(e, 0f, walker, movement, speed, AIType.Pet)).get();
 		AI intelligence = (AI) (new AIPet(e, 0f, walker, movement, speed));
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 96, 54, -.75f, -0.8f);	
 		Attack attack = new Attack(e, 0, walker, walkerRender, 10);

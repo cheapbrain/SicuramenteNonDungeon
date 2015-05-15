@@ -13,8 +13,6 @@ import happypotatoes.slickgame.states.Stay;
 import happypotatoes.slickgame.world.World;
 
 public class AIFighter extends AI{
-	
-	List<Entity> inSight;
 	State state;
 	State states[]={new Idle(this,2), new Chase(this,1,3),
 			new Fight(this,1,2,4), new Escape(this,3,5), new Stay(this,0) };
@@ -33,7 +31,6 @@ public class AIFighter extends AI{
 	@Override
 	public void update(World w, long delta) {
 		//update AI
-		if(walker.state!=3){
 			inSight = getEntitiesInSight();
 			focus = getFocus();
 			time -= delta;
@@ -56,6 +53,12 @@ public class AIFighter extends AI{
 	@Override
 	public Entity getFocus() {
 		Iterator<Entity> iterator = inSight.iterator();
+		while(iterator.hasNext()){
+			Entity t = iterator.next();
+			if(t==focus)
+				return t;
+		}
+		iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
 			if(t.getComponent(PlayerInput.class) != null)

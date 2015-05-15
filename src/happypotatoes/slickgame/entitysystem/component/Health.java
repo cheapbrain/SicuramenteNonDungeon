@@ -15,7 +15,7 @@ public class Health extends Component{
 		this.healthRegeneration=healthRegeneration;
 	}
 	public void update(World w, long delta) {
-		if(death) owner.getComponent(Walker.class).state=3;//w.remove(owner);
+		if(death) owner.getComponent(Walker.class).setDead();//w.remove(owner);
 		timer += delta;
 		if(timer>1000 && health+healthRegeneration<=maxHealth){
 			timer=0;

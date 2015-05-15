@@ -22,12 +22,12 @@ public class Attack extends Component{
 	}
 	
 	public void attack(Entity focus) {
-		walker.state = 2;
+		walker.setAttacking();
 		this.focus = focus;
 	}
 	
 	public void update(World w, long delta) {
-		if(walker.state==2){
+		if(walker.getState()==2){
 			animationTime+=delta;
 			if(animationTime>=animationTotalTime){
 				if (owner.getComponent(AI.class)!=null)
@@ -36,7 +36,7 @@ public class Attack extends Component{
 				if(focus.getComponent(Defend.class)!=null)
 						EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
 					else EnemyHp.setHealth(EnemyHp.getHealth()-damage);
-				walker.state=0;
+				walker.setStill();
 				animationTime=0;
 			} else{
 			}
@@ -45,7 +45,7 @@ public class Attack extends Component{
 	}
 	
 	public boolean isAttacking(){
-		if(walker.state==2&&animationTime>0) return true;
+		if(walker.getState()==2&&animationTime>0) return true;
 		else return false;
 	}
 }

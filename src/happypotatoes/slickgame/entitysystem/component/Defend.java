@@ -17,7 +17,7 @@ public class Defend extends Component{
 	}
 	
 	public void update(World w, long delta) {
-		if(walker.state==4){
+		if(walker.getState()==4){
 			if(animationTime>animationTotalTime){
 				mitigation = 0.99f;
 			} else{

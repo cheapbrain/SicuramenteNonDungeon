@@ -28,8 +28,8 @@ public class PlayerInput extends Component {
 		Camera c = Camera.camera;
 		Input input = w.container.getInput();
 		
-		if (Math.abs(movement.speedx)<0.0001&&Math.abs(movement.speedy)<0.0001&&walker.state==1) {
-			walker.state = 0;
+		if (Math.abs(movement.speedx)<0.0001&&Math.abs(movement.speedy)<0.0001&&walker.getState()==1) {
+			walker.setStill();
 		}
 		
 		float selectx = input.getMouseX()/(float)c.getUnit()+c.getRekt().x0;
@@ -54,8 +54,8 @@ public class PlayerInput extends Component {
 		
 		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			
-			if (walker.state==0)
-				walker.state = 1;
+			if (walker.getState()==0)
+				walker.setWalking();
 			interactTarget = selected;
 			if (selected!=null) {
 				destx = selected.x;
@@ -66,7 +66,7 @@ public class PlayerInput extends Component {
 			}
 		}
 		
-		if(walker.state==1) {
+		if(walker.getState()==1) {
 			float dx = destx-owner.x;
 			float dy = desty-owner.y;
 			float d = (float)Math.sqrt(dx*dx+dy*dy);
@@ -80,7 +80,7 @@ public class PlayerInput extends Component {
 				if (inter!=null) {
 					inter.interact(owner);
 					interactTarget = null;
-					walker.state = 0;
+					walker.setStill();
 				} else if (health!=null){
 					for(int i=0;i<10;i++){
 						float angle = (float) (Math.random()+Math.PI/5*i);
@@ -95,7 +95,7 @@ public class PlayerInput extends Component {
 				movement.speedy = 0;
 			}
 			else if (d<.1) {
-				walker.state = 0;
+				walker.setStill();
 				movement.speedx = 0;
 				movement.speedy = 0;
 				
@@ -109,17 +109,17 @@ public class PlayerInput extends Component {
 				walker.setFacing(msx, msy);
 		}			
 			
-		if (input.isKeyDown(Input.KEY_E)&&walker.state<2) {
+		if (input.isKeyDown(Input.KEY_E)&&walker.getState()<2) {
 			//walker.state=2;
 			//((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
 		}
 		
-		if (input.isKeyDown(Input.KEY_D)&&walker.state!=3) {
-			if(walker.state!=5)
-				walker.state=4;
+		if (input.isKeyDown(Input.KEY_D)&&walker.getState()!=3) {
+			if(walker.getState()!=5)
+				walker.setDefending();
 		}
 		else{
-			if(walker.state==4||walker.state==5) walker.state=0;
+			if(walker.getState()==4||walker.getState()==5) walker.setStill();
 		}
 		if(input.isKeyPressed(Input.KEY_A)){
 			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada.item");

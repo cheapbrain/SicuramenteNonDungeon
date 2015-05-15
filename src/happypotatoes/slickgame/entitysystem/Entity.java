@@ -1,5 +1,6 @@
 package happypotatoes.slickgame.entitysystem;
 
+import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.world.World;
 
 import java.util.LinkedList;
@@ -54,5 +55,13 @@ public final class Entity {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public boolean isAlive(){
+		if(this.getComponent(Walker.class).getState()!=3)
+			return true;
+		else{
+			return false;
+		}
 	}
 }

@@ -3,6 +3,7 @@ package happypotatoes.slickgame.worldgenerator;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
+import happypotatoes.slickgame.entitysystem.entity.Mowse;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +33,7 @@ public class Room {
 		for(int i=0; i<nTraps; i++){
 			int x = r.nextInt(width)+this.x;
 			int y = r.nextInt(height)+this.y;
-			Entity e = FighterEntity.create(x, y);
+			Entity e = Mowse.create(x, y);
 			mobs.add(e);
 		}
 	}

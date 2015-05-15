@@ -16,7 +16,7 @@ public class StupidInput extends Component{
 		if(attTimer>5000){
 			attTimer=0;
 			walker.setFacing(1,0);
-			walker.state=1;
+			walker.setWalking();
 		}
 	}
 

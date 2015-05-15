@@ -51,10 +51,10 @@ public class WalkerRender extends RenderComponent{
 
 	@Override
 	public void render(float i) {
-		if(state!=walker.state) {
+		if(state!=walker.getState()) {
 			animations[state][walker.facing].restart();
 		}
-		state = walker.state;
+		state = walker.getState();
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
 	}
