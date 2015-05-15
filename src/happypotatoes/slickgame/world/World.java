@@ -34,6 +34,7 @@ public class World {
 	private LightingBello lighting;
 	private int[][] terrainType;
 	private int[][] terrain;
+	private int[][] walls;
 	private int size;
 	private int maxdelay = 30;
 	EntitySystem es = EntitySystem.getInstance();
@@ -64,16 +65,18 @@ public class World {
 		size=terrain.length;
 		terrainType = terrain;
 		this.terrain = new int[size][size];
+		this.walls = new int[size][size];
 		
 		lighting = new LightingBello(terrainType);
 		
 		for (y=size-1;y>-1;y--)
-			for (x=0;x<size;x++) 
-				if(terrain[x][y]==0)
-					this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random())*9;
-				else 
+			for (x=0;x<size;x++) {
+				this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random())*9;
+				if(terrain[x][y]==0) {
+					this.walls[x][y] = 0;
+				} else 
 					if(x==0||y==0||x==size-1||y==size-1)
-						this.terrain[x][y] = 0;
+						this.walls[x][y] = 0;
 					else {
 						int value = 0;
 						if (terrain[x-1][y]==1)
@@ -99,8 +102,9 @@ public class World {
 								value += 6;
 						}
 						
-						this.terrain[x][y] = value+MaterialManager.WALLS;
-					}					
+						this.walls[x][y] = value+MaterialManager.WALLS;
+					}		
+				}			
 		terrain = this.terrain;
 		
 		
@@ -144,7 +148,7 @@ public class World {
 				}
 		
 		
-		List<RenderComponent> sprites = EntityRenderer.getTaskes();
+		List<RenderComponent> sprites = EntityRenderer.getTaskes(g);
 		renderqueue.clear();
 		for (RenderComponent sprite:sprites) {
 			renderqueue.add(sprite);
@@ -161,8 +165,8 @@ public class World {
 			}
 			
 			for (int x=sx;x<ex;x++) 
-				if (terrain[x][y]>0) {
-					Material m = MaterialManager.getMaterial(terrain[x][y]);
+				if (walls[x][y]>0) {
+					Material m = MaterialManager.getMaterial(walls[x][y]);
 					if (m.getOffset()<0) {
 						if (m.getHeight()==1) {
 							CustomRender.draw(m.getTexture(), x, y+m.getOffset(), 1, m.getHeight(),
@@ -260,7 +264,7 @@ public class World {
 	}
 	
 	public boolean isWalkable(float x, float y) {
-		return MaterialManager.getMaterial(terrain[(int)x][(int)y]).isWalkable();
+		return terrainType[(int)x][(int)y]==0;
 	}
 
 	public void add(Entity e) {

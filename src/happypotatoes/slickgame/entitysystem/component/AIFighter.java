@@ -31,6 +31,7 @@ public class AIFighter extends AI{
 	@Override
 	public void update(World w, long delta) {
 		//update AI
+		if(walker.getState()!=3){
 			inSight = getEntitiesInSight();
 			focus = getFocus();
 			time -= delta;

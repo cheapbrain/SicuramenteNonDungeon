@@ -2,12 +2,14 @@ package happypotatoes.slickgame.entitysystem.component;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.geom.Rectangle;
 
 public class WalkerRender extends RenderComponent{
@@ -56,6 +58,21 @@ public class WalkerRender extends RenderComponent{
 		}
 		state = walker.getState();
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+		
+		Graphics g = EntityRenderer.g;
+		
+		HitBox hitbox = owner.getComponent(HitBox.class);
+		if (hitbox!=null) {
+			g.setColor(Color.white);
+			g.drawRect(owner.x-hitbox.sizex, owner.y-hitbox.sizey, hitbox.sizex*2, hitbox.sizey*2);
+		}
+		
+		SelectComponent select = owner.getComponent(SelectComponent.class);
+		if (select!=null) {
+			Rectangle rect = select.rect;
+			g.setColor(Color.red);
+			g.drawRect(rect.x0, rect.y0, rect.w, rect.h);
+		}
 		
 	}
 	@Override

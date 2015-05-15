@@ -17,6 +17,7 @@ public class EntityRenderer {
 	private static List<RenderComponent> tasks = new ArrayList<RenderComponent>();
 	private static Image select;
 	public static Entity click = null, hover = null;
+	public static Graphics g;
 	
 	public static void init() {
 		try {
@@ -73,7 +74,8 @@ public class EntityRenderer {
 		task.render(i);
 	}
 	
-	public static List<RenderComponent> getTaskes(){
+	public static List<RenderComponent> getTaskes(Graphics g){
+		EntityRenderer.g = g;
 		return tasks;
 	}
 	
