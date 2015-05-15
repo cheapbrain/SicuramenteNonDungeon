@@ -24,15 +24,15 @@ public class Mowse {
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Mowse");
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox = new HitBox(e, .6f, .6f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 4);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -1.3f, -2.4f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -2.2f, -2.2f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Attack attack = new Attack(e, 0, walker, walkerRender, 10);
 		Health health = new Health(e, 0, 10, 0);
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.8f);
 		return e;
 	}
 	

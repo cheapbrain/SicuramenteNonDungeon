@@ -76,10 +76,7 @@ public class LoadingState extends BasicGameState {
 			world.add(item);
 			break;
 		case 6:
-			Entity mob = FighterEntity.create();
-			mob.x=5.5f;
-			mob.y=2.5f;
-			world.add(mob);
+			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 			break;
 		case 8:
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
