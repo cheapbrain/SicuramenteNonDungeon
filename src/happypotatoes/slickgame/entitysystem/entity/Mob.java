@@ -17,7 +17,7 @@ public class Mob {
 		if(!modFile.exists()) return null;
 		File mobFile = new File("./res/"+mod+"/Mobs/"+name+".mob");
 		if(!mobFile.exists()) return null;
-		Entity e = new Entity(EntitySystem.getFreeID(), "mob");
+		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "mob");
 		Movement movement = new Movement(e, 0);
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);

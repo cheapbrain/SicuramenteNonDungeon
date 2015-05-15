@@ -1,13 +1,12 @@
 package happypotatoes.slickgame.entitysystem.component;
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.entity.ItemInfo;
 
-import java.util.Properties;
 
 public class RangedWeaponComponent extends WeaponComponent{
-	private float distance;
-	public RangedWeaponComponent(Entity owner, float priority, String path, Properties prop) {
-		super(owner, priority, path, prop);
+	public RangedWeaponComponent(Entity owner, float priority, ItemInfo info) {
+		super(owner, priority, info);
 		
 	}
 

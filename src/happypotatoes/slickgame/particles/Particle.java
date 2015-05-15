@@ -1,6 +1,6 @@
-package happypotatoes.slickgame.particles;
+/*package happypotatoes.slickgame.particles;
 
-import happypotatoes.slickgame.entity.Entity;
+import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Color;
@@ -61,3 +61,4 @@ public class Particle extends Entity{
 		return height*scale;
 	}
 }
+*/
