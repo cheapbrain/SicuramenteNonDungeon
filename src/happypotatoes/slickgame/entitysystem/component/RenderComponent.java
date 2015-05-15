@@ -13,19 +13,25 @@ public abstract class RenderComponent extends Component{
 	
 	public boolean isFloor = false;
 	public float depth;
+	public float oldx, oldy, x, y;
 
 	public RenderComponent(Entity owner, boolean isFloor) {
 		super(owner, Float.MAX_VALUE);
+		oldx = owner.x;
+		oldy = owner.y;
 		this.isFloor = isFloor;
 	}
 
 	@Override
 	public void update(World w, long delta) {
+		depth = isFloor?Float.NEGATIVE_INFINITY:owner.y;
+		updateRect();
 		if (Camera.camera.getRekt().intersect(getRect())) {
-			depth = isFloor?Float.NEGATIVE_INFINITY:owner.y;
 			EntityRenderer.addRenderTask(this);
 		}
 	}
+
+	public abstract void updateRect();
 	
 	public abstract void render(float i);
 		

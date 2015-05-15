@@ -34,7 +34,6 @@ public class StaticRender extends RenderComponent{
 	
 	@Override
 	public void render(float i) {
-		rect.setPosition(owner.x+ox, owner.y+oy);
 		texture.draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 	}
 
@@ -45,5 +44,10 @@ public class StaticRender extends RenderComponent{
 		int x = (int) ((selectx-getRect().x0)*unit);
 		int y = (int) ((selecty-getRect().y0)*unit);
 		return texture.getColor(x, y);
+	}
+
+	@Override
+	public void updateRect() {
+		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
 }

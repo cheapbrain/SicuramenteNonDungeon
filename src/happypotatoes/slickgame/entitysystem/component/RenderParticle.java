@@ -13,7 +13,7 @@ public class RenderParticle extends RenderComponent{
 	private Physics physics;
 	private Particle particle;
 	private Color color;
-	public RenderParticle(Entity owner, Physics fisica, Particle particle, String path) {
+	public RenderParticle(Entity owner, Physics fisica, Particle particle, String path, float size) {
 		super(owner, false);
 		physics = fisica;
 		this.particle=particle;
@@ -24,7 +24,7 @@ public class RenderParticle extends RenderComponent{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		rekt = new Rectangle(owner.x-.1f, owner.y-.1f-physics.z/2, .2f, .2f);
+		rekt = new Rectangle(owner.x-size*.5f, owner.y-size*.5f-physics.z/2, size, size);
 		
 	}
 
@@ -32,8 +32,6 @@ public class RenderParticle extends RenderComponent{
 	public void render(float i) {
 		color.a=(1-(float)particle.time/particle.totalTime)*i;
 		img.draw(rekt.x0,rekt.y0, rekt.w, rekt.h,color);
-		rekt.setPosition(owner.x-.1f, owner.y-.1f-physics.z/2);
-		depth=owner.y;
 	}
 
 	@Override
@@ -44,6 +42,12 @@ public class RenderParticle extends RenderComponent{
 	@Override
 	public Color getPixel(float selectx, float selecty) {
 		return null;
+	}
+
+	@Override
+	public void updateRect() {
+		rekt.setPosition(owner.x-.1f, owner.y-.1f-physics.z/2);
+		depth=owner.y;
 	}
 
 }

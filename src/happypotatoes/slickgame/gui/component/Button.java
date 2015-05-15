@@ -46,7 +46,7 @@ public class Button extends Component{
 
 	@Override
 	public void mouseReleased(int button, int x, int y) {
-		if (button==MouseEvent.BUTTON0) {
+		if (button==MouseEvent.BUTTON0&&pressed) {
 			pressed = false;
 			if (actionListener!=null)
 				actionListener.actionPerformed(this);
@@ -56,6 +56,7 @@ public class Button extends Component{
 	@Override
 	public void mouseEntered() {
 		hover = true;
+		pressed = false;
 	}
 	
 	@Override

@@ -33,7 +33,6 @@ public class WeaponRender extends RenderComponent{
 	public void render(float i) {
 		texture.draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
-		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
 
 	@Override
@@ -44,6 +43,11 @@ public class WeaponRender extends RenderComponent{
 	@Override
 	public Color getPixel(float selectx, float selecty) {
 		return null;
+	}
+
+	@Override
+	public void updateRect() {
+		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
 
 }

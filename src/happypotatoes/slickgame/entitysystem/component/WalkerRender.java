@@ -57,7 +57,6 @@ public class WalkerRender extends RenderComponent{
 		state = walker.state;
 		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		
-		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
 	@Override
 	public Rectangle getRect() {
@@ -79,5 +78,10 @@ public class WalkerRender extends RenderComponent{
 
 	public int getFrames(int i) {
 		return animations[i][walker.facing].getFrameCount();
+	}
+
+	@Override
+	public void updateRect() {
+		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
 }
