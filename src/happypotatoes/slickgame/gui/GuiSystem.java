@@ -11,13 +11,16 @@ import happypotatoes.slickgame.gui.component.Button;
 import happypotatoes.slickgame.gui.component.EnergyBar;
 import happypotatoes.slickgame.gui.component.HealthBar;
 import happypotatoes.slickgame.gui.component.Label;
+import happypotatoes.slickgame.gui.component.Minimap;
 
 public class GuiSystem {
 	private static InventoryWindow iw = null;
-	private static Window hud = null;
+	private static Window hud = null, bla = null;
+	private static Minimap minimap = null;
 	public static void init(UI ui, Entity player){
 		iw=inventory(ui, player);
 		hud=hud(ui, player);
+		ui.add(Minimap.getInstance());
 	}
 	public static Window getHud(){
 		return hud;

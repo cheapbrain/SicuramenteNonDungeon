@@ -10,6 +10,7 @@ import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
 import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
+import happypotatoes.slickgame.gui.component.Minimap;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Color;
@@ -78,6 +79,8 @@ public class LoadingState extends BasicGameState {
 		case 6:
 			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 			break;
+		case 7: Minimap minimap = new Minimap(world, player);
+				break;
 		case 8:
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
 			Camera.camera.setTarget(player);

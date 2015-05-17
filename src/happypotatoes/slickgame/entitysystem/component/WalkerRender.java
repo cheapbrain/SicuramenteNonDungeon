@@ -73,7 +73,11 @@ public class WalkerRender extends RenderComponent{
 			g.setColor(Color.red);
 			g.drawRect(rect.x0, rect.y0, rect.w, rect.h);
 		}
-		
+		Health hc = owner.getComponent(Health.class);
+		if(hc!=null&&!owner.getName().equals("Player")){
+			g.setColor(Color.red);
+			g.fillRect(owner.x+select.ox, owner.y+select.oy-.2f, select.rect.w*hc.getHealth()/hc.getMaxHealth(), .2f);
+		}
 	}
 	@Override
 	public Rectangle getRect() {

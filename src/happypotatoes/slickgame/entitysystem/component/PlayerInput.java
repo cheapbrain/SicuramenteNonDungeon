@@ -16,7 +16,7 @@ public class PlayerInput extends Component {
 	
 	Walker walker;
 	Movement movement;
-	float speed = 0.001f;
+	float speed = 0.0015f;
 	
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);

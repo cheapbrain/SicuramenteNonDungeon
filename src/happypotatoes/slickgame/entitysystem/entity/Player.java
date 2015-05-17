@@ -26,7 +26,7 @@ public class Player {
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
 		PlayerInput input = new PlayerInput(e, 0, walker, movement);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 170, 189, -1.3f, -2.4f);	
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 175, 189, -1.3f, -2.4f);	
 		Attack attack = new Attack(e, 0, walker, walkerRender, 20);
 		Health health = new Health(e, 0, 100, 2);
 		Energy energy = new Energy(e, 0, 100, 5);
