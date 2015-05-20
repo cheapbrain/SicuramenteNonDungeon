@@ -38,6 +38,26 @@ public class CustomRender {
         GL.glEnd(); 
 	}
 	
+	public static void fill(float x, float y, float w, float h, float i0, float i1, float i2, float i3) {
+		//GL.glDisable(GL.GL_TEXTURE_2D);
+		
+        GL.glBegin(SGL.GL_QUADS); 
+        
+        setColor(i0);
+		GL.glVertex3f(x,y, 0.0f);
+
+        setColor(i1);
+		GL.glVertex3f(x,(y + h), 0.0f);
+
+        setColor(i2);
+		GL.glVertex3f((x + w),(y + h), 0.0f);
+
+        setColor(i3);
+		GL.glVertex3f((x + w),y, 0.0f);
+		
+        GL.glEnd(); 
+	}
+	
 	public static void setColor(float i) {
 		color.r = i;
 		color.g = i;

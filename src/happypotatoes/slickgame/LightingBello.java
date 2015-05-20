@@ -9,7 +9,7 @@ public class LightingBello {
 	public static LightingBello lighting;
 
 	int[][] terr;
-	private float[][] lightMap;
+	public float[][] lightMap;
 	
 	public LightingBello(int[][] terrain) {
 		lighting = this;

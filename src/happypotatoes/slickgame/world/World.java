@@ -124,7 +124,7 @@ public class World {
 		int sx = (int)rect.x0;
 		int sy = (int)rect.y0;
 		int ex = (int)Math.ceil(rect.x1);
-		int ey = (int)Math.ceil(rect.y1);
+		int ey = (int)Math.ceil(rect.y1)+1;
 		int cw = ex-sx;
 		int ch = ey-sy;
 		if (sx<0) sx = 0;
