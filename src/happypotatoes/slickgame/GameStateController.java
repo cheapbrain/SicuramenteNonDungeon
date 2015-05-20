@@ -22,5 +22,6 @@ public class GameStateController extends StateBasedGame {
 		addState(new MenuState());
 		addState(new LoadingState());
         addState(new GameState());
+        addState(new PauseState());
     }
 }

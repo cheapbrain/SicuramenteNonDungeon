@@ -44,6 +44,7 @@ public class GuiSystem {
 		hud.add(new HealthBar((Health) player.getComponent(Health.class), k));
 		hud.add(new EnergyBar((Energy) player.getComponent(Energy.class), k));
 		Component cp = new Component();
+		cp.setPriority(10);
 		cp.setPosition(hud.x, hud.y);
 		cp.setSize(hud.width, hud.height);
 		try {

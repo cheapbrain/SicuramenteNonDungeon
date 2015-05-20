@@ -35,7 +35,7 @@ public class LoadingState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		
+		step = 0;
 	}
 
 	@Override
@@ -54,6 +54,7 @@ public class LoadingState extends BasicGameState {
 		switch(step) {
 		case 0:
 			EntityRenderer.init();
+			EntitySystem.getInstance().clear();
 			break;
 		case 1:
 			ItemSystem.load();

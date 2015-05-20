@@ -71,5 +71,11 @@ public class EntitySystem {
 		for (Entity entity : entities)
 			entity.update(w, delta);
 	}
+
+	public void clear() {
+		entities.clear();
+		toAdd.clear();
+		toRemove.clear();
+	}
 	
 }

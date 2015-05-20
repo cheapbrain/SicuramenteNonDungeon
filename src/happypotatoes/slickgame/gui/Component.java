@@ -7,6 +7,7 @@ import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Component implements MouseListener{
+	private float priority = 0;
 	protected Image background = null;
 	protected TrueTypeFont font = Fonts.font1;
 	protected boolean focusable = true;
@@ -179,4 +180,12 @@ public class Component implements MouseListener{
 	public void mouseLeft() {}
 
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {}
+
+	public float getPriority() {
+		return priority;
+	}
+
+	public void setPriority(float priority) {
+		this.priority = priority;
+	}
 }

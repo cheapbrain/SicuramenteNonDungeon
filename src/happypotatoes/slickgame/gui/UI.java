@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.gui;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -17,7 +19,7 @@ public class UI extends Container implements InputListener{
 	public static boolean mb0, mb1, mb2;
 	
 	public UI(GameContainer container, StateBasedGame game) {
-		(input = container.getInput()).addPrimaryListener(this);
+		input = container.getInput();
 		Fonts.init();
 		x = 0;
 		y = 0;
@@ -27,6 +29,10 @@ public class UI extends Container implements InputListener{
 	
 	public void dispose() {
 		input.removeListener(this);
+	}
+	
+	public void enter() {
+		input.addPrimaryListener(this);
 	}
 		
 	public void update(GameContainer container) {
@@ -47,8 +53,9 @@ public class UI extends Container implements InputListener{
 	
 	public boolean sendMouseEvent(MouseEvent e) {
 		if (enabled&&contain(e.x, e.y)) {
-			for (Component child:children)
-				if (child.sendMouseEvent(e))
+			Iterator<Component> it = children.descendingIterator();
+			while(it.hasNext())
+				if (it.next().sendMouseEvent(e))
 					return true;
 			return true;
 		} else {
@@ -60,9 +67,12 @@ public class UI extends Container implements InputListener{
 		boolean mousewas = contain(e.oldx, e.oldy);
 		boolean mouseis = contain(e.x, e.y);
 		if (enabled&&(mousewas||mouseis)) {
-			for (Component child:children)
-				child.sendMouseMovementEvent(e);
-			return true;
+			Iterator<Component> it = children.descendingIterator();
+			while(it.hasNext()) {
+				if (it.next().sendMouseMovementEvent(e))
+					break;
+			}
+			return mousewas&&mouseis;
 		} else {
 			return false;
 		}
@@ -127,20 +137,7 @@ public class UI extends Container implements InputListener{
 
 	@Override
 	public void keyPressed(int key, char c) {
-		switch(key){
-			case Input.KEY_B: {	
-				InventoryWindow tmp = GuiSystem.getInventory();
-				if(tmp!=null){
-					tmp.setOpen(!tmp.isOpen());
-					System.out.println(tmp.isOpen());
-				}
-				break;
-			}
-			case Input.KEY_ESCAPE:{
-				System.exit(0);
-				break;
-			}
-		}
+		
 	}
 
 	@Override

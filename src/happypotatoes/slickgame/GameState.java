@@ -1,11 +1,11 @@
 package happypotatoes.slickgame;
 
-
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,6 +18,7 @@ public class GameState extends BasicGameState {
 			throws SlickException {
 	}
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
+		ui.enter();
 		/*
 		EntityRenderer.init();
 		ItemSystem.load();
@@ -62,9 +63,8 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		
-		
-		
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE))
+			game.enterState(3);
 		ui.update(container);
 		world.update(container, delta);
 	}
