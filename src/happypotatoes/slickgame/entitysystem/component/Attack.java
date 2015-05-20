@@ -15,7 +15,7 @@ public class Attack extends Component{
 	public int animationTotalTime = 0;
 	private float damage;
 	private Entity focus;
-	public float consume = 5f;
+	public float consume = 4f;
 	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float damage) {
 		super(owner, priority);
 		this.walker = walker;

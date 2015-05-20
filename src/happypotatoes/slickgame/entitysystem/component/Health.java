@@ -15,23 +15,26 @@ public class Health extends Component{
 		this.healthRegeneration=healthRegeneration;
 	}
 	public void update(World w, long delta) {
-		if(!death){
+		if(owner.getComponent(Walker.class).getState()==0){
 			timer += delta;
-			if(timer>1000 && health+healthRegeneration<=maxHealth){
-				timer=0;
-				setHealth(getHealth() + healthRegeneration);
+			if(timer>2000){
+				if(getHealth()+getHealthRegeneration()*delta/1000f<=maxHealth){
+				setHealth(getHealth()+getHealthRegeneration()*delta/1000f);
+				}
+				else setHealth(maxHealth);
 			}
 		}
-		else owner.getComponent(Walker.class).setDead();//w.remove(owner);
+		else timer=0;
 	}
 	public float getHealth() {
 		return health;
 	}
 	public void setHealth(float health) {
+		if(health<this.health) timer=0;
 		if(health>0) this.health = health;
 		else{
-			death = true;
 			this.health = 0;
+			owner.getComponent(Walker.class).setDead();
 		}
 		//System.out.println(this.health+"  "+owner.getName());
 	}

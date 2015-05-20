@@ -8,7 +8,7 @@ public class Walk extends Component{
 	public float animationTime = 0;
 	private Walker walker;
 	public float animationTotalTime;
-	public float consumeSecond=2f;
+	public float consumeSecond=0f;
 	public float dx;
 	public float dy;
 	public float d;
