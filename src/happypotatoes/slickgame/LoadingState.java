@@ -54,7 +54,7 @@ public class LoadingState extends BasicGameState {
 		switch(step) {
 		case 0:
 			EntityRenderer.init();
-			//EntitySystem.getInstance().clear();
+			EntitySystem.getInstance().clear();
 			break;
 		case 1:
 			ItemSystem.load();

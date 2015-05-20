@@ -24,46 +24,20 @@ public class Minimap extends Window{
 	private static int worldSize;
 	public Minimap(World world, Entity player){
 		super("Minimap", 20, 50, 200, 200);
+		Minimap.explored = new float[150][150];
 		Minimap.player = player;
-		try {
-			explored = new float[150][150];
-			fog = new Image(world.getSize()*scale+2,world.getSize()*scale+2);
-			fog.setFilter(Image.FILTER_LINEAR);
-			gfog = fog.getGraphics();
-			int a = gfog.MODE_ADD;
-			background = new Image(world.getSize()*scale,world.getSize()*scale);
-			Graphics g = background.getGraphics();
-			g.clearAlphaMap();
-			worldSize = world.getSize();
-			for(int i=1; i<worldSize-1; i++){
-				for(int j=1; j<worldSize-1; j++){
-					if(world.isWalkable(i, j)) {
-						g.setColor(Color.darkGray);
-						g.fillRect(i*scale, j*scale, scale, scale);
-					}
-					else {
-						g.setColor(Color.white);
-						if (world.isWalkable(i-1, j)) {
-							g.drawLine(i*scale, j*scale, i*scale+1, j*scale+scale);
-						}
-						if (world.isWalkable(i+1, j)) {
-							g.drawLine(i*scale+scale-1, j*scale, i*scale+scale, j*scale+scale);
-						}
-						if (world.isWalkable(i, j-1)) {
-							g.drawLine(i*scale, j*scale, i*scale+scale, j*scale+1);
-						}
-						if (world.isWalkable(i, j+1)) {
-							g.drawLine(i*scale, j*scale+scale-1, i*scale+scale, j*scale+scale);
-						}
-					}
-				}
-			}
-			g.flush();
-		} catch (SlickException e) {
-			e.printStackTrace();
+		if (instance!=null) {
+			return;
 		}
+		
+		try {
+			fog = new Image(world.getSize(),world.getSize());
+			gfog = fog.getGraphics();
+		} catch(Exception e) {}
+		
 		setVisible(true);
 		instance = this;
+		
 	}
 	
 	long time;
@@ -85,13 +59,16 @@ public class Minimap extends Window{
 			for (int x=0;x<150;x++) 
 				for (int y=0;y<150;y++) {
 					float i = lights[x][y];
+					if (lights[x+1][y]==0) i = 0;
+					if (lights[x+1][y+1]==0) i = 0;
+					if (lights[x][y+1]==0) i = 0;
 					if (i>0) explored[x][y] = .7f;
 					i = explored[x][y];
 					
 					if (i>0) {
 						c.a = i;
 						gfog.setColor(c);
-						gfog.fillRect(x*scale, y*scale, scale, scale);
+						gfog.fillRect(x, y, 1, 1);
 					}
 				}
 			
@@ -99,23 +76,23 @@ public class Minimap extends Window{
 			Graphics.setCurrent(g);
 		}
 		
-		float x = player.x;
-		float y = player.y;
+		int x = (int)player.x;
+		int y = (int)player.y;
 
 		
-		int sx = (int) (x*scale-100);
-		int sy = (int) (y*scale-100);
-		int sw = 200;
-		int sh = 200;
+		int sx = (int) (x-25);
+		int sy = (int) (y-25);
+		int sw = 50;
+		int sh = 50;
 		
 
-		fog.getSubImage(sx, sy, sw+2, sh+2).draw(-2, -2);
-		//g.setDrawMode(Graphics.MODE_COLOR_MULTIPLY);
-		//background.getSubImage(sx, sy, sw, sh).draw(0, 0);
-		//g.setDrawMode(Graphics.MODE_NORMAL);
+		fog.getSubImage(sx, sy, sw, sh).draw(0, 0, 200, 200);
+
 		
 		g.setColor(Color.red);
-		g.fillRect(100-2, 100-2, 4, 4);
+		g.fillRect((x-sx)*scale, (y-sy)*scale, scale, scale);
+		
+		
 	}
 	public static Minimap getInstance() {
 		return instance;

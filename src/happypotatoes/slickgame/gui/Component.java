@@ -67,7 +67,7 @@ public class Component implements MouseListener{
 			} else if (mousewas) {
 				mouseLeft();
 			}
-			return true;
+			return mousewas&&mouseis;
 		} else {
 			return false;
 		}

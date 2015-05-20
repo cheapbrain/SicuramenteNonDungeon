@@ -43,17 +43,20 @@ public class Attack extends Component{
 					owner.getComponent(Walker.class).setFacing(focus.x-owner.x, focus.y-owner.y);
 				if(thisEnergy!=null)
 					thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
-				Health EnemyHp = ((Health) focus.getComponent(Health.class));
-				if(focus.getComponent(Defend.class)!=null){
-					if(damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation)>=EnemyHp.getHealth()/100f*5f)
-						createBlood();
-					EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
-				}	
-				else{
-					if(damage>=EnemyHp.getHealth()/100f*5f)
-						createBlood();
-					EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+				if (focus!=null) {
+					Health EnemyHp = ((Health) focus.getComponent(Health.class));
+					if(focus.getComponent(Defend.class)!=null){
+						if(damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation)>=EnemyHp.getHealth()/100f*5f)
+							createBlood();
+						EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
+					}	
+					else{
+						if(damage>=EnemyHp.getHealth()/100f*5f)
+							createBlood();
+						EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+					}
 				}
+				
 				walker.setStill();
 				animationTime=0;
 			} else{
