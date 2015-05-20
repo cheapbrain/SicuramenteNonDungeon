@@ -1,18 +1,17 @@
 package happypotatoes.slickgame.entitysystem.component;
 
 import java.util.Iterator;
-import java.util.List;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.states.Chase;
-import happypotatoes.slickgame.states.Fight;
 import happypotatoes.slickgame.states.Idle;
 import happypotatoes.slickgame.states.State;
+import happypotatoes.slickgame.states.Wrath;
 import happypotatoes.slickgame.world.World;
 
 public class AIMad extends AI{
 	State state;
-	State states[]={new Idle(this,2), new Chase(this,1,3), new Fight(this,1,2)};
+	State states[]={new Idle(this,2), new Chase(this,1,3), new Wrath(this,1,2)};
 	
 	float speed;
 	

@@ -9,13 +9,13 @@ import happypotatoes.slickgame.states.Escape;
 import happypotatoes.slickgame.states.Fight;
 import happypotatoes.slickgame.states.Idle;
 import happypotatoes.slickgame.states.State;
-import happypotatoes.slickgame.states.Stay;
+import happypotatoes.slickgame.states.Rest;
 import happypotatoes.slickgame.world.World;
 
 public class AIFighter extends AI{
 	State state;
 	State states[]={new Idle(this,2), new Chase(this,1,3),
-			new Fight(this,1,2,4), new Escape(this,3,5), new Stay(this,0) };
+			new Fight(this,1,2,4), new Escape(this,3,5), new Rest(this,1,4) };
 	
 	
 	public AIFighter(Entity owner, float priority, Walker walker,
@@ -33,8 +33,8 @@ public class AIFighter extends AI{
 		//update AI
 		if(walker.getState()!=3){
 			inSight = getEntitiesInSight();
-			focus = getFocus();
 			time -= delta;
+			focus = getFocus();
 			//update stati
 			int r = state.update(delta);
 			
@@ -63,7 +63,8 @@ public class AIFighter extends AI{
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
 			if(t.getComponent(PlayerInput.class) != null)
-				return t;
+				if(t.isAlive())
+					return t;
 		}
 		return null;
 	}

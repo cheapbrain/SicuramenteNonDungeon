@@ -16,9 +16,10 @@ public class Follow extends State {
 	
 	@Override
 	public int update(long delta) {
-		if (owner.time<=0) {
+		if (owner.time()) {
 			if(owner.focus==null)
 				return 1;
+			
 			Entity attacker;
 			if((attacker = owner.isAttacked(owner.owner))!=null){ //if pet is attacked
 				if(attacker.getComponent(PlayerInput.class)!=null){ //if pet is attacked and attacker is not player
@@ -34,15 +35,19 @@ public class Follow extends State {
 					}
 				}
 			}
-			owner.walker.setWalking();
-			owner.time = delay;
-			dx = owner.focus.x-owner.owner.x;
-			dy = owner.focus.y-owner.owner.y;
-			d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;	
+			if(owner.getDistance(owner.focus)<1.5f){ //1.5 andrà sostituito con range
+				owner.walker.setStill();
+			}
+			else{
+				owner.walker.setWalking();
+				owner.time = delay;
+				dx = owner.focus.x-owner.owner.x;
+				dy = owner.focus.y-owner.owner.y;
+				d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
+			}
 		}
 		owner.goTo(dx,dy,d);
 		
 		return 0;
 	}
-
 }

@@ -14,7 +14,7 @@ import happypotatoes.slickgame.world.World;
 public class AIPet extends AI{
 	State state;
 	State states[]={new Idle(this,2), new Follow(this,1,3,3), 
-			new Chase(this,1,4,2), new Fight(this,2,3,2)};
+			new Chase(this,1,4,2), new DefendPlayer(this,1,3,1)};
 	
 	public AIPet(Entity owner, float priority, Walker walker,
 			Movement movement, float speed) {

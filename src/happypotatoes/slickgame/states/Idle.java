@@ -10,9 +10,11 @@ public class Idle extends State {
 
 	@Override
 	public int update(long delta) {
-		owner.walker.setStill();
-		if(owner.focus!=null)
-			return 1;
+		if(owner.time()){
+			owner.walker.setStill();
+			if(owner.focus!=null)
+				return 1;
+		}
 		return 0;
 	}
 

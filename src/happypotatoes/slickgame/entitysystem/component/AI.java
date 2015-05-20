@@ -17,9 +17,9 @@ import happypotatoes.slickgame.world.World;
 public abstract class AI extends Component {
 	public Walker walker;
 	public Movement movement;
-	public int intelligence;
 	public float speed;
-	public float time;
+	public float delay=100;
+	public float time=delay;
 	public Random r = new Random();
 	public Entity focus=null;
 	public List<Entity> inSight;
@@ -34,6 +34,14 @@ public abstract class AI extends Component {
 
 	@Override
 	public abstract void update(World w, long delta);
+	
+	public boolean time(){
+		if(time<=0){
+			time=delay;
+			return true;
+		}
+		else return false;
+	}
 	
 	public float getDistance(Entity focus){
 		float dx = focus.x-owner.x;
@@ -76,12 +84,12 @@ public abstract class AI extends Component {
 	
 	public abstract Entity getFocus();
 	
-	public Entity isAttacked(Entity e){
+	public Entity isAttacked(Entity victim){
 		Iterator<Entity> iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
 			if(t.getComponent(AI.class) != null){
-				if(t.getComponent(AI.class).focus == e){
+				if(t.getComponent(AI.class).focus == victim){
 					return t;
 				}
 			}

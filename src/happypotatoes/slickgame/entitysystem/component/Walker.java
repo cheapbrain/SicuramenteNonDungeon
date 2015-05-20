@@ -44,8 +44,9 @@ public class Walker extends Component{
 		this.state=2;
 	}
 	public void setDead(){
-		if(owner.getComponent(AI.class)!=null) 
+		if(owner.getComponent(AI.class)!=null){
 			owner.getComponent(AI.class).focus=null;
+		}
 		this.state=3;
 	}
 	public void setDefending(){

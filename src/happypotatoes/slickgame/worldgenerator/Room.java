@@ -29,11 +29,11 @@ public class Room {
 	
 	private void createMobs() {
 		Random r = Generator.getR();
-		int nTraps = r.nextInt(3);
+		int nTraps = r.nextInt(15)+5;
 		for(int i=0; i<nTraps; i++){
 			int x = r.nextInt(width)+this.x;
 			int y = r.nextInt(height)+this.y;
-			Entity e = Mowse.create(x, y);
+			Entity e = FighterEntity.create(x, y);
 			mobs.add(e);
 		}
 	}

@@ -30,8 +30,9 @@ public class Mowse {
 		Walker walker = new Walker(e, 0, 8, 4);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -2.2f, -2.2f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
-		Attack attack = new Attack(e, 0, walker, walkerRender, 10);
-		Health health = new Health(e, 0, 10, 0);
+		Attack attack = new Attack(e, 0, walker, walkerRender, 2);
+		Health health = new Health(e, 0, 100, 0);
+		Energy energy = new Energy(e, 0, 100, 0);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.8f);
 		return e;
 	}
