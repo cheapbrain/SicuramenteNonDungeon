@@ -8,7 +8,7 @@ public class Defend extends Component{
 	public float animationTime = 0;
 	private Walker walker;
 	public float animationTotalTime;
-	public float mitigation; //da 0 a 1
+	public float mitigation;
 	public float consumeSecond=20f;
 	
 	public Defend(Entity owner, float priority, Walker walker, WalkerRender walkerRender) {
@@ -19,9 +19,13 @@ public class Defend extends Component{
 	
 	public void update(World w, long delta) {
 		if(walker.getState()==4){
-			Energy thisEnergy = ((Energy) owner.getComponent(Energy.class));
+			Energy thisEnergy=owner.getComponent(Energy.class);
+			if(thisEnergy.getEnergy()<consumeSecond/4f){
+				walker.setStill();
+				return;
+			}
 			if(animationTime>animationTotalTime){
-				mitigation = 0.99f;
+				mitigation=.99f;
 				if(thisEnergy!=null)
 					thisEnergy.setEnergy(thisEnergy.getEnergy()-(consumeSecond/1000*delta));
 			} else{
@@ -30,13 +34,9 @@ public class Defend extends Component{
 		}
 		else{
 			animationTime=0;
-			mitigation = 0f;
+			mitigation=0f;
 		}
 		
-	}
-	
-	public boolean canDefend(long delta){
-		return false;
 	}
 	
 	public boolean isDefending(){

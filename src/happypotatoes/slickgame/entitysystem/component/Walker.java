@@ -50,7 +50,10 @@ public class Walker extends Component{
 		this.state=3;
 	}
 	public void setDefending(){
-		this.state=4;
+		Energy thisEnergy=owner.getComponent(Energy.class);
+		Defend thisDefend=owner.getComponent(Defend.class);
+		if(thisEnergy.getEnergy()>thisDefend.consumeSecond)
+			this.state=4;
 	}
 	
 

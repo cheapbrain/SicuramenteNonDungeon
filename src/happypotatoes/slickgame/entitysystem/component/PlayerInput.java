@@ -52,6 +52,7 @@ public class PlayerInput extends Component {
 			EntityRenderer.click = selected;
 		}
 		
+		Walk walk = owner.getComponent(Walk.class);
 		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			
 			if (walker.getState()==0)
@@ -67,34 +68,28 @@ public class PlayerInput extends Component {
 		}
 		
 		if(walker.getState()==1) {
-			float dx = destx-owner.x;
-			float dy = desty-owner.y;
-			float d = (float)Math.sqrt(dx*dx+dy*dy);
-			float msx = 0;
-			float msy = 0;
-			if (d<1&&interactTarget!=null) {
-				
-				walker.setFacing(dx, dy);
+			walk.dx = destx-owner.x;
+			walk.dy = desty-owner.y;
+			walk.d = (float)Math.sqrt(walk.dx*walk.dx+walk.dy*walk.dy);
+			if (walk.d<1&&interactTarget!=null) {
+				walker.setFacing(walk.dx, walk.dy);
 				Interact inter = interactTarget.getComponent(Interact.class);
 				Health health = interactTarget.getComponent(Health.class);
 				if (inter!=null) {
 					inter.interact(owner);
 					interactTarget = null;
 					walker.setStill();
-				} else if (health!=null){
-					for(int i=0;i<10;i++){
-						float angle = (float) (Math.random()+Math.PI/5*i);
-						float speedx = (float) Math.cos(angle)*.004f;
-						float speedy = (float) Math.sin(angle)*.004f;
-						EntitySystem.getInstance().addEntity(ParticleBuilder.create("./res/blood.png", interactTarget.x, interactTarget.y, 1, 500, speedx, speedy, 0, 0.99999f, .1f));
-					}
-					
+				} 
+				else 
+				if (health!=null){
+					//create particle spostato in Attack
+					//System.exit(0);
 					owner.getComponent(Attack.class).attack(interactTarget);
 				}
 				movement.speedx = 0;
 				movement.speedy = 0;
 			}
-			else if (d<.1) {
+			/*else if (d<.1) {
 				walker.setStill();
 				movement.speedx = 0;
 				movement.speedy = 0;
@@ -106,7 +101,7 @@ public class PlayerInput extends Component {
 				movement.speedy += msy;
 			}
 			if (msx!=0||msy!=0)
-				walker.setFacing(msx, msy);
+				walker.setFacing(msx, msy);*/
 		}			
 			
 		if (input.isKeyDown(Input.KEY_E)&&walker.getState()<2) {
@@ -119,13 +114,31 @@ public class PlayerInput extends Component {
 				walker.setDefending();
 		}
 		else{
-			if(walker.getState()==4||walker.getState()==5) walker.setStill();
+			if(walker.getState()==4) walker.setStill();
 		}
 		if(input.isKeyPressed(Input.KEY_A)){
 			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada.item");
 		}
 		if(input.isKeyPressed(Input.KEY_S)){
 			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada2.item");
+		}
+	}
+	
+	
+	public void goTo(float dx, float dy, float d) {
+		if (d>.1f&&walker.getState()<2) {
+			float nsx = dx/d*speed;
+			float nsy = dy/d*speed;
+			movement.speedx += nsx;
+			movement.speedy += nsy;
+			walker.setFacing(nsx, nsy);
+			walker.setWalking();
+			return;
+		} 
+		else{ 
+			if (walker.getState()==1)
+				walker.setStill();
+			return;
 		}
 	}
 }

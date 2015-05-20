@@ -6,6 +6,7 @@ import java.util.Random;
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
@@ -14,7 +15,7 @@ public class Attack extends Component{
 	public int animationTotalTime = 0;
 	private float damage;
 	private Entity focus;
-	private float consume = 5f;
+	public float consume = 5f;
 	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float damage) {
 		super(owner, priority);
 		this.walker = walker;
@@ -29,19 +30,30 @@ public class Attack extends Component{
 	
 	public void update(World w, long delta) {
 		if(walker.getState()==2){
+			Energy thisEnergy=owner.getComponent(Energy.class);
+			if(thisEnergy.getEnergy()<consume){
+				walker.setStill();
+				return;
+			}
 			animationTime+=delta;
 			if(animationTime>=animationTotalTime){
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
 				if(focus!=null)
 					owner.getComponent(Walker.class).setFacing(focus.x-owner.x, focus.y-owner.y);
-				Energy thisEnergy = ((Energy) owner.getComponent(Energy.class));
 				if(thisEnergy!=null)
-					thisEnergy.setEnergy(thisEnergy.getEnergy()-consume );
+					thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
 				Health EnemyHp = ((Health) focus.getComponent(Health.class));
-				if(focus.getComponent(Defend.class)!=null)
-						EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
-					else EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+				if(focus.getComponent(Defend.class)!=null){
+					if(damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation)>=EnemyHp.getHealth()/100f*5f)
+						createBlood();
+					EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
+				}	
+				else{
+					if(damage>=EnemyHp.getHealth()/100f*5f)
+						createBlood();
+					EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+				}
 				walker.setStill();
 				animationTime=0;
 			} else{
@@ -50,6 +62,14 @@ public class Attack extends Component{
 		else animationTime=0;
 	}
 	
+	public void createBlood(){
+		for(int i=0;i<10;i++){
+			float angle = (float) (Math.random()+Math.PI/5*i);
+			float speedx = (float) Math.cos(angle)*.004f;
+			float speedy = (float) Math.sin(angle)*.004f;
+			EntitySystem.getInstance().addEntity(ParticleBuilder.create("./res/blood.png", focus.x, focus.y, 1, 500, speedx, speedy, 0, 0.99999f, .1f));
+		}
+	}
 	public boolean isAttacking(){
 		if(walker.getState()==2&&animationTime>0) return true;
 		else return false;

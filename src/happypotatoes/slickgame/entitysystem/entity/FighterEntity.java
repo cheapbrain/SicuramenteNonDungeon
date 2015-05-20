@@ -13,6 +13,7 @@ import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
+import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
@@ -28,9 +29,10 @@ public class FighterEntity {
 		Walker walker = new Walker(e, 0, 8, 5);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 170, 189, -1.3f, -2.4f);
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
+		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 5);
 		Health health = new Health(e, 0, 200, 0);
-		Energy energy = new Energy(e, 0, 100, 0);
+		Energy energy = new Energy(e, 0, 100, 2);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
 		return e;

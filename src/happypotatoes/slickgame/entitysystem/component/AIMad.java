@@ -30,8 +30,6 @@ public class AIMad extends AI{
 	public void update(World w, long delta) {
 		//update AI
 		if(walker.getState()!=3){
-				inSight = getEntitiesInSight();
-				focus = getFocus();
 				time -= delta;
 				//update stati
 				int r = state.update(delta);

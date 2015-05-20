@@ -14,11 +14,16 @@ public class Energy extends Component{
 		this.energyRegeneration=energyRegeneration;
 	}
 	public void update(World w, long delta) {
-		timer += delta;
-		if(timer>1000 && energy+energyRegeneration<=maxEnergy){
-			timer=0;
-			setEnergy(getEnergy() + energyRegeneration);
+		if(owner.getComponent(Walker.class).getState()==0){
+			timer += delta;
+			if(timer>2000){
+				if(getEnergy()+getEnergyRegeneration()*delta/1000f<=maxEnergy){
+				setEnergy(getEnergy()+getEnergyRegeneration()*delta/1000f);
+				}
+				else setEnergy(maxEnergy);
+			}
 		}
+		else timer=0;
 	}
 	public float getEnergy() {
 		return energy;
@@ -26,7 +31,7 @@ public class Energy extends Component{
 	public void setEnergy(float energy) {
 		if(energy>=0) this.energy = energy;
 	}
-	public float getHealthRegeneration() {
+	public float getEnergyRegeneration() {
 		return energyRegeneration;
 	}
 	public void setEnergyRegeneration(float energyRegeneration) {

@@ -11,6 +11,9 @@ public class Idle extends State {
 	@Override
 	public int update(long delta) {
 		if(owner.time()){
+			owner.inSight = owner.getEntitiesInSight();
+			owner.focus = owner.getFocus();
+			
 			owner.walker.setStill();
 			if(owner.focus!=null)
 				return 1;

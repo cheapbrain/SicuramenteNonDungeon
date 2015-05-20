@@ -15,6 +15,7 @@ import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.StupidInput;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
+import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
@@ -30,9 +31,10 @@ public class Mowse {
 		Walker walker = new Walker(e, 0, 8, 4);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -2.2f, -2.2f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
+		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 2);
 		Health health = new Health(e, 0, 100, 0);
-		Energy energy = new Energy(e, 0, 100, 0);
+		Energy energy = new Energy(e, 0, 100, 2);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.8f);
 		return e;
 	}

@@ -49,7 +49,7 @@ public abstract class AI extends Component {
 		return (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 	}
 	
-	public int goTo(float dx, float dy, float d){ //0 raggiunto, 1 non raggiunto
+	public void goTo(float dx, float dy, float d){ //0 raggiunto, 1 non raggiunto
 		if (d>1.4&&walker.getState()<2) {
 			float nsx = dx/d*speed;
 			float nsy = dy/d*speed;
@@ -57,12 +57,12 @@ public abstract class AI extends Component {
 			movement.speedy += nsy;
 			walker.setFacing(nsx, nsy);
 			walker.setWalking();
-			return 1;
+			return;
 		} 
 		else{ 
 			if (walker.getState()==1)
 				walker.setStill();
-			return 0;
+			return;
 			}
 	}
 	
