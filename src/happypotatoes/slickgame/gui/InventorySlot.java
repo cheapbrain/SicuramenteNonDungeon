@@ -2,14 +2,11 @@ package happypotatoes.slickgame.gui;
 
 
 import happypotatoes.slickgame.entitysystem.ItemSystem;
-import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.inventory.Slot;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.InputListener;
 import org.newdawn.slick.SlickException;
 
 public class InventorySlot extends Component{

@@ -20,7 +20,6 @@ public class PauseState extends BasicGameState{
 			throws SlickException {
 
 		basedGame = game;
-		int width = container.getWidth();
 		int height = container.getHeight();
 		ui = new UI(container, game);
 		

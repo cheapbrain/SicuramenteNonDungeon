@@ -1,6 +1,5 @@
 package happypotatoes.slickgame.gui;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -9,7 +8,7 @@ public class Window extends Container{
 	private String title = "";
 	protected Image background = null;
 	public Window(String title, int x, int y, int width, int height) {
-		this.title = title;
+		this.setTitle(title);
 		setPosition(x, y);
 		setSize(width, height);
 	}
@@ -21,5 +20,17 @@ public class Window extends Container{
 		if(background!=null){
 			background.draw(0, 0, width, height);
 		}
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public boolean isDecorated() {
+		return decorated;
+	}
+	public void setDecorated(boolean decorated) {
+		this.decorated = decorated;
 	}
 }

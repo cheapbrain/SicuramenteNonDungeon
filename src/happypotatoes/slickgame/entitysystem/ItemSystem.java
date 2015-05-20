@@ -3,16 +3,13 @@ package happypotatoes.slickgame.entitysystem;
 import happypotatoes.slickgame.entitysystem.entity.ItemInfo;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.newdawn.slick.Image;
 
 public class ItemSystem {
-	private static Map<String, ItemInfo> items = new HashMap();
+	private static Map<String, ItemInfo> items = new HashMap<String, ItemInfo>();
 	public static void load(){
 		File res = new File("./res");
 		File[] mods = res.listFiles();

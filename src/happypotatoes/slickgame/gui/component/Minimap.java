@@ -1,16 +1,11 @@
 package happypotatoes.slickgame.gui.component;
 
-import java.util.List;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.LightingBello;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.gui.Window;
 import happypotatoes.slickgame.world.World;
 
@@ -21,7 +16,6 @@ public class Minimap extends Window{
 	private static Graphics gfog;
 	private static Minimap instance;
 	private static Entity player;
-	private static int worldSize;
 	public Minimap(World world, Entity player){
 		super("Minimap", 20, 50, 200, 200);
 		Minimap.explored = new float[150][150];

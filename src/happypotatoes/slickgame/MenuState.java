@@ -5,8 +5,6 @@ import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Button;
 
-import java.awt.Toolkit;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

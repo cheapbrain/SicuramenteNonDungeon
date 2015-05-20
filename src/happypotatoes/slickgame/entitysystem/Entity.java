@@ -15,6 +15,7 @@ public final class Entity {
 	private LinkedBlockingQueue<Component> toAdd = new LinkedBlockingQueue<Component>();
 	private LinkedBlockingQueue<Component> toRemove = new LinkedBlockingQueue<Component>();
 	
+	@SuppressWarnings("unchecked")
 	public <T extends Component> T getComponent(Class<T> c){
 		for(Component component:components)
 			if (c.isAssignableFrom(component.getClass()))

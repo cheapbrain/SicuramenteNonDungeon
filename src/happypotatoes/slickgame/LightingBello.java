@@ -55,7 +55,6 @@ public class LightingBello {
 		float cx = light.getX();
 		float cy = light.getY();
 		float r = light.r;
-		float i = light.i;
 		
 		int sx = (int)Math.ceil(cx-r);
 		int sy = (int)Math.ceil(cy-r);
@@ -67,9 +66,8 @@ public class LightingBello {
 		if (ex>terr.length+1) ex = terr.length+1;
 		if (ey>terr[0].length+1) ey = terr[0].length+1;
 		
-		int count = 0;
 		for (int y=sy;y<ey;y++)
-			for (int x=sx;x<ex;x++,count++) {
+			for (int x=sx;x<ex;x++) {
 				float d = castRay( x, y,cx, cy);
 				if (d!=-1)
 					lightMap[x][y] = Math.min(1, lightMap[x][y]+1-d/r);

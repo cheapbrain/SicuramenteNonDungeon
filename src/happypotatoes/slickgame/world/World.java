@@ -1,32 +1,24 @@
 package happypotatoes.slickgame.world;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.CustomRender;
-import happypotatoes.slickgame.Light;
 import happypotatoes.slickgame.LightingBello;
-import happypotatoes.slickgame.LightingBrutto;
 import happypotatoes.slickgame.material.Material;
 import happypotatoes.slickgame.material.MaterialManager;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
-import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
-import happypotatoes.slickgame.entitysystem.entity.Mowse;
 import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.worldgenerator.Generator;
-import happypotatoes.slickgame.worldgenerator.Room;
 
 public class World {
 	public GameContainer container;
@@ -125,8 +117,6 @@ public class World {
 		int sy = (int)rect.y0;
 		int ex = (int)Math.ceil(rect.x1);
 		int ey = (int)Math.ceil(rect.y1)+1;
-		int cw = ex-sx;
-		int ch = ey-sy;
 		if (sx<0) sx = 0;
 		if (sy<0) sy = 0;
 		if (ex>=size) ex = size-1;

@@ -1,8 +1,5 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.io.File;
-import java.util.Properties;
-
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.entity.ItemInfo;

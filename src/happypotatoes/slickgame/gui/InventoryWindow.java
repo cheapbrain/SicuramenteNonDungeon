@@ -2,7 +2,6 @@ package happypotatoes.slickgame.gui;
 
 import happypotatoes.slickgame.entitysystem.component.Inventory;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class InventoryWindow extends PopUpWindow{

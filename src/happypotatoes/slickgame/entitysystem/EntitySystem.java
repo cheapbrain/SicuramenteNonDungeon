@@ -37,6 +37,7 @@ public class EntitySystem {
 		return entities;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Entity> getEntities(Class<?>... components) {
 		List<Entity> list = new ArrayList<Entity>();
 		for (Entity e:entities) {
