@@ -24,19 +24,19 @@ public class Player {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Player");
 		Faction f = new Faction(e, 0, Faction.good);
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .3f, 0);
+		HitBox hitBox = new HitBox(e, .5f, .3f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
 		PlayerInput input = new PlayerInput(e, 0, walker, movement);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 175, 189, -1.3f, -2.4f);	
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 204, 222, -1.6f, -2.4f);	
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
 		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 8);
 		Inventory inventory = new Inventory(e, 0, 16);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.9f, .8f, 2);
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
 		return e;
 	}
 }
