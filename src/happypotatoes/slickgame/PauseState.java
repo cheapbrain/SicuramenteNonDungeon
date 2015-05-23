@@ -5,25 +5,41 @@ import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Button;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class PauseState extends BasicGameState{
+	private Image background, bg2, foreground;
+	private int width =0;
+	private int height =0;
 	private UI ui;
 	private Button play, exit, menu;
 	StateBasedGame basedGame;
+	float scale;
+	int dx;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
 		basedGame = game;
-		int height = container.getHeight();
-		ui = new UI(container, game);
+
+		background  = new Image("./res/Pause/PauseMenuBackground.png");
+		bg2  = new Image("./res/Pause/PauseMenuBackFrame.png");
+		foreground  = new Image("./res/Pause/PauseMenuForeGround.png");
+		width=container.getWidth();
+		height=container.getHeight();
 		
-		play = new Button("",0,height*693/1366,180,50,"./res/menu/Play");
+		scale = height/768f;
+		dx = (int) ((bg2.getWidth()*scale-width)/2);
+		
+		ui = new UI(container, game);
+
+		play = new Button("",0,(int)(322*scale),(int)(245*scale),(int)(60*scale),"./res/Pause/Resume");
 		play.setHorizontalAlign(Component.CENTER);
 		play.setActionListener(new ActionListener() {
 			@Override
@@ -31,7 +47,8 @@ public class PauseState extends BasicGameState{
 				basedGame.enterState(1);
 			}
 		});
-		menu = new Button("",0,height*1120/1366,140,40,"./res/menu/Exit");
+		
+		menu = new Button("",0,(int)(435*scale),(int)(206*scale),(int)(50*scale),"./res/Pause/Menu");
 		menu.setHorizontalAlign(Component.CENTER);
 		menu.setActionListener(new ActionListener() {
 			@Override
@@ -39,8 +56,8 @@ public class PauseState extends BasicGameState{
 				basedGame.enterState(0);
 			}
 		});
-
-		exit = new Button("",0,height*1220/1366,140,40,"./res/menu/Exit");
+		
+		exit = new Button("",0,(int)(500*scale),(int)(206*scale),(int)(50*scale),"./res/Pause/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
 		exit.setActionListener(new ActionListener() {
 			@Override
@@ -48,6 +65,7 @@ public class PauseState extends BasicGameState{
 				System.exit(0);
 			}
 		});
+		
 		ui.add(exit);
 		ui.add(menu);
 		ui.add(play);
@@ -71,8 +89,10 @@ public class PauseState extends BasicGameState{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
+		background.draw(-dx,0,bg2.getWidth()*scale,height);
+		bg2.draw(-dx-2,0,bg2.getWidth()*scale,height);
 		ui.render(g);
-		
+		foreground.draw(-dx-2,0,bg2.getWidth()*scale,height);
 	}
 
 	@Override

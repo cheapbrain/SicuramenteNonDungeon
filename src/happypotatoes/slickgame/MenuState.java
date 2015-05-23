@@ -16,13 +16,15 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MenuState extends BasicGameState{
-	private Image background, foreground;
+	private Image background, bg2, foreground;
 	private ParticleSystem ps;
-	private Button play, exit;
+	private Button play, exit, opt, about;
 	private int width =0;
 	private int height =0;
 	private UI ui;
 	private float i=1; 
+	private int dx;
+	private float scale;
 	private int  time=0, max=1500;
 	private StateBasedGame basedGame;
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
@@ -36,14 +38,20 @@ public class MenuState extends BasicGameState{
 			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
 			ps.addEmitter(pe);
 			background  = new Image("./res/menu/BackGround.png");
+			bg2  = new Image("./res/menu/BackForeGround.png");
 			foreground  = new Image("./res/menu/ForeGround.png");
 			width=container.getWidth();
 			height=container.getHeight();
+			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+
+		scale = height/768f;
+		dx = (int) ((1366*scale-width)/2);
+		
 		ui = new UI(container, game);
-		play = new Button("",0,height*693/1366,180,50,"./res/menu/Play");
+		play = new Button("",0,(int)(295*scale),(int)(245*scale),(int)(67*scale),"./res/menu/Play");
 		play.setHorizontalAlign(Component.CENTER);
 		play.setActionListener(new ActionListener() {
 			@Override
@@ -51,7 +59,26 @@ public class MenuState extends BasicGameState{
 				basedGame.enterState(2);
 			}
 		});
-		exit = new Button("",0,height*1120/1366,140,40,"./res/menu/Exit");
+		
+		opt = new Button("",0,(int)(380*scale),(int)(245*scale),(int)(67*scale),"./res/menu/Options");
+		opt.setHorizontalAlign(Component.CENTER);
+		opt.setActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(Component source) {
+				basedGame.enterState(2);
+			}
+		});
+		
+		about = new Button("",0,(int)(465*scale),(int)(245*scale),(int)(67*scale),"./res/menu/About");
+		about.setHorizontalAlign(Component.CENTER);
+		about.setActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(Component source) {
+				basedGame.enterState(2);
+			}
+		});
+		
+		exit = new Button("",0,(int)(625*scale),(int)(180*scale),(int)(50*scale),"./res/menu/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
 		exit.setActionListener(new ActionListener() {
 			@Override
@@ -61,6 +88,8 @@ public class MenuState extends BasicGameState{
 		});
 		ui.add(exit);
 		ui.add(play);
+		ui.add(opt);
+		ui.add(about);
 	}
 	
 	public void leave(GameContainer container, StateBasedGame game)
@@ -72,8 +101,9 @@ public class MenuState extends BasicGameState{
 			throws SlickException {
 		background.draw(0,0,width,height);
 		ps.render();
+		bg2.draw(-dx,0,1366*scale,height);
 		ui.render(g);
-		foreground.draw(0,0,width,height);
+		foreground.draw(-dx,0,1366*scale,height);
 		g.setColor(new Color(0,0,0,i));
 		g.fillRect(0, 0, width, height);
 	}
