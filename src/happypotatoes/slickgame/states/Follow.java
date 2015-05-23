@@ -23,14 +23,14 @@ public class Follow extends State {
 				return 1;
 			
 			Entity attacker;
-			if((attacker = owner.isAttacked(owner.owner))!=null){ //if pet is attacked
+			if((attacker = owner.seeAttacked(owner.owner))!=null){ //if pet is attacked
 				if(attacker.getComponent(PlayerInput.class)!=null){ //if pet is attacked and attacker is not player
 					owner.focus=attacker;
 					return 2;
 				}
 			}
 			if(owner.focus.getComponent(PlayerInput.class)!=null){ //if focus is on player
-				if((attacker = owner.isAttacked(owner.focus))!=null){ //if player is attacked
+				if((attacker = owner.seeAttacked(owner.focus))!=null){ //if player is attacked
 					if(attacker.getComponent(PlayerInput.class)==null){ //if player is not suiciding
 						owner.focus=attacker;
 						return 3;

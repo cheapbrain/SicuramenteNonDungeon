@@ -1,7 +1,6 @@
 package happypotatoes.slickgame.entitysystem.component;
 
 import java.util.Iterator;
-import java.util.List;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.states.Chase;
@@ -13,7 +12,6 @@ import happypotatoes.slickgame.states.Rest;
 import happypotatoes.slickgame.world.World;
 
 public class AIFighter extends AI{
-	State state;
 	State states[]={new Idle(this,2), new Chase(this,1,3),
 			new Fight(this,1,2,4), new Escape(this,3,5), new Rest(this,1,4) };
 	
@@ -30,6 +28,7 @@ public class AIFighter extends AI{
 	
 	@Override
 	public void update(World w, long delta) {
+		this.w=w;
 		//update AI
 		if(walker.getState()!=3){
 			time -= delta;
@@ -60,8 +59,8 @@ public class AIFighter extends AI{
 		iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
-			if(t.getComponent(PlayerInput.class) != null)
-				if(t.isAlive())
+			if(t.getComponent(Faction.class) != null)
+				if(t.getComponent(Faction.class).enemyOf(owner)&&t.isAlive())
 					return t;
 		}
 		return null;

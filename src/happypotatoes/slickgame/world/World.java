@@ -55,11 +55,11 @@ public class World {
 		int[][] terrain = gen.getTerrain();
 		
 		size=terrain.length;
-		terrainType = terrain;
+		setTerrainType(terrain);
 		this.terrain = new int[size][size];
 		this.walls = new int[size][size];
 		
-		lighting = new LightingBello(terrainType);
+		lighting = new LightingBello(getTerrainType());
 		
 		for (y=size-1;y>-1;y--)
 			for (x=0;x<size;x++) {
@@ -204,57 +204,8 @@ public class World {
 		return near;
 	}
 	
-	public boolean castRay(float x1, float y1, float x2, float y2) {
-		if ((int)x1==(int)x2&&(int)y1==(int)y2)
-			return true;
-		float dx = x2-x1;
-		float dy = y2-y1;
-		float d = (float)Math.sqrt(dx*dx+dy*dy)+0.0000001f;
-		
-		int ix, iy;
-		float sdx, sdy;
-		if (dx>0) {
-			ix = +1;
-			sdx = (int)x1+1-x1;
-		} else {
-			ix = -1;
-			sdx = x1-(int)x1;
-		}
-		if (dy>0) {
-			iy = +1;
-			sdy = (int)y1+1-y1;
-		} else {
-			iy = -1;
-			sdy = y1-(int)y1;
-		}
-		
-		float stepx = d/Math.abs(dx);
-		float stepy = d/Math.abs(dy);
-		
-		float countx = stepx*sdx;
-		float county = stepy*sdy;
-		
-		int x = (int)x1;
-		int y = (int)y1;
-				
-		while(true) {
-			if (terrainType[x][y]==1)
-				return false;
-			if (countx>=d&&county>=d)
-				return true;
-			
-			if (countx<county) {
-				x += ix;
-				countx += stepx;
-			} else {
-				y += iy;
-				county += stepy;
-			}
-		}
-	}
-	
 	public boolean isWalkable(float x, float y) {
-		return terrainType[(int)x][(int)y]==0;
+		return getTerrainType()[(int)x][(int)y]==0;
 	}
 
 	public void add(Entity e) {
@@ -263,5 +214,13 @@ public class World {
 
 	public void remove(Entity e) {
 		es.removeEntity(e);
+	}
+
+	public int[][] getTerrainType() {
+		return terrainType;
+	}
+
+	public void setTerrainType(int[][] terrainType) {
+		this.terrainType = terrainType;
 	}
 }

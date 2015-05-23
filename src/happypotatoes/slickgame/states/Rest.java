@@ -18,7 +18,7 @@ public class Rest extends State {
 			if(owner.owner.getComponent(Health.class).getHealth()>
 				owner.owner.getComponent(Health.class).getMaxHealth()/10f*8f)
 				return 1;
-			if(owner.isAttacked(owner.owner)!=null){
+			if(owner.seeAttacked(owner.owner)!=null){
 				return 2;
 			}
 		}

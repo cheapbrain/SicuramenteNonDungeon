@@ -22,6 +22,7 @@ public class Defend extends Component{
 			Energy thisEnergy=owner.getComponent(Energy.class);
 			if(thisEnergy.getEnergy()<consumeSecond/4f){
 				walker.setStill();
+				mitigation=0f;
 				return;
 			}
 			if(animationTime>animationTotalTime){

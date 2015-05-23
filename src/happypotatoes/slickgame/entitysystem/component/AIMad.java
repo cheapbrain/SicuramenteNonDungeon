@@ -28,6 +28,7 @@ public class AIMad extends AI{
 	
 	@Override
 	public void update(World w, long delta) {
+		this.w=w;
 		//update AI
 		if(walker.getState()!=3){
 				time -= delta;
@@ -56,8 +57,9 @@ public class AIMad extends AI{
 		iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
-			if(t.getComponent(PlayerInput.class) != null)
-				return t;
+			if(t.getComponent(Faction.class) != null)
+				if(t.getComponent(Faction.class).enemyOf(owner)&&t.isAlive())
+					return t;
 		}
 		return null;
 	}

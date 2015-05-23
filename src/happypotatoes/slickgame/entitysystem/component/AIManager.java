@@ -1,15 +1,8 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
-
-import org.newdawn.slick.Input;
-
-import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.component.PlayerAction.State;
-import happypotatoes.slickgame.world.World;
+
+import java.lang.reflect.Constructor;
 
 public class AIManager {
 	Entity e;

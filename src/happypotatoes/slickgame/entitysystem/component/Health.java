@@ -7,7 +7,6 @@ import happypotatoes.slickgame.world.World;
 public class Health extends Component{
 	private float health, healthRegeneration, maxHealth;
 	private int timer;
-	private boolean death;
 	public Health(Entity owner, float priority, float health, float healthRegeneration ) {
 		super(owner, priority);
 		maxHealth = health;
@@ -36,7 +35,6 @@ public class Health extends Component{
 			this.health = 0;
 			owner.getComponent(Walker.class).setDead();
 		}
-		//System.out.println(this.health+"  "+owner.getName());
 	}
 	public float getHealthRegeneration() {
 		return healthRegeneration;

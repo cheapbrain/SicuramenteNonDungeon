@@ -8,6 +8,7 @@ import happypotatoes.slickgame.entitysystem.component.AIPet;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.EntityCollision;
+import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Movement;
@@ -24,6 +25,7 @@ public class Mowse {
 	
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Mowse");
+		Faction f = new Faction(e, 0, Faction.bad);
 		Movement movement = new Movement(e, 0);
 		HitBox hitBox = new HitBox(e, .6f, .6f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
@@ -32,7 +34,7 @@ public class Mowse {
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -2.2f, -2.2f);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
-		Attack attack = new Attack(e, 0, walker, walkerRender, 2);
+		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
 		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 2);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.8f);

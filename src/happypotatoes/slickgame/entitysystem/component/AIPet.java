@@ -5,7 +5,6 @@ import java.util.Iterator;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.states.Chase;
 import happypotatoes.slickgame.states.DefendPlayer;
-import happypotatoes.slickgame.states.Fight;
 import happypotatoes.slickgame.states.Follow;
 import happypotatoes.slickgame.states.Idle;
 import happypotatoes.slickgame.states.State;
@@ -28,6 +27,7 @@ public class AIPet extends AI{
 	
 	@Override
 	public void update(World w, long delta) {
+		this.w=w;
 		//update AI
 		if(walker.getState()!=3){
 				time -= delta;

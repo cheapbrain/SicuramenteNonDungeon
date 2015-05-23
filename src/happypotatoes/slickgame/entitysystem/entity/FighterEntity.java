@@ -8,6 +8,7 @@ import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Defend;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.EntityCollision;
+import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Movement;
@@ -22,6 +23,7 @@ public class FighterEntity {
 	
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Fighter");
+		Faction f = new Faction(e, 0, Faction.bad);
 		Movement movement = new Movement(e, 0);
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
@@ -30,8 +32,8 @@ public class FighterEntity {
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 170, 189, -1.3f, -2.4f);
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
-		Attack attack = new Attack(e, 0, walker, walkerRender, 5);
-		Health health = new Health(e, 0, 200, 0);
+		Attack attack = new Attack(e, 0, walker, walkerRender, 1);
+		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 2);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);

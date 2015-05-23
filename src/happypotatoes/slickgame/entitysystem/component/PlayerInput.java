@@ -7,7 +7,6 @@ import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {
@@ -17,6 +16,7 @@ public class PlayerInput extends Component {
 	Walker walker;
 	Movement movement;
 	float speed = 0.0015f;
+	public Entity focus; //temp
 	
 	public PlayerInput(Entity owner, float priority, Walker walker, Movement movement) {
 		super(owner, priority);
@@ -83,30 +83,17 @@ public class PlayerInput extends Component {
 				else 
 				if (health!=null){
 					//create particle spostato in Attack
-					//System.exit(0);
-					owner.getComponent(Attack.class).attack(interactTarget);
+					//owner.getComponent(Attack.class).attack(interactTarget);
+					focus=interactTarget;
+					walker.setAttacking();
 				}
 				movement.speedx = 0;
 				movement.speedy = 0;
 			}
-			/*else if (d<.1) {
-				walker.setStill();
-				movement.speedx = 0;
-				movement.speedy = 0;
-				
-			} else {
-				msx = dx/d*speed;
-				msy = dy/d*speed;
-				movement.speedx += msx;
-				movement.speedy += msy;
-			}
-			if (msx!=0||msy!=0)
-				walker.setFacing(msx, msy);*/
 		}			
 			
-		if (input.isKeyDown(Input.KEY_E)&&walker.getState()<2) {
-			//walker.state=2;
-			//((Energy) owner.getComponent(Energy.class)).setEnergy(((Energy) owner.getComponent(Energy.class)).getEnergy()-20);
+		if (input.isKeyDown(Input.KEY_B)&&walker.getState()!=3) {
+			//inventory
 		}
 		
 		if (input.isKeyDown(Input.KEY_D)&&walker.getState()!=3) {

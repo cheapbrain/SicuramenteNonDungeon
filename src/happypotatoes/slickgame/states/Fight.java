@@ -4,7 +4,6 @@ import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Defend;
 import happypotatoes.slickgame.entitysystem.component.Health;
-import happypotatoes.slickgame.entitysystem.component.Walker;
 
 public class Fight extends State {
 
@@ -25,13 +24,14 @@ public class Fight extends State {
 			Health thisHealth = owner.owner.getComponent(Health.class);
 			if(thisHealth!=null){
 				if(thisHealth.getHealth()<thisHealth.getMaxHealth()/100f*20f)
-					if(owner.isAttacked(owner.owner) != null)
+					if(owner.seeAttacked(owner.owner) != null)
 						return 3;
 			}	
 			
 			
 			if(owner.getDistance(owner.focus)>1.5f){
-				return 2;
+				if(owner.walker.getState()!=4)
+					return 2;
 			}
 			
 			Defend thisDefend = owner.owner.getComponent(Defend.class);
@@ -52,8 +52,7 @@ public class Fight extends State {
 				return 1;
 			}
 			if(thisDefend!=null){
-				if(enemyAttack!=null)
-					if(enemyAttack.isAttacking())
+				if(owner.seeAttacked(owner.owner)!=null)
 						if(thisHealth.getHealth()<enemyHealth.getHealth())
 							owner.walker.setDefending();
 			}

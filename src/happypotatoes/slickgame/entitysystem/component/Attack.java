@@ -1,8 +1,5 @@
 package happypotatoes.slickgame.entitysystem.component;
 
-import java.util.List;
-import java.util.Random;
-
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
@@ -13,13 +10,13 @@ public class Attack extends Component{
 	public int animationTime = 0;
 	private Walker walker;
 	public int animationTotalTime = 0;
-	private float damage;
+	private float baseDamage, damage;
 	private Entity focus;
-	public float consume = 4f;
-	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float damage) {
+	public float consume = 1f;
+	public Attack(Entity owner, float priority, Walker walker, WalkerRender walkerRender, float baseDamage) {
 		super(owner, priority);
 		this.walker = walker;
-		this.damage = damage;
+		this.baseDamage = baseDamage;
 		animationTotalTime = walkerRender.getFrames(2)* walkerRender.getFrameTime();
 	}
 	
@@ -41,22 +38,25 @@ public class Attack extends Component{
 					focus = owner.getComponent(AI.class).focus;
 				if(focus!=null)
 					owner.getComponent(Walker.class).setFacing(focus.x-owner.x, focus.y-owner.y);
+				WeaponComponent weapon = owner.getComponent(WeaponComponent.class);
 				if(thisEnergy!=null)
-					thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
-				if (focus!=null) {
+					if(weapon!=null)
+						thisEnergy.setEnergy(thisEnergy.getEnergy()-consume*(weapon.getWeight()+1));
+					else thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
+				
+				damage=baseDamage;
+				if (focus!=null) { 
 					Health EnemyHp = ((Health) focus.getComponent(Health.class));
 					if(focus.getComponent(Defend.class)!=null){
-						if(damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation)>=EnemyHp.getHealth()/100f*5f)
-							createBlood();
-						EnemyHp.setHealth(EnemyHp.getHealth()-damage*(1f-((Defend)focus.getComponent(Defend.class)).mitigation));
-					}	
-					else{
-						if(damage>=EnemyHp.getHealth()/100f*5f)
-							createBlood();
-						EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+						damage*=(1f-((Defend)focus.getComponent(Defend.class)).mitigation);
 					}
+					if(weapon!=null){
+						damage*=weapon.getDamage()+1f;
+					}
+					if(damage>=EnemyHp.getHealth()/100f*5f)
+							createBlood();
+					EnemyHp.setHealth(EnemyHp.getHealth()-damage);
 				}
-				
 				walker.setStill();
 				animationTime=0;
 			} else{
