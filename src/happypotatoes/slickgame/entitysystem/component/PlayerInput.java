@@ -84,8 +84,10 @@ public class PlayerInput extends Component {
 				if (health!=null){
 					//create particle spostato in Attack
 					//owner.getComponent(Attack.class).attack(interactTarget);
+					
 					focus=interactTarget;
 					walker.setAttacking();
+					
 				}
 				movement.speedx = 0;
 				movement.speedy = 0;

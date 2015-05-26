@@ -5,7 +5,7 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
 
 public class Faction extends Component{
-	public static final int good=1, bad=2, neutral=3;
+	public static final int good=1, neutral=2, bad=3;
 	private int faction;
 	public Faction(Entity owner, float priority, int faction) {
 		super(owner, priority);
@@ -28,7 +28,7 @@ public class Faction extends Component{
 	public boolean enemyOf(Entity e){
 		Faction enemyFaction = e.getComponent(Faction.class);
 		if(enemyFaction!=null)
-			if(faction!=enemyFaction.faction) 
+			if(Math.abs(faction-enemyFaction.faction)==2) 
 				return true;
 		return false;
 	}

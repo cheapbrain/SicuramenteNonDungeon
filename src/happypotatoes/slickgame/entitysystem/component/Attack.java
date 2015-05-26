@@ -34,16 +34,27 @@ public class Attack extends Component{
 			}
 			animationTime+=delta;
 			if(animationTime>=animationTotalTime){
+				
+				//get del focus
 				if (owner.getComponent(AI.class)!=null)
 					focus = owner.getComponent(AI.class).focus;
+				if (owner.getComponent(PlayerInput.class)!=null)
+					focus = owner.getComponent(PlayerInput.class).focus;
+				
+				//facing
 				if(focus!=null)
 					owner.getComponent(Walker.class).setFacing(focus.x-owner.x, focus.y-owner.y);
+				
+				//arma tenuta
 				WeaponComponent weapon = owner.getComponent(WeaponComponent.class);
+				
+				//calo energia
 				if(thisEnergy!=null)
 					if(weapon!=null)
 						thisEnergy.setEnergy(thisEnergy.getEnergy()-consume*(weapon.getWeight()+1));
 					else thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
 				
+				//calcolo danno
 				damage=baseDamage;
 				if (focus!=null) { 
 					Health EnemyHp = ((Health) focus.getComponent(Health.class));
@@ -53,6 +64,8 @@ public class Attack extends Component{
 					if(weapon!=null){
 						damage*=weapon.getDamage()+1f;
 					}
+					
+					//vita e sangue
 					if(damage>=EnemyHp.getHealth()/100f*5f)
 							createBlood();
 					EnemyHp.setHealth(EnemyHp.getHealth()-damage);

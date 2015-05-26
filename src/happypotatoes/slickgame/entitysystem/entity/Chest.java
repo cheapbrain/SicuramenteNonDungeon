@@ -11,6 +11,7 @@ import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.EntityCollision;
 import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
+import happypotatoes.slickgame.entitysystem.component.Interact;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
@@ -20,29 +21,23 @@ import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
-public class Wolf {
+public class Chest {
 	static float speed = 0.001f;
+	int facing;
 	
-	public static Entity create() {
-		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Wolf");
-		Faction f = new Faction(e, 0, Faction.good);
-		Movement movement = new Movement(e, 0);
+	public static Entity create(int facing) {
+		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Chest");
 		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
-		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
-		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
-		Walker walker = new Walker(e, 0, 8, 4);
-		AI intelligence = (AI) (new AIPet(e, 0f, walker, movement, speed));
+		OpenChest i = new OpenChest(e, 0);
+		Faction f = new Faction(e, 0, Faction.neutral);
+		Walker walker = new Walker(e, 0, 8, 4, facing);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 96, 54, -.75f, -0.8f);	
-		Walk walk = new Walk(e, 0, walker, walkerRender);
-		Attack attack = new Attack(e, 0, walker, walkerRender, 2);
-		Health health = new Health(e, 0, 100, 0);
-		Energy energy = new Energy(e, 0, 100, 5);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-.8f, 1, 1);
 		return e;
 	}
 	
-	public static Entity create(float x, float y ){
-		Entity e = create();
+	public static Entity create(float x, float y, int facing){
+		Entity e = create(facing);
 		e.x=x; e.y=y;
 		return e;
 	}
