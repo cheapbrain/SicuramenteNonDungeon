@@ -30,6 +30,7 @@ public class Player {
 		Walker walker = new Walker(e, 0, 8, 5);
 		PlayerInput input = new PlayerInput(e, 0, walker, movement);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 204, 222, -1.6f, -2.4f);	
+		WalkerRender weaponRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f);	
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
 		Health health = new Health(e, 0, 100, 1);
