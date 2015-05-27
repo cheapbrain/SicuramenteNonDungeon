@@ -27,7 +27,7 @@ public class Mowse {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Mowse");
 		Faction f = new Faction(e, 0, Faction.bad);
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .6f, .6f, 0);
+		HitBox hitBox = new HitBox(e, .7f, .6f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 4);
@@ -41,7 +41,7 @@ public class Mowse {
 		return e;
 	}
 	
-	public static Entity create(int x, int y ){
+	public static Entity create(float x, float y ){
 		Entity e = create();
 		e.x=x; e.y=y;
 		return e;

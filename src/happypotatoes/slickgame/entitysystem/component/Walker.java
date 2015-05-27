@@ -16,6 +16,13 @@ public class Walker extends Component{
 		this.directions = directions;
 		this.states = states;
 	}
+	
+	public Walker(Entity owner, float priority, int directions, int states, int facing) {
+		super(owner, priority);
+		this.directions = directions;
+		this.states = states;
+		this.facing = facing;
+	}
 
 	@Override
 	public void update(World w, long delta) {
@@ -46,6 +53,9 @@ public class Walker extends Component{
 	public void setDead(){
 		if(owner.getComponent(AI.class)!=null){
 			owner.getComponent(AI.class).focus=null;
+		}
+		if(owner.getComponent(Energy.class)!=null){
+			owner.getComponent(Energy.class).setEnergy(0);
 		}
 		this.state=3;
 	}

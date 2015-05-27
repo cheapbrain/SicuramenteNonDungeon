@@ -32,8 +32,7 @@ public class Escape extends State {
 					float d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
 					float x = owner.owner.x-dx/d*5;
 					float y = owner.owner.y-dy/d*5;
-					Entity target = Target.create(x,y);
-					owner.focus=target;
+					owner.focus = Target.create(x,y);
 				}
 				else{
 					return 2;
