@@ -25,11 +25,11 @@ public class FighterEntity {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Fighter");
 		Faction f = new Faction(e, 0, Faction.bad);
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox = new HitBox(e, .5f, .3f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 170, 189, -1.3f, -2.4f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 204, 222, -1.6f, -2.4f);
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 1);

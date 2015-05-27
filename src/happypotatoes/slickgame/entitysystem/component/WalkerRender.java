@@ -13,6 +13,7 @@ import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.geom.Rectangle;
 
 public class WalkerRender extends RenderComponent{
+	private Image foreground, healthBar;
 	Walker walker;
 	private Animation[][] animations;
 	private int state;
@@ -25,6 +26,12 @@ public class WalkerRender extends RenderComponent{
 		this.walker = walker;
 		ox = offsetX;
 		oy = offsetY;
+		try {
+			foreground = new Image("./res/MonsterBarBackGround.png");
+			healthBar = new Image("./res/MonsterBarHealthBar.png");
+		} catch (SlickException e1) {
+			e1.printStackTrace();
+		}	
 		float unit = Camera.camera.getUnit();
 		animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
@@ -57,8 +64,12 @@ public class WalkerRender extends RenderComponent{
 			animations[state][walker.facing].restart();
 		}
 		state = walker.getState();
-		animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
-		
+		if(animations[state][walker.facing].getFrame()==animations[state][walker.facing].getFrameCount()-1&&state==3){	
+			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+			animations[state][walker.facing].stop();
+		}else{
+			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+		}
 		Graphics g = EntityRenderer.g;
 		
 		HitBox hitbox = owner.getComponent(HitBox.class);
@@ -75,8 +86,8 @@ public class WalkerRender extends RenderComponent{
 		}
 		Health hc = owner.getComponent(Health.class);
 		if(hc!=null&&!owner.getName().equals("Player")){
-			g.setColor(Color.red);
-			g.fillRect(owner.x+select.ox, owner.y+select.oy-.2f, select.rect.w*hc.getHealth()/hc.getMaxHealth(), .2f);
+			healthBar.getSubImage(0, 0, (int) (healthBar.getWidth()*hc.getHealth()/hc.getMaxHealth()), healthBar.getHeight()).draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, (select.rect.w+.3f)*hc.getHealth()/hc.getMaxHealth(), .3f, new Color(i,i,i,1));
+			foreground.draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, select.rect.w+.3f, .3f, new Color(i,i,i,1));
 		}
 	}
 	@Override
