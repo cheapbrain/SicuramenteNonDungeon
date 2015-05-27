@@ -27,7 +27,7 @@ public class Wolf {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Wolf");
 		Faction f = new Faction(e, 0, Faction.good);
 		Movement movement = new Movement(e, 0);
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox = new HitBox(e, .3f, .2f, 0);
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 4);
