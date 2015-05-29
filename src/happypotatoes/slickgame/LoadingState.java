@@ -79,7 +79,7 @@ public class LoadingState extends BasicGameState {
 		case 6:
 			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 			break;
-		case 7: //new Minimap(world, player);
+		case 7: new Minimap(world, player);
 				break;
 		case 8:
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));

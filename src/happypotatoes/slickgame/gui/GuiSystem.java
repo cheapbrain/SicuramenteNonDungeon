@@ -17,7 +17,7 @@ public class GuiSystem {
 	public static void init(UI ui, Entity player){
 		iw=inventory(ui, player);
 		hud=hud(ui, player);
-		//ui.add(Minimap.getInstance());
+		ui.add(Minimap.getInstance());
 	}
 	public static Window getHud(){
 		return hud;
