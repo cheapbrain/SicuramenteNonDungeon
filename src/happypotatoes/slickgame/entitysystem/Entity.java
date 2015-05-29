@@ -23,6 +23,26 @@ public final class Entity {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T extends Component> T getComponent(Class<T> c, int n){
+		int i=0;
+		for(Component component:components)
+			if (c.isAssignableFrom(component.getClass())){
+				i++;
+				if(i==n) return (T) component;
+			}
+		return null;
+	}
+	
+	public <T extends Component> int getComponentNumber(Class<T> c){
+		int i=0;
+		for(Component component:components)
+			if (c.isAssignableFrom(component.getClass())){
+				i++;
+			}
+		return i;
+	}
+	
 	public float getDist(Entity entity) {
 		float dx = this.x-entity.x;
 		float dy = this.y-entity.y;

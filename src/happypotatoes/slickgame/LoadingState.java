@@ -4,12 +4,14 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
-import happypotatoes.slickgame.entitysystem.entity.Item;
+import happypotatoes.slickgame.entitysystem.entity.Sword;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
 import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Minimap;
+import happypotatoes.slickgame.items.ItemList;
+import happypotatoes.slickgame.items.ItemType;
 import happypotatoes.slickgame.world.World;
 
 import org.newdawn.slick.Color;
@@ -56,7 +58,8 @@ public class LoadingState extends BasicGameState {
 			EntitySystem.getInstance().clear();
 			break;
 		case 1:
-			ItemSystem.load();
+			ItemType itemType = new ItemType();
+			ItemList itemList = new ItemList();
 			break;
 		case 2:
 			Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
@@ -71,7 +74,7 @@ public class LoadingState extends BasicGameState {
 			world.add(player);
 			break;
 		case 5:
-			Entity item = Item.create(".\\res\\MyMod\\Items\\Spada.item");
+			Entity item = Sword.create();
 			item.x=3.5f;
 			item.y=2.5f;
 			world.add(item);

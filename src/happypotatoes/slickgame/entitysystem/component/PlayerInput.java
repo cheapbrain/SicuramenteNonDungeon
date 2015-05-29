@@ -7,6 +7,12 @@ import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
+import happypotatoes.slickgame.gui.GuiSystem;
+import happypotatoes.slickgame.gui.InventoryWindow;
+import happypotatoes.slickgame.inventory.EquipSlot;
+import happypotatoes.slickgame.items.ItemList;
+import happypotatoes.slickgame.items.ItemType;
 import happypotatoes.slickgame.world.World;
 
 public class PlayerInput extends Component {
@@ -94,8 +100,9 @@ public class PlayerInput extends Component {
 			}
 		}			
 			
-		if (input.isKeyDown(Input.KEY_B)&&walker.getState()!=3) {
-			//inventory
+		if (input.isKeyPressed(Input.KEY_B)&&walker.getState()!=3) {
+			GuiSystem.iw.setOpen(!GuiSystem.iw.isOpen());
+			GuiSystem.eq.setOpen(!GuiSystem.eq.isOpen());
 		}
 		
 		if (input.isKeyDown(Input.KEY_D)&&walker.getState()!=3) {
@@ -106,10 +113,16 @@ public class PlayerInput extends Component {
 			if(walker.getState()==4) walker.setStill();
 		}
 		if(input.isKeyPressed(Input.KEY_A)){
-			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada.item");
+			Equip e = owner.getComponent(Equip.class);
+			EquipSlot slot = e.get(ItemType.weapon,1);
+			if(slot!=null) {
+				e.takeOut(slot);
+				
+			}
+			else e.add(ItemList.sword.getId());
 		}
 		if(input.isKeyPressed(Input.KEY_S)){
-			((Inventory) owner.getComponent(Inventory.class)).add(".\\res\\MyMod\\Items\\Spada2.item");
+			owner.getComponent(Inventory.class).add(ItemList.sword2.getId());
 		}
 	}
 	

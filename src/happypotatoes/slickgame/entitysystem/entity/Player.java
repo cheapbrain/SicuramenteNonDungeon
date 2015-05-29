@@ -2,6 +2,7 @@ package happypotatoes.slickgame.entitysystem.entity;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Defend;
 import happypotatoes.slickgame.entitysystem.component.Energy;
@@ -18,6 +19,13 @@ import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.entitysystem.component.WeaponRender;
+import happypotatoes.slickgame.entitysystem.component.equip.ArmourComponent;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
+import happypotatoes.slickgame.entitysystem.component.equip.HelmComponent;
+import happypotatoes.slickgame.entitysystem.component.equip.SecondHandComponent;
+import happypotatoes.slickgame.entitysystem.component.equip.TrinketComponent;
+import happypotatoes.slickgame.entitysystem.component.equip.WeaponComponent;
+import happypotatoes.slickgame.items.ItemList;
 
 public class Player {
 	public static Entity create() {
@@ -28,16 +36,33 @@ public class Player {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
-		PlayerInput input = new PlayerInput(e, 0, walker, movement);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 204, 222, -1.6f, -2.4f);	
-		WalkerRender weaponRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f);	
+		PlayerInput input = new PlayerInput(e, 0, walker, movement);	
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 204, 222, -1.6f, -2.4f);			
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
 		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 8);
-		Inventory inventory = new Inventory(e, 0, 16);
+		Inventory inventory = new Inventory(e, 0, 4, 4);
+		Equip equip = new Equip(e, 0, 1, 5);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
+		
+		/*
+		//li abilita equip
+		HelmComponent helm;
+			WalkerRender helmRender;		
+		WeaponComponent weapon;
+		//INIZIARE DA QUI
+		//la classe che lo gestisce ora deve dargli il percorso e abilitarlo e altre cose
+			WalkerRender weaponRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f);
+		SecondHandComponent secondHand;
+			WalkerRender secondHandRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f)
+		ArmourComponent armour;
+			WalkerRender armourRender;
+		TrinketComponent trinket;
+			WalkerRender trinketRender;
+		*/
+		
 		return e;
 	}
 }

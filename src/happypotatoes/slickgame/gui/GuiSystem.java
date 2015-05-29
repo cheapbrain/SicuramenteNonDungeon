@@ -7,15 +7,17 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
 import happypotatoes.slickgame.gui.component.EnergyBar;
 import happypotatoes.slickgame.gui.component.HealthBar;
 import happypotatoes.slickgame.gui.component.Minimap;
 
 public class GuiSystem {
-	private static InventoryWindow iw = null;
+	public static InventoryWindow iw = null, eq = null;
 	private static Window hud = null;
 	public static void init(UI ui, Entity player){
 		iw=inventory(ui, player);
+		eq=equip(ui, player);
 		hud=hud(ui, player);
 		ui.add(Minimap.getInstance());
 	}
@@ -61,5 +63,14 @@ public class GuiSystem {
 		iw.setVisible(false);
 		ui.add(iw);
 		return iw;
+	}
+	
+	private static InventoryWindow equip(UI ui, Entity player){
+		InventoryWindow eq = new InventoryWindow("equip", 0,0, ((Equip) player.getComponent(Equip.class)));
+		eq.setVerticalAlign(Component.CENTER);
+		eq.setHorizontalAlign(Component.WEST);
+		eq.setVisible(false);
+		ui.add(eq);
+		return eq;
 	}
 }

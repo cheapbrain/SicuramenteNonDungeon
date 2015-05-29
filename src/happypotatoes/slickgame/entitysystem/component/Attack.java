@@ -3,11 +3,13 @@ package happypotatoes.slickgame.entitysystem.component;
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.equip.WeaponComponent;
 import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
 	public int animationTime = 0;
+	public int nAlternate; //alternanza attacchi
 	private Walker walker;
 	public int animationTotalTime = 0;
 	private float baseDamage, damage;
@@ -23,6 +25,7 @@ public class Attack extends Component{
 	public void attack(Entity focus) {
 		walker.setAttacking();
 		this.focus = focus;
+		nAlternate=1;
 	}
 	
 	public void update(World w, long delta) {
@@ -48,11 +51,14 @@ public class Attack extends Component{
 				//arma tenuta
 				WeaponComponent weapon = owner.getComponent(WeaponComponent.class);
 				
+				
 				//calo energia
 				if(thisEnergy!=null)
 					if(weapon!=null)
-						thisEnergy.setEnergy(thisEnergy.getEnergy()-consume*(weapon.getWeight()+1));
-					else thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
+						thisEnergy.setEnergy(thisEnergy.getEnergy()-consume*(weapon.getWeight()+1f));
+					else {
+						thisEnergy.setEnergy(thisEnergy.getEnergy()-consume);
+					}
 				
 				//calcolo danno
 				damage=baseDamage;
@@ -69,6 +75,14 @@ public class Attack extends Component{
 					if(damage>=EnemyHp.getHealth()/100f*5f)
 							createBlood();
 					EnemyHp.setHealth(EnemyHp.getHealth()-damage);
+					
+					//alternanza Render
+					nAlternate=nAlternate%2+1;
+					for(int i=1; i<owner.getComponentNumber(WalkerRender.class); i++){
+						//WalkerRender x = owner.getComponent(WalkerRender.class, i);
+						//if(x!=null) 
+							//x.nAlternate=this.nAlternate;
+					}
 				}
 				walker.setStill();
 				animationTime=0;

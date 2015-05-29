@@ -1,14 +1,16 @@
-package happypotatoes.slickgame.entitysystem.component;
+package happypotatoes.slickgame.entitysystem.entity;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.Interact;
+import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.world.World;
 
-public class ItemEntity extends Interact{
-	private String id;
-	public ItemEntity(Entity owner, float priority, String id) {
+public class Pickup extends Interact{
+	private int id;
+	public Pickup(Entity owner, float priority, int i) {
 		super(owner, priority);
-		this.id = id;
+		this.id = i;
 	}
 	@Override
 	public void update(World w, long delta) {
