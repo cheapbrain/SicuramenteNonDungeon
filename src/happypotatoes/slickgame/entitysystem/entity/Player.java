@@ -10,9 +10,12 @@ import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.LoopSound;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
+import happypotatoes.slickgame.entitysystem.component.StateSound;
+import happypotatoes.slickgame.entitysystem.component.StateSoundManager;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
@@ -37,6 +40,11 @@ public class Player {
 		Inventory inventory = new Inventory(e, 0, 16);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
+		
+		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
+				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg")
+				);
+		
 		return e;
 	}
 }

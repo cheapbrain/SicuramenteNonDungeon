@@ -9,7 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameStateController extends StateBasedGame {
 
 	public GameStateController() {
-		super("cacca <3");
+		super("cacca v0.0.1 <3");
 	}
 
 	@Override
