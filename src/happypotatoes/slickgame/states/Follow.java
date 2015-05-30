@@ -5,9 +5,10 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.Walk;
+import happypotatoes.slickgame.entitysystem.entity.Target;
 
 public class Follow extends State {
-	public float speed;
+	public float x,y; //last seen x y
 	
 	public Follow(AI owner, Integer...states) {
 		super(owner, states);
@@ -19,12 +20,14 @@ public class Follow extends State {
 			owner.inSight = owner.getEntitiesInSight();
 			owner.focus = owner.getFocus();
 			
-			if(owner.focus==null)
-				return 1;
+			if(owner.focus==null){
+				owner.focus = Target.create(x,y);
+			}
+			else x=owner.focus.x; y=owner.focus.y;
 			
 			Entity attacker;
 			if((attacker = owner.seeAttacked(owner.owner))!=null){ //if pet is attacked
-				if(attacker.getComponent(PlayerInput.class)!=null){ //if pet is attacked and attacker is not player
+				if(attacker.getComponent(PlayerInput.class)==null){ //if pet is attacked and attacker is not player
 					owner.focus=attacker;
 					return 2;
 				}
@@ -38,7 +41,14 @@ public class Follow extends State {
 				}
 			}
 			if(owner.getDistance(owner.focus)<1.5f){ //1.5 andrà sostituito con range
-				owner.walker.setStill();
+				//se ha raggiunto un nemico
+				if(owner.focus.getComponent(AI.class)!=null)
+					owner.walker.setStill();
+				//se ha raggiunto il player
+				else if(owner.focus.getComponent(PlayerInput.class)!=null)
+					owner.walker.setStill();
+				//se ha raggiunto l'ultimo punto dove ha visto il nemico
+				else return 1;
 			}
 			else{
 				owner.walker.setWalking();

@@ -9,15 +9,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameStateController extends StateBasedGame {
 
 	public GameStateController() {
-		super("cacca v0.0.1 <3");
+		super("Nostos - Alpha");
 	}
 
 	@Override
     public void initStatesList(GameContainer gc) throws SlickException {
 		gc.setMouseCursor("./res/Cursor.png", 0, 0);
-		//uno dei due deve essere commentato:
-		//per andare nel gioco
-		//per andare nel menu
 		addState(new MenuState());
 		addState(new LoadingState());
         addState(new GameState());

@@ -2,6 +2,7 @@ package happypotatoes.slickgame.worldgenerator;
 
 
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.entity.Chest;
 import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
 import happypotatoes.slickgame.entitysystem.entity.Mowse;
 
@@ -28,12 +29,42 @@ public class Room {
 	}
 	
 	private void createMobs() {
-		Random r = Generator.getR();
-		int nTraps = r.nextInt(15)+5;
-		for(int i=0; i<nTraps; i++){
-			int x = r.nextInt(width)+this.x;
-			int y = r.nextInt(height)+this.y;
-			Entity e = FighterEntity.create(x, y);
+		Random r = new Random();
+		int nMobs = r.nextInt(6)+1;
+		for(int i=0; i<nMobs; i++){
+			float x = r.nextInt(width)+this.x+.5f;
+			float y = r.nextInt(height)+this.y+.5f;
+			Entity e;
+			if(r.nextInt(2)==0) e = Mowse.create(x, y);
+			else e = FighterEntity.create(x, y);
+			mobs.add(e);
+		}
+		int nChests = r.nextInt(2);
+		float x=this.x; float y=this.y; int f=0;
+		for(int i=0; i<nChests; i++){
+			int wall = r.nextInt(3);
+			switch(wall){
+			case 0: 
+				x = this.x+.5f;
+				y = r.nextInt(height-1)+this.y;
+				f = 6;
+				if(y==this.y) f=5;
+				break;
+			case 1:
+				x = r.nextInt(width)+this.x;
+				y = this.y+.5f;
+				f = 4;
+				if(x==this.x) f=5;
+				else if(x==width+this.x-1) f=3;
+				break;
+			case 2:
+				x = width+this.x-.5f;
+				y = r.nextInt(height-1)+this.y;
+				f = 2;
+				if(y==this.y) f=3;
+				break;
+			}
+			Entity e = Chest.create(x,y,f);
 			mobs.add(e);
 		}
 	}

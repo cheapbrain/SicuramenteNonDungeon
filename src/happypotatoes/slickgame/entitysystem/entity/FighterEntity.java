@@ -46,7 +46,7 @@ public class FighterEntity {
 		return e;
 	}
 	
-	public static Entity create(int x, int y ){
+	public static Entity create(float x, float y ){
 		Entity e = create();
 		e.x=x; e.y=y;
 		return e;
