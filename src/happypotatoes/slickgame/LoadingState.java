@@ -18,6 +18,7 @@ import happypotatoes.slickgame.world.World;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -26,7 +27,9 @@ public class LoadingState extends BasicGameState {
 	public World world;
 	public UI ui;
 	private int step = 0;
-
+	private Image background;
+	private Image gear[] = new Image[20];
+	private int counter =0, frameCount=0;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -38,15 +41,20 @@ public class LoadingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		step = 0;
+		for(int i=0;i<20;i++){
+			gear[i]=new Image("./res/Loading/gear/"+(i+1)+".png");
+		}
+		background = new Image("./res/Loading/LoadingScreen.png");
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, container.getWidth(), container.getHeight());
+		background.draw(0,0,container.getWidth(), container.getHeight());
 		g.setColor(Color.white);
 		g.drawString("Loading.. "+step+"%", 100, 100);
+		Image thisFrame = gear[counter];
+		thisFrame.draw(container.getWidth()-thisFrame.getWidth(), container.getHeight()-thisFrame.getHeight());
 	}
 
 	Entity player;
@@ -58,40 +66,40 @@ public class LoadingState extends BasicGameState {
 			EntityRenderer.init();
 			EntitySystem.getInstance().clear();
 			break;
-		case 1:
+		case 10:
 			ItemType itemType = new ItemType();
 			ItemList itemList = new ItemList();
 			ItemSprite itemSprite = new ItemSprite();
 			break;
-		case 2:
+		case 20:
 			Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 			break;
-		case 3:
+		case 30:
 			world = new World(container);
 			break;
-		case 4:
+		case 40:
 			player = Player.create();
 			player.x = 2.5f;
 			player.y = 2.5f;
 			world.add(player);
 			break;
-		case 5:
+		case 50:
 			Entity item = Sword.create();
 			item.x=3.5f;
 			item.y=2.5f;
 			world.add(item);
 			break;
-		case 6:
+		case 60:
 			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
 			break;
-		case 7: new Minimap(world, player);
+		case 70: new Minimap(world, player);
 				break;
-		case 8:
+		case 80:
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
 			Camera.camera.setTarget(player);
 			EntitySystem.getInstance().update(world, 0);
 			break;
-		case 9:
+		case 90:
 			ui = new UI(container, game);
 			GuiSystem.init(ui, player);		
 			container.getGraphics().setBackground(new Color(0,0,0,255));
@@ -104,6 +112,12 @@ public class LoadingState extends BasicGameState {
 		}
 		if (step<100)
 		step++;
+		frameCount+=delta;
+		if(frameCount>=50){
+			counter++;
+			frameCount=0;
+		}
+		if(counter>=20) counter =0;
 	}
 	
 	@Override
