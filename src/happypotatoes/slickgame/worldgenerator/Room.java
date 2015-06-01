@@ -39,7 +39,7 @@ public class Room {
 			else e = FighterEntity.create(x, y);
 			mobs.add(e);
 		}
-		int nChests = r.nextInt(2);
+		int nChests = r.nextInt(2)+3;
 		float x=this.x; float y=this.y; int f=0;
 		for(int i=0; i<nChests; i++){
 			int wall = r.nextInt(3);

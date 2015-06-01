@@ -1,4 +1,4 @@
-package happypotatoes.slickgame.entitysystem.entity;
+package happypotatoes.slickgame.entitysystem.interact;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.Interact;

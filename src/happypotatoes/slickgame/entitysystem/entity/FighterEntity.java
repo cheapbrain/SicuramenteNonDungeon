@@ -43,6 +43,7 @@ public class FighterEntity {
 		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
 				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg")
 				);
+		
 		return e;
 	}
 	

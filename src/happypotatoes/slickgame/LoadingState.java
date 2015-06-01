@@ -4,7 +4,8 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
-import happypotatoes.slickgame.entitysystem.entity.Health_potion;
+import happypotatoes.slickgame.entitysystem.entity.EnergyPotion;
+import happypotatoes.slickgame.entitysystem.entity.HealthPotion;
 import happypotatoes.slickgame.entitysystem.entity.Sword;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
@@ -86,12 +87,19 @@ public class LoadingState extends BasicGameState {
 			break;
 		case 50:
 			Entity item = Sword.create();
-			Entity item1 = Health_potion.create();
 			item.x=3.5f;
 			item.y=2.5f;
-			item1.x=4.0f;
-			item1.y=4.0f;
+			world.add(item);
+			
+			Entity item1 = HealthPotion.create();
+			item1.x=5.5f;
+			item1.y=2.5f;
 			world.add(item1);
+			
+			Entity item2 = EnergyPotion.create();
+			item2.x=7.5f;
+			item2.y=2.5f;
+			world.add(item2);
 			break;
 		case 60:
 			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
@@ -134,7 +142,6 @@ public class LoadingState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 

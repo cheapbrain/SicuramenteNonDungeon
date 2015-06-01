@@ -56,6 +56,7 @@ public class PlayerInput extends Component {
 		
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			EntityRenderer.click = selected;
+			focus=selected;
 		}
 		
 		Walk walk = owner.getComponent(Walk.class);
@@ -105,6 +106,12 @@ public class PlayerInput extends Component {
 			GuiSystem.eq.setOpen(!GuiSystem.eq.isOpen());
 		}
 		
+		if (input.isKeyPressed(Input.KEY_K)&&walker.getState()!=3) {
+			if(focus!=null)
+				if(focus.getComponent(Health.class)!=null)
+					focus.getComponent(Health.class).setHealth(0);
+		}
+		
 		if (input.isKeyDown(Input.KEY_D)&&walker.getState()!=3) {
 			if(walker.getState()!=5)
 				walker.setDefending();
@@ -122,7 +129,7 @@ public class PlayerInput extends Component {
 			else e.add(ItemList.sword.getId());
 		}
 		if(input.isKeyPressed(Input.KEY_S)){
-			owner.getComponent(Inventory.class).add(ItemList.sword2.getId());
+			owner.getComponent(Inventory.class).add(ItemList.key.getId());
 		}
 	}
 	

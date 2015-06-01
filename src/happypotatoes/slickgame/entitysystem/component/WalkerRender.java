@@ -2,21 +2,19 @@ package happypotatoes.slickgame.entitysystem.component;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.geom.Rectangle;
 
 public class WalkerRender extends RenderComponent{
 	private Image foreground, healthBar;
 	Walker walker;
 	public Animation[][] animations;
-	private int state=0;
+	private int state;
 	private float ox, oy;
 	private Rectangle rect;
 	private int frameTime = (int)Math.round(1000f/24);
@@ -40,7 +38,6 @@ public class WalkerRender extends RenderComponent{
 				int frames = texture.getWidth()/width;
 				int w = width;
 				int h = height;
-				
 				if (i==0)
 					rect = new Rectangle(owner.x+ox, owner.y+oy, w/unit, h/unit);
 				
@@ -58,36 +55,30 @@ public class WalkerRender extends RenderComponent{
 			}		
 	}
 
+	static Color color = new Color(0,0,0,1f);
 	@Override
 	public void render(float i) {
+		color.r = i;
+		color.g = i;
+		color.b = i;
 		
 		if(state!=walker.getState()) {
 			animations[state][walker.facing].restart();
 		}
 		state = walker.getState();
 		if(animations[state][walker.facing].getFrame()==animations[state][walker.facing].getFrameCount()-1&&state==3){	
-			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
 			animations[state][walker.facing].stop();
 		}else{
-			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
-		}
-		Graphics g = EntityRenderer.g;
-		HitBox hitbox = owner.getComponent(HitBox.class);
-		if (hitbox!=null) {
-			g.setColor(Color.white);
-			g.drawRect(owner.x-hitbox.sizex, owner.y-hitbox.sizey, hitbox.sizex*2, hitbox.sizey*2);
+			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
 		}
 		
 		SelectComponent select = owner.getComponent(SelectComponent.class);
-		if (select!=null) {
-			Rectangle rect = select.rect;
-			g.setColor(Color.red);
-			g.drawRect(rect.x0, rect.y0, rect.w, rect.h);
-		}
+		
 		Health hc = owner.getComponent(Health.class);
 		if(hc!=null&&!owner.getName().equals("Player")){
-			healthBar.getSubImage(0, 0, (int) (healthBar.getWidth()*hc.getHealth()/hc.getMaxHealth()), healthBar.getHeight()).draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, (select.rect.w+.3f)*hc.getHealth()/hc.getMaxHealth(), .3f, new Color(i,i,i,1));
-			foreground.draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, select.rect.w+.3f, .3f, new Color(i,i,i,1));
+			healthBar.getSubImage(0, 0, (int) (healthBar.getWidth()*hc.getHealth()/hc.getMaxHealth()), healthBar.getHeight()).draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, (select.rect.w+.3f)*hc.getHealth()/hc.getMaxHealth(), .3f, color);
+			foreground.draw(owner.x+select.ox-.15f, owner.y+select.oy-.3f, select.rect.w+.3f, .3f, color);
 		}
 	}
 	@Override
@@ -116,5 +107,4 @@ public class WalkerRender extends RenderComponent{
 	public void updateRect() {
 		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
-
 }

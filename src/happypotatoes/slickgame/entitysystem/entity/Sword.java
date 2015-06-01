@@ -7,6 +7,7 @@ import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.StaticRender;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
+import happypotatoes.slickgame.entitysystem.interact.Pickup;
 import happypotatoes.slickgame.items.Item;
 import happypotatoes.slickgame.items.ItemList;
 import happypotatoes.slickgame.items.ItemType;

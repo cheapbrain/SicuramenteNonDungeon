@@ -20,6 +20,7 @@ import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
+import happypotatoes.slickgame.entitysystem.interact.OpenChest;
 
 public class Chest {
 	static float speed = 0.001f;
@@ -27,12 +28,17 @@ public class Chest {
 	
 	public static Entity create(int facing) {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Chest");
-		HitBox hitBox = new HitBox(e, .4f, .4f, 0);
+		HitBox hitBox;
+		switch(facing){
+		case 2: case 6: hitBox = new HitBox(e, .4f, .7f, 0); break;
+		case 0: case 4: hitBox = new HitBox(e, .7f, .4f, 0); break;
+		default: hitBox = new HitBox(e, .65f, .65f, 0); break;
+		}
 		OpenChest i = new OpenChest(e, 0);
 		Faction f = new Faction(e, 0, Faction.neutral);
-		Walker walker = new Walker(e, 0, 8, 4, facing);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/wolf/", 96, 54, -.75f, -0.8f);	
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-.8f, 1, 1);
+		Walker walker = new Walker(e, 0, 8, 3, facing);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Statics/chest/", 222, 144, -1.73f, -1.73f);	
+		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.4f);
 		return e;
 	}
 	
