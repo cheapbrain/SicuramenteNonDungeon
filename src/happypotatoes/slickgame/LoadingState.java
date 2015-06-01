@@ -11,6 +11,7 @@ import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Minimap;
 import happypotatoes.slickgame.items.ItemList;
+import happypotatoes.slickgame.items.ItemSprite;
 import happypotatoes.slickgame.items.ItemType;
 import happypotatoes.slickgame.world.World;
 
@@ -60,6 +61,7 @@ public class LoadingState extends BasicGameState {
 		case 1:
 			ItemType itemType = new ItemType();
 			ItemList itemList = new ItemList();
+			ItemSprite itemSprite = new ItemSprite();
 			break;
 		case 2:
 			Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);

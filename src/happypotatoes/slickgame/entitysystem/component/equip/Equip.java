@@ -15,18 +15,27 @@ import happypotatoes.slickgame.world.World;
 
 public class Equip extends Component {
 	public EquipSlot[][] slots;
+	public EquipRender[][] render;
 	public int width, height;
 	
-	public Equip(Entity owner, float priority, int width, int height) {
+	public Equip(Entity owner, Walker walker, float priority, int width, int height) {
 		super(owner, priority);
 		this.width = width;
 		this.height = height;
 		this.slots = new EquipSlot[width][height];
+		this.render = new EquipRender[width][height];
+				
 		slots[0][0] = new EquipSlot(this, ItemType.helm);
+		render[0][0] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][1] = new EquipSlot(this, ItemType.armour);
+		render[0][1] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][2] = new EquipSlot(this, ItemType.weapon);
+		render[0][2] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][3] = new EquipSlot(this, ItemType.secondhand);
+		render[0][3] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][4] = new EquipSlot(this, ItemType.trinket);
+		render[0][4] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		
 	}
 	
 	public EquipSlot getSlot(int x, int y){
@@ -34,17 +43,16 @@ public class Equip extends Component {
 	}
 	
 	public boolean add(int id){		
-		for(EquipSlot[] asd:slots){
-			for(EquipSlot tmp:asd){
-				Item i = ItemList.getItemForId(id);
-				if(tmp.isFree()&&(tmp.getType()==i.getType())){
-					tmp.addItem(id);
-					owner.addComponent(new WalkerRender(owner, owner.getComponent(Walker.class),
-							"res/Sprites/"+ItemType.getTypeName(i.getType())+"/"+i.getName()+"/", 231, 251, -1.8f, -2.7f));
+		for(int y=0; y<slots.length; y++)
+			for(int x=0; x<slots[y].length; x++){
+				Item i = ItemList.getItemForId(id); 
+				if(slots[y][x].isFree()&&(slots[y][x].getType()==i.getType())){
+					slots[y][x].addItem(id);
+					render[y][x].updateAnimation(ItemType.getTypeName(i.getType())+"\\"+i.getName()+"\\");
+					//System.out.println("./res/Sprites/"+ItemType.getTypeName(i.getType())+"/"+i.getName()+"/");
 					return true;
 				}
 			}
-		}
 		return false;
 	}
 	
@@ -52,22 +60,26 @@ public class Equip extends Component {
 		return slots[x][y].getItemId();
 	}
 	public int takeOut(int x, int y){
+		render[x][y].animations = null;
 		return slots[x][y].popItemId();
 	}
 	public int takeOut(EquipSlot slot){
-		owner.removeComponent(owner.getComponent(WalkerRender.class, 2));
-		return slot.popItemId();
-	}
-	public void update(World w, long delta) {
-		/*EquipSlot slot;
-		
-		for(int i=0; i<slots.length; i++){
-			for(int j=0; j<slots[i].length; j++){
-				slot=slots[i][j];
-				WalkerRender c = new WalkerRender(owner, owner.getComponent(Walker.class), "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f);
-				owner.addComponent(c);
+		for(int y=0; y<slots.length; y++)
+			for(int x=0; x<slots[y].length; x++){
+				if(slots[y][x].equals(slot)){
+					render[y][x].animations=null;
+					return slot.popItemId();
+				}
 			}
-		}*/
+		return 0;
+	}
+	
+	public void update(World w, long delta) {
+		for(EquipRender[] asd:render)
+			for(EquipRender tmp:asd)
+				if(tmp.exists())
+					tmp.update(w, 0); //o equivalente
+	
 	}
 	
 	

@@ -3,8 +3,13 @@ package happypotatoes.slickgame.entitysystem.component;
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
 import happypotatoes.slickgame.entitysystem.component.equip.WeaponComponent;
 import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
+import happypotatoes.slickgame.items.Item;
+import happypotatoes.slickgame.items.ItemList;
+import happypotatoes.slickgame.items.ItemType;
+import happypotatoes.slickgame.items.Weapon;
 import happypotatoes.slickgame.world.World;
 
 public class Attack extends Component{
@@ -49,7 +54,10 @@ public class Attack extends Component{
 					owner.getComponent(Walker.class).setFacing(focus.x-owner.x, focus.y-owner.y);
 				
 				//arma tenuta
-				WeaponComponent weapon = owner.getComponent(WeaponComponent.class);
+				Weapon weapon=null;
+				if(owner.getComponent(Equip.class)!=null)
+					if(owner.getComponent(Equip.class).get(ItemType.weapon,1)!=null)
+						weapon = (Weapon) ItemList.getItemForId(owner.getComponent(Equip.class).get(ItemType.weapon,1).getItemId());
 				
 				
 				//calo energia

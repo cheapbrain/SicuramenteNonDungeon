@@ -43,25 +43,9 @@ public class Player {
 		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 8);
 		Inventory inventory = new Inventory(e, 0, 4, 4);
-		Equip equip = new Equip(e, 0, 1, 5);
+		Equip equip = new Equip(e, walker, 0, 1, 5);
 		Defend defend = new Defend(e, 0, walker, walkerRender);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
-		
-		/*
-		//li abilita equip
-		HelmComponent helm;
-			WalkerRender helmRender;		
-		WeaponComponent weapon;
-		//INIZIARE DA QUI
-		//la classe che lo gestisce ora deve dargli il percorso e abilitarlo e altre cose
-			WalkerRender weaponRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f);
-		SecondHandComponent secondHand;
-			WalkerRender secondHandRender = new WalkerRender(e, walker, "res/Sprites/weapons/", 231, 251, -1.8f, -2.7f)
-		ArmourComponent armour;
-			WalkerRender armourRender;
-		TrinketComponent trinket;
-			WalkerRender trinketRender;
-		*/
 		
 		return e;
 	}

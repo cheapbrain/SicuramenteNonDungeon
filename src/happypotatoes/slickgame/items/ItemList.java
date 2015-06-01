@@ -21,6 +21,7 @@ public class ItemList {
 		items.put(sword.getId(), sword);
 		items.put(sword2.getId(), sword2);
 	}
+	
 	public static Item getItemForId(int id){
 		return items.get(id);
 	}

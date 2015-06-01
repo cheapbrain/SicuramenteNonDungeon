@@ -15,8 +15,8 @@ import happypotatoes.slickgame.geom.Rectangle;
 public class WalkerRender extends RenderComponent{
 	private Image foreground, healthBar;
 	Walker walker;
-	private Animation[][] animations;
-	private int state;
+	public Animation[][] animations;
+	private int state=0;
 	private float ox, oy;
 	private Rectangle rect;
 	private int frameTime = (int)Math.round(1000f/24);
@@ -60,6 +60,7 @@ public class WalkerRender extends RenderComponent{
 
 	@Override
 	public void render(float i) {
+		
 		if(state!=walker.getState()) {
 			animations[state][walker.facing].restart();
 		}
@@ -71,7 +72,6 @@ public class WalkerRender extends RenderComponent{
 			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
 		}
 		Graphics g = EntityRenderer.g;
-		
 		HitBox hitbox = owner.getComponent(HitBox.class);
 		if (hitbox!=null) {
 			g.setColor(Color.white);
@@ -116,4 +116,5 @@ public class WalkerRender extends RenderComponent{
 	public void updateRect() {
 		rect.setPosition(owner.x+ox, owner.y+oy);
 	}
+
 }
