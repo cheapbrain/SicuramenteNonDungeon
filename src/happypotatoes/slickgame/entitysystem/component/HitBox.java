@@ -2,20 +2,23 @@ package happypotatoes.slickgame.entitysystem.component;
 
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.geom.Rectangle;
 import happypotatoes.slickgame.world.World;
 
 public class HitBox extends Component {
+	public Rectangle rect;
 	public float sizex, sizey;
 	
 	public HitBox(Entity owner, float sizex, float sizey, float priority) {
 		super(owner, priority);
 		this.sizex=sizex;
 		this.sizey=sizey;
+		rect = new Rectangle(owner.x-sizex, owner.y-sizey, sizex*2, sizey*2);
 	}
 
 	@Override
 	public void update(World w, long delta) {
-		
+		rect.setPosition(owner.x-sizex, owner.y-sizey);
 	}
 	/*
 	public float getSizex() {

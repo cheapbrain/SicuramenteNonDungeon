@@ -13,7 +13,8 @@ public class Main {
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
 		AppGameContainer app = new AppGameContainer(new GameStateController());
-		app.setDisplayMode(width, height, false);
+		app.setIcon("./res/icon32.png");
+		app.setDisplayMode(800, 600, false);
         app.start();
 	}
 }

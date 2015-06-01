@@ -37,7 +37,7 @@ public class EntityCollision extends Component {
 				if (e==owner)
 					continue;
 				HitBox hb = e.getComponent(HitBox.class);
-				if (hb!=null) {
+				if (hb!=null&&hb.rect.intersect(hitBox.rect)) {
 					float dx = owner.x-e.x;
 					float dy = owner.y-e.y;
 					int sx = sign(dx);

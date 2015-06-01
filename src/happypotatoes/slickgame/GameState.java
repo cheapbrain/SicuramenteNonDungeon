@@ -67,6 +67,7 @@ public class GameState extends BasicGameState {
 			game.enterState(3);
 		ui.update(container);
 		world.update(container, delta);
+
 	}
 
 	@Override
