@@ -12,7 +12,6 @@ public class ItemList {
 	
 	public static int getFreeId(){
 		int x = freeid;
-		System.out.println(freeid);
 		freeid++;
 		return x;
 	}

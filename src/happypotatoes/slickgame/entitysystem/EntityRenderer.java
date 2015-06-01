@@ -43,16 +43,6 @@ public class EntityRenderer {
 
 		float i = 0;
 		
-		if (hover!=null&&hover!=click) {
-			i = light.getColorAt(hover.x, hover.y);
-			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, new Color(1, 0, 0.7f, i));
-		}
-		
-		if (click!=null) {
-			i = light.getColorAt(click.x, click.y);
-			select.draw(click.x-.5f, click.y-.25f, 1, .5f, new Color(0, 1, 0.7f, i));
-		}
-		
 		for (RenderComponent task : tasks) {
 			Entity e = task.owner;
 
@@ -61,14 +51,25 @@ public class EntityRenderer {
 		}
 	}
 	
+	static Color scolor = new Color(0);
+	static Color hcolor = new Color(0);
+	
 	public static void renderTask(RenderComponent task) {
 		LightingBello light = LightingBello.lighting;
 		Entity e = task.owner;
 		float i = light.getColorAt(e.x, e.y);
 		if (e==click) {
-			select.draw(click.x-.5f, click.y-.25f, 1, .5f, new Color(0, 1, 0.7f, i));
+			scolor.r = 0.0f*i;
+			scolor.g = 1.0f*i;
+			scolor.b = 0.7f*i;
+			scolor.a = 0.7f;
+			select.draw(click.x-.5f, click.y-.25f, 1, .5f, scolor);
 		} else if (e==hover) {
-			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, new Color(1, 0, 0.7f, i));
+			hcolor.r = 1.0f*i;
+			hcolor.g = 0.0f*i;
+			hcolor.b = 0.7f*i;
+			hcolor.a = 0.7f;
+			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, hcolor);
 		}
 		task.render(i);
 	}

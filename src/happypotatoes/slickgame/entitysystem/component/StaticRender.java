@@ -31,10 +31,14 @@ public class StaticRender extends RenderComponent{
 	public Rectangle getRect() {
 		return rect;
 	}
-	
+
+	static Color color = new Color(0,0,0,1f);
 	@Override
 	public void render(float i) {
-		texture.draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+		color.r = i;
+		color.g = i;
+		color.b = i;
+		texture.draw(rect.x0, rect.y0, rect.w, rect.h, color);
 	}
 
 	@Override
