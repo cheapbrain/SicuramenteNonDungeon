@@ -99,8 +99,8 @@ public class WalkerRender extends RenderComponent{
 		return animations[state][walker.facing].getCurrentFrame().getColor(x, y);
 	}
 
-	public int getFrames(int i) {
-		return animations[i][walker.facing].getFrameCount();
+	public int getFrames(int state) {
+		return animations[state][walker.facing].getFrameCount();
 	}
 
 	@Override

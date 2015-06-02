@@ -12,6 +12,8 @@ import happypotatoes.slickgame.entitysystem.component.EntityCollision;
 import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.Interact;
+import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.Open;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
@@ -34,11 +36,13 @@ public class Chest {
 		case 0: case 4: hitBox = new HitBox(e, .7f, .4f, 0); break;
 		default: hitBox = new HitBox(e, .65f, .65f, 0); break;
 		}
-		OpenChest i = new OpenChest(e, 0);
 		Faction f = new Faction(e, 0, Faction.neutral);
 		Walker walker = new Walker(e, 0, 8, 3, facing);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Statics/chest/", 222, 144, -1.73f, -1.73f);	
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.4f);
+		Inventory i = new Inventory(e, 0, 2, 2);
+		Open o = new Open(e, 0,walker, walkerRender);
+		OpenChest open = new OpenChest(e, walker, 0);
 		return e;
 	}
 	

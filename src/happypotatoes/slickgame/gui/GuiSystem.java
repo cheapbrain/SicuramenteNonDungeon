@@ -15,7 +15,9 @@ import happypotatoes.slickgame.gui.component.Minimap;
 public class GuiSystem {
 	public static InventoryWindow iw = null, eq = null;
 	private static Window hud = null;
+	public static UI u;
 	public static void init(UI ui, Entity player){
+		u=ui;
 		iw=inventory(ui, player);
 		eq=equip(ui, player);
 		hud=hud(ui, player);
