@@ -21,7 +21,7 @@ import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
 public class Wolf {
-	static float speed = 0.001f;
+	static float speed = 0.0015f;
 	
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Wolf");
