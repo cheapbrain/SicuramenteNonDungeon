@@ -41,19 +41,40 @@ public class Equip extends Component {
 	public EquipSlot getSlot(int x, int y){
 		return slots[x][y];
 	}
+		
 	
 	public boolean add(int id){		
 		for(int y=0; y<slots.length; y++)
 			for(int x=0; x<slots[y].length; x++){
 				Item i = ItemList.getItemForId(id); 
-				if(slots[y][x].isFree()&&(slots[y][x].getType()==i.getType())){
+				if(slots[y][x].isFree()&&slots[y][x].canEquip(id)){
 					slots[y][x].addItem(id);
 					render[y][x].updateAnimation(ItemType.getTypeName(i.getType())+"\\"+i.getName()+"\\");
-					//System.out.println("./res/Sprites/"+ItemType.getTypeName(i.getType())+"/"+i.getName()+"/");
 					return true;
 				}
 			}
 		return false;
+	}
+	
+	public boolean canEquip(Slot slot, int id){
+		for(int y=0; y<slots.length; y++)
+			for(int x=0; x<slots[y].length; x++)
+				if(slots[y][x].equals(slot))
+					return slots[y][x].canEquip(id);
+		return false;			
+	}
+	public boolean canEquip(int x, int y, int id){
+		return slots[x][y].canEquip(id);
+	}
+	public boolean canEquip(Slot slot, Item item){
+		for(int y=0; y<slots.length; y++)
+			for(int x=0; x<slots[y].length; x++)
+				if(slots[y][x].equals(slot))
+					return slots[y][x].canEquip(item);
+		return false;
+	}
+	public boolean canEquip(int x, int y, Item item){
+		return slots[x][y].canEquip(item);
 	}
 	
 	public int getContent(int x, int y){

@@ -2,6 +2,7 @@ package happypotatoes.slickgame.inventory;
 
 import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.equip.Equip;
+import happypotatoes.slickgame.items.Item;
 import happypotatoes.slickgame.items.ItemList;
 
 public class EquipSlot{
@@ -27,9 +28,15 @@ public class EquipSlot{
 		return free;
 	}
 	
+	public boolean canEquip(int id){
+		return (ItemList.getItemForId(id).getType()==this.getType());
+	}
+	public boolean canEquip(Item item){
+		return (item.getType()==this.getType());
+	}
 	
 	public boolean addItem(int id){	
-		if(isFree()&&ItemList.getItemForId(id).getType()==this.getType()){
+		if(isFree()&&canEquip(id)){
 			itemId=id;
 			setFree(false);
 			return true;
