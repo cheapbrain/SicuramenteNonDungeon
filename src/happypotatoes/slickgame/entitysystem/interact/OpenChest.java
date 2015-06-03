@@ -14,7 +14,6 @@ public class OpenChest extends Interact {
 	Walker walker;
 	InventoryWindow iv;
 	public Entity agent;
-	public boolean opening=false, closing=false;
 	public boolean used=false;
 	public OpenChest(Entity owner, Walker walker, float priority) {
 		super(owner, priority);
@@ -28,10 +27,9 @@ public class OpenChest extends Interact {
 			used=true;
 			iv=content(GuiSystem.u, owner);
 		}
-		agent=null;
 		if(walker.getState()==0){		
 			openView();
-			agent = e;u
+			agent = e;
 		}
 		if(walker.getState()==2){
 			closeView();
@@ -50,13 +48,11 @@ public class OpenChest extends Interact {
 	public void openView(){
 		iv.setOpen(true);
 		walker.setState(1);
-		opening=true;
 	}
 	
 	public void closeView(){
 		iv.setOpen(false);
-		walker.setState(1);
-		closing=true;
-		
+		walker.setState(3);
+		agent=null;
 	}
 }

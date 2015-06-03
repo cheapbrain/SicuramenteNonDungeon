@@ -39,29 +39,29 @@ public class Room {
 			else e = FighterEntity.create(x, y);
 			mobs.add(e);
 		}
-		int nChests = r.nextInt(2)+3;
+		int nChests = r.nextInt(2)+1;
 		float x=this.x; float y=this.y; int f=0;
 		for(int i=0; i<nChests; i++){
 			int wall = r.nextInt(3);
 			switch(wall){
 			case 0: 
 				x = this.x+.5f;
-				y = r.nextInt(height-1)+this.y;
+				y = r.nextInt(height-1)+this.y+.5f;
 				f = 6;
-				if(y==this.y) f=5;
+				if(y==this.y+.5f) f=5;
 				break;
 			case 1:
-				x = r.nextInt(width)+this.x;
+				x = r.nextInt(width-1)+this.x+.1f;
 				y = this.y+.5f;
 				f = 4;
-				if(x==this.x) f=5;
-				else if(x==width+this.x-1) f=3;
+				if(x==this.x+.5f) f=5;
+				else if(x==width+this.x-1f) f=3;
 				break;
 			case 2:
 				x = width+this.x-.5f;
-				y = r.nextInt(height-1)+this.y;
+				y = r.nextInt(height-1)+this.y+.5f;
 				f = 2;
-				if(y==this.y) f=3;
+				if(y==this.y+.5f) f=3;
 				break;
 			}
 			Entity e = Chest.create(x,y,f);
