@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 public class Item {
 	private int id;
 	private int type;
-	private int maxStack;
+	private int maxStack=1;
 	private String name, description;
 	private Image texture;
 
@@ -24,6 +24,15 @@ public class Item {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Item(int id, String name, int maxStack){
+		this(id, name);
+		setMaxStack(maxStack);
+	}
+
+	private void setMaxStack(int maxStack) {
+		this.maxStack=maxStack;
 	}
 
 	public int getId() {
