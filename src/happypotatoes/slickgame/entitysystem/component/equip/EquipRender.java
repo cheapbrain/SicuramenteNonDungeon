@@ -47,7 +47,9 @@ public class EquipRender extends RenderComponent {
 		this.animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
 			try {
+				//System.out.println(spriteFolder+String.valueOf(i)+".png");
 				Image texture = ItemSprite.load(spriteFolder+String.valueOf(i)+".png");
+				//System.out.println(texture);
 				int frames = texture.getWidth()/width;
 				int w = width;
 				int h = height;

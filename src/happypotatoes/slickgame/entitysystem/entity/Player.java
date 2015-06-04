@@ -46,8 +46,8 @@ public class Player {
 		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 8);
 		Inventory inventory = new Inventory(e, 0, 4, 4);
-		Equip equip = new Equip(e, walker, 0, 1, 5);
-		Defend defend = new Defend(e, 0, walker, walkerRender);
+		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword.getId(), ItemList.armour.getId()}, false);
+		Defend defend = new Defend(e, 0, walker, walkerRender, .2f);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
 		
 		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,

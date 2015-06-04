@@ -30,6 +30,7 @@ public class Energy extends Component{
 	}
 	public void setEnergy(float energy) {
 		if(energy>=0) this.energy = energy;
+		else this.energy = 0f;
 	}
 	public float getEnergyRegeneration() {
 		return energyRegeneration;

@@ -28,7 +28,7 @@ public class Chest {
 	static float speed = 0.001f;
 	int facing;
 	
-	public static Entity create(int facing) {
+	public static Entity create(int facing, Integer[] integers) {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(),"Chest");
 		HitBox hitBox;
 		switch(facing){
@@ -40,14 +40,14 @@ public class Chest {
 		Walker walker = new Walker(e, 0, 8, 4, facing);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Statics/chest/", 222, 144, -1.73f, -1.73f);	
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.4f);
-		Inventory i = new Inventory(e, 0, 2, 2);
+		Inventory i = new Inventory(e, 0, 2, 2, integers, true);
 		Open o = new Open(e, 0,walker, walkerRender);
 		OpenChest open = new OpenChest(e, walker, 0);
 		return e;
 	}
 	
-	public static Entity create(float x, float y, int facing){
-		Entity e = create(facing);
+	public static Entity create(float x, float y, int facing, Integer[] integers){
+		Entity e = create(facing, integers);
 		e.x=x; e.y=y;
 		return e;
 	}

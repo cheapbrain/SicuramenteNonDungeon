@@ -1,11 +1,14 @@
 package happypotatoes.slickgame.entitysystem.component.equip;
 
+import java.util.Random;
+
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
+import happypotatoes.slickgame.entitysystem.interact.OpenChest;
 import happypotatoes.slickgame.inventory.EquipSlot;
 import happypotatoes.slickgame.inventory.Slot;
 import happypotatoes.slickgame.items.Item;
@@ -28,7 +31,7 @@ public class Equip extends Component {
 		slots[0][0] = new EquipSlot(this, ItemType.helm);
 		render[0][0] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][1] = new EquipSlot(this, ItemType.armour);
-		render[0][1] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		render[0][1] = new EquipRender(owner, walker, 158, 195, -1.25f, -2.25f);
 		slots[0][2] = new EquipSlot(this, ItemType.weapon);
 		render[0][2] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		slots[0][3] = new EquipSlot(this, ItemType.secondhand);
@@ -36,6 +39,22 @@ public class Equip extends Component {
 		slots[0][4] = new EquipSlot(this, ItemType.trinket);
 		render[0][4] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
 		
+	}
+	
+	//equip mob
+	public Equip(Entity owner, Walker walker, float priority, int width, int height, Integer[] items, boolean random) {
+		this(owner, walker, priority, width, height);
+		if(random){
+			Random a = new Random();
+			int n=a.nextInt(Math.min(width*height+1, items.length+1));
+			for(int i=0; i<n; i++)
+				this.add(items[a.nextInt(items.length)]);
+		}
+		else{
+			for(int i=0; i<items.length; i++){
+				this.add(items[i]);
+			}
+		}
 	}
 	
 	public EquipSlot getSlot(int x, int y){
@@ -101,6 +120,19 @@ public class Equip extends Component {
 				if(tmp.exists())
 					tmp.update(w, 0); //o equivalente
 	
+	}
+	
+	public EquipSlot get(int type) {
+		for(EquipSlot[] asd:slots){
+			for(EquipSlot tmp:asd){
+				if(tmp.getType()==type){
+					if(tmp.isFree())
+							return null;
+					else return tmp;
+				}
+			}
+		}
+		return null;
 	}
 	
 	

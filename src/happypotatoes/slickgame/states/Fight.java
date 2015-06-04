@@ -53,7 +53,7 @@ public class Fight extends State {
 			}
 			if(thisDefend!=null){
 				if(owner.seeAttacked(owner.owner)!=null)
-						if(thisHealth.getHealth()<enemyHealth.getHealth())
+						if(thisHealth.getHealth()<enemyHealth.getHealth()/5f)
 							owner.walker.setDefending();
 			}
 		}

@@ -14,7 +14,7 @@ public class Main {
 		int height = (int) screenSize.getHeight();
 		AppGameContainer app = new AppGameContainer(new GameStateController());
 		app.setIcon("./res/icon32.png");
-		app.setDisplayMode(800, 600, false);
+		app.setDisplayMode(width, height, false);
         app.start();
 	}
 }

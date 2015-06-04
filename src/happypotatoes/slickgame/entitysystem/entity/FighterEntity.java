@@ -11,6 +11,7 @@ import happypotatoes.slickgame.entitysystem.component.EntityCollision;
 import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
+import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.LoopSound;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
@@ -19,6 +20,8 @@ import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
+import happypotatoes.slickgame.items.ItemList;
 
 public class FighterEntity {
 	static float speed = 0.001f;
@@ -32,12 +35,14 @@ public class FighterEntity {
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 5);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 204, 222, -1.6f, -2.4f);
+		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword.getId(), ItemList.sword2.getId()}, true);
+		Inventory inventory = new Inventory(e, 0, 3, 3, new Integer[]{ItemList.key.getId()}, true);
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 1);
 		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 2);
-		Defend defend = new Defend(e, 0, walker, walkerRender);
+		Defend defend = new Defend(e, 0, walker, walkerRender, .2f);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
 		
 		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,

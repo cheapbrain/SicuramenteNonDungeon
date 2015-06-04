@@ -5,6 +5,7 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.entity.Chest;
 import happypotatoes.slickgame.entitysystem.entity.FighterEntity;
 import happypotatoes.slickgame.entitysystem.entity.Mowse;
+import happypotatoes.slickgame.items.ItemList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,8 +33,8 @@ public class Room {
 		Random r = new Random();
 		int nMobs = r.nextInt(6)+1;
 		for(int i=0; i<nMobs; i++){
-			float x = r.nextInt(width)+this.x+.5f;
-			float y = r.nextInt(height)+this.y+.5f;
+			float x = r.nextInt(width-1)+this.x+2.5f;
+			float y = r.nextInt(height-1)+this.y+2.5f;
 			Entity e;
 			if(r.nextInt(2)==0) e = Mowse.create(x, y);
 			else e = FighterEntity.create(x, y);
@@ -64,7 +65,7 @@ public class Room {
 				if(y==this.y+.5f) f=3;
 				break;
 			}
-			Entity e = Chest.create(x,y,f);
+			Entity e = Chest.create(x,y,f, ItemList.getAllIds());
 			mobs.add(e);
 		}
 	}
