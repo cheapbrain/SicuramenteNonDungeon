@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.items;
 
+import happypotatoes.slickgame.Loader;
+
 import java.io.File;
 
 import org.newdawn.slick.Image;
@@ -18,7 +20,7 @@ public class Item {
 		setId(id);
 		setName(name);
 		try {
-			texture = new Image("res/MyMod/Sprites/Items/"+name+".png");
+			texture = Loader.image("res/MyMod/Sprites/Items/"+name+".png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

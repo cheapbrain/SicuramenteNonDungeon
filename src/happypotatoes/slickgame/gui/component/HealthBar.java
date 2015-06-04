@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.gui.Component;
 
@@ -14,7 +15,7 @@ public class HealthBar extends Component{
 	private Image bar = null;
 	public HealthBar(Health health, float k) {
 		try {
-			bar = new Image("./res/Vita.png");
+			bar = Loader.image("res/Vita.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

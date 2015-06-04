@@ -13,7 +13,7 @@ public class HealthPotion {
 		Entity item = new Entity(EntitySystem.getInstance().getFreeID(), ItemList.sword.getName());
 		Item i = ItemList.health_potion;
 		Pickup itemEntity = new Pickup(item, 0, i.getId());
-		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/health_potion.png",-0.25f, -0.45f, true);	
+		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/health_potion.png",-0.5f, -.7f, true);	
 		SelectComponent selectComponent = new SelectComponent(item, 0, -.5f,-.5f, 1, 1);
 		return item;
 	}

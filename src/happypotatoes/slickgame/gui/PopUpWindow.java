@@ -1,25 +1,27 @@
 package happypotatoes.slickgame.gui;
 
+import happypotatoes.slickgame.Loader;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class PopUpWindow extends Window{
-	private String folder="./res/popup/";
+	private String folder="res/popup/";
 	protected final static int borderOffset=64;
 	private Image back, upDx, upSx, doDx, doSx, sx, dx, up, down;
 	public PopUpWindow(String title, int x, int y, int width, int height) {
 		super(title, x, y, width+borderOffset, height+borderOffset);
 		try {
-			back = new Image(folder+"Background.jpg");
-			upDx = new Image(folder+"LatoAltoDestra1.png");
-			upSx  = new Image(folder+"LatoAltoSinistra1.png");
-			doSx = new Image(folder+"LatoBassoSinistra1.png");
-			doDx = new Image(folder+"LatoBassoDestra1.png");
-			up = new Image(folder+"LatoSopra.png");
-			sx = new Image(folder+"LatoSinistra.png");
-			dx = new Image(folder+"LatoDestra.png");
-			down = new Image(folder+"LatoSotto.png");
+			back = Loader.image(folder+"Background.jpg");
+			upDx = Loader.image(folder+"LatoAltoDestra1.png");
+			upSx  = Loader.image(folder+"LatoAltoSinistra1.png");
+			doSx = Loader.image(folder+"LatoBassoSinistra1.png");
+			doDx = Loader.image(folder+"LatoBassoDestra1.png");
+			up = Loader.image(folder+"LatoSopra.png");
+			sx = Loader.image(folder+"LatoSinistra.png");
+			dx = Loader.image(folder+"LatoDestra.png");
+			down = Loader.image(folder+"LatoSotto.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

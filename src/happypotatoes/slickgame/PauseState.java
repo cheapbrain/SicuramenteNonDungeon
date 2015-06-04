@@ -28,9 +28,9 @@ public class PauseState extends BasicGameState{
 
 		basedGame = game;
 
-		background  = new Image("./res/Pause/PauseMenuBackground.png");
-		bg2  = new Image("./res/Pause/PauseMenuBackFrame.png");
-		foreground  = new Image("./res/Pause/PauseMenuForeGround.png");
+		background  = Loader.image("res/Pause/PauseMenuBackground.png");
+		bg2  = Loader.image("res/Pause/PauseMenuBackFrame.png");
+		foreground  = Loader.image("res/Pause/PauseMenuForeGround.png");
 		width=container.getWidth();
 		height=container.getHeight();
 		
@@ -39,7 +39,7 @@ public class PauseState extends BasicGameState{
 		
 		ui = new UI(container, game);
 
-		play = new Button("",0,(int)(322*scale),(int)(245*scale),(int)(60*scale),"./res/Pause/Resume");
+		play = new Button("",0,(int)(322*scale),(int)(245*scale),(int)(60*scale),"res/Pause/Resume");
 		play.setHorizontalAlign(Component.CENTER);
 		play.setActionListener(new ActionListener() {
 			@Override
@@ -48,7 +48,7 @@ public class PauseState extends BasicGameState{
 			}
 		});
 		
-		menu = new Button("",0,(int)(435*scale),(int)(206*scale),(int)(50*scale),"./res/Pause/Menu");
+		menu = new Button("",0,(int)(435*scale),(int)(206*scale),(int)(50*scale),"res/Pause/Menu");
 		menu.setHorizontalAlign(Component.CENTER);
 		menu.setActionListener(new ActionListener() {
 			@Override
@@ -57,7 +57,7 @@ public class PauseState extends BasicGameState{
 			}
 		});
 		
-		exit = new Button("",0,(int)(500*scale),(int)(206*scale),(int)(50*scale),"./res/Pause/Exit");
+		exit = new Button("",0,(int)(500*scale),(int)(206*scale),(int)(50*scale),"res/Pause/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
 		exit.setActionListener(new ActionListener() {
 			@Override

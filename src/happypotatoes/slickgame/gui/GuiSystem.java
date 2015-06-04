@@ -3,6 +3,7 @@ package happypotatoes.slickgame.gui;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.entitysystem.component.Health;
@@ -32,7 +33,7 @@ public class GuiSystem {
 	private static Window hud(UI ui, Entity player){
 		Image image = null;
 		try {
-			image = new Image("./res/Background.png");
+			image = Loader.image("res/Background.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -40,6 +41,7 @@ public class GuiSystem {
 		Window hud = new Window("hud", 0, 0, xNuova, xNuova*image.getHeight()/image.getWidth());
 		hud.setVerticalAlign(Component.SOUTH);
 		hud.setHorizontalAlign(Component.CENTER);
+		hud.setEnabled(false);
 		hud.setBackground(image);
 		float k = (float)(ui.width)/image.getWidth();
 		hud.add(new HealthBar((Health) player.getComponent(Health.class), k));
@@ -49,7 +51,7 @@ public class GuiSystem {
 		cp.setPosition(hud.x, hud.y);
 		cp.setSize(hud.width, hud.height);
 		try {
-			cp.setBackground(new Image("./res/ForegroundGui.png"));
+			cp.setBackground(Loader.image("res/ForegroundGui.png"));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -62,6 +64,7 @@ public class GuiSystem {
 		InventoryWindow iw = new InventoryWindow("inventario", 0,0, ((Inventory) player.getComponent(Inventory.class)));
 		iw.setVerticalAlign(Component.CENTER);
 		iw.setHorizontalAlign(Component.EAST);
+		iw.setEnabled(false);
 		iw.setVisible(false);
 		ui.add(iw);
 		return iw;
@@ -71,6 +74,7 @@ public class GuiSystem {
 		InventoryWindow eq = new InventoryWindow("equip", 0,0, ((Equip) player.getComponent(Equip.class)));
 		eq.setVerticalAlign(Component.CENTER);
 		eq.setHorizontalAlign(Component.WEST);
+		eq.setEnabled(false);
 		eq.setVisible(false);
 		ui.add(eq);
 		return eq;

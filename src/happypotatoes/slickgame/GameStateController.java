@@ -15,6 +15,7 @@ public class GameStateController extends StateBasedGame {
 	@Override
     public void initStatesList(GameContainer gc) throws SlickException {
 		gc.setMouseCursor("./res/Cursor.png", 0, 0);
+		addState(new LogoState());
 		addState(new MenuState());
 		addState(new LoadingState());
         addState(new GameState());

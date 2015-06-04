@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.entitysystem;
 
 import happypotatoes.slickgame.LightingBello;
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class EntityRenderer {
 	
 	public static void init() {
 		try {
-			select = new Image("res/select.png");
+			select = Loader.image("res/select.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

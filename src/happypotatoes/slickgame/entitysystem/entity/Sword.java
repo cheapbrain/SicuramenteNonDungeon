@@ -17,7 +17,7 @@ public class Sword {
 		Entity item = new Entity(EntitySystem.getInstance().getFreeID(), ItemList.sword.getName());
 		Item i = ItemList.sword;
 		Pickup itemEntity = new Pickup(item, 0, i.getId());
-		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/sword.png",-0.5f, -0.3f, true);	
+		StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/sword.png",-0.6f, -0.6f, true);	
 		SelectComponent selectComponent = new SelectComponent(item, 0, -.5f,-.5f, 1, 1);
 		return item;
 	}

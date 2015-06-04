@@ -10,6 +10,7 @@ import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.equip.Equip;
 import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.InventoryWindow;
+import happypotatoes.slickgame.gui.component.GameInput;
 import happypotatoes.slickgame.inventory.EquipSlot;
 import happypotatoes.slickgame.items.ItemList;
 import happypotatoes.slickgame.items.ItemType;
@@ -54,13 +55,13 @@ public class PlayerInput extends Component {
 		}
 		EntityRenderer.hover = selected;
 		
-		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+		if (GameInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			EntityRenderer.click = selected;
 			focus=selected;
 		}
 		
 		Walk walk = owner.getComponent(Walk.class);
-		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
+		if (GameInput.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			
 			if (walker.getState()==0)
 				walker.setWalking();

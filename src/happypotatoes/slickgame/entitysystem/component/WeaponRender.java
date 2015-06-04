@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.geom.Rectangle;
 
@@ -20,7 +21,7 @@ public class WeaponRender extends RenderComponent{
 		oy=offsetY;
 		float unit = Camera.camera.getUnit();
 		try {
-			texture = new Image(spriteFolder);
+			texture = Loader.image(spriteFolder);
 			int w = width;
 			int h = height;
 			rect = new Rectangle(owner.x+ox, owner.y+oy, w/unit, h/unit);

@@ -23,9 +23,10 @@ public class InventoryWindow extends PopUpWindow{
 	}
 	
 	public boolean isOpen(){
-		return isVisible();
+		return isEnabled();
 	}
 	public void setOpen(boolean b){
+		setEnabled(b);		
 		setVisible(b);		
 	}
 	protected void paintComponent(Graphics g) {

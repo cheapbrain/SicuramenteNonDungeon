@@ -1,5 +1,8 @@
 package happypotatoes.slickgame;
 
+import java.io.File;
+import java.util.Stack;
+
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
@@ -26,9 +29,11 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class LoadingState extends BasicGameState {
+	Stack<File> files;
 	public World world;
 	public UI ui;
 	private int step = 0;
+	private int max;
 	private Image background;
 	private Image gear[] = new Image[20];
 	private int counter =0, frameCount=0;
@@ -44,9 +49,12 @@ public class LoadingState extends BasicGameState {
 			throws SlickException {
 		step = 0;
 		for(int i=0;i<20;i++){
-			gear[i]=new Image("./res/Loading/gear/"+(i+1)+".png");
+			gear[i]=Loader.image("res/Loading/gear/"+(i+1)+".png");
 		}
-		background = new Image("./res/Loading/LoadingScreen.png");
+		background = Loader.image("res/Loading/LoadingScreen.png");
+		done = false;
+		files = Loader.getFiles();
+		max = files.size();
 	}
 
 	@Override
@@ -54,38 +62,37 @@ public class LoadingState extends BasicGameState {
 			throws SlickException {
 		background.draw(0,0,container.getWidth(), container.getHeight());
 		g.setColor(Color.white);
-		g.drawString("Loading.. "+step+"%", 100, 100);
+		g.drawString("Loading.. "+(step*100)/max+"%", 100, 100);
 		Image thisFrame = gear[counter];
 		thisFrame.draw(container.getWidth()-thisFrame.getWidth(), container.getHeight()-thisFrame.getHeight());
 	}
 
+	boolean done = false;
 	Entity player;
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		switch(step) {
-		case 0:
+		if (!files.isEmpty()) {
+			String path = files.pop().getAbsolutePath();
+			Loader.preload(path);
+			System.out.println(path);
+			step++;
+		} else {
+			done = true;
+		}
+		
+		if (done) {
 			EntityRenderer.init();
 			EntitySystem.getInstance().clear();
-			break;
-		case 10:
 			ItemType itemType = new ItemType();
 			ItemList itemList = new ItemList();
 			ItemSprite itemSprite = new ItemSprite();
-			break;
-		case 20:
 			Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
-			break;
-		case 30:
 			world = new World(container);
-			break;
-		case 40:
 			player = Player.create();
 			player.x = 2.5f;
 			player.y = 2.5f;
 			world.add(player);
-			break;
-		case 50:
 			Entity item = Sword.create();
 			item.x=3.5f;
 			item.y=2.5f;
@@ -100,30 +107,17 @@ public class LoadingState extends BasicGameState {
 			item2.x=7.5f;
 			item2.y=2.5f;
 			world.add(item2);
-			break;
-		case 60:
-			for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
-			break;
-		case 70: new Minimap(world, player);
-				break;
-		case 80:
+			world.add(Wolf.create(3,3));
+			new Minimap(world, player);
 			LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
 			Camera.camera.setTarget(player);
 			EntitySystem.getInstance().update(world, 0);
-			break;
-		case 90:
 			ui = new UI(container, game);
 			GuiSystem.init(ui, player);		
 			container.getGraphics().setBackground(new Color(0,0,0,255));
-			break;
-		case 100:
 			game.enterState(1);
-			break;
-		default:
-			
 		}
-		if (step<100)
-		step++;
+		
 		frameCount+=delta;
 		if(frameCount>=50){
 			counter++;

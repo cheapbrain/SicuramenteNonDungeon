@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.geom.Rectangle;
@@ -27,8 +28,8 @@ public class WalkerRender extends RenderComponent{
 		ox = offsetX;
 		oy = offsetY;
 		try {
-			foreground = new Image("./res/MonsterBarBackGround.png");
-			healthBar = new Image("./res/MonsterBarHealthBar.png");
+			foreground = Loader.image("res/MonsterBarBackGround.png");
+			healthBar = Loader.image("res/MonsterBarHealthBar.png");
 		} catch (SlickException e1) {
 			e1.printStackTrace();
 		}	
@@ -36,7 +37,7 @@ public class WalkerRender extends RenderComponent{
 		animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
 			try {
-				Image texture = new Image(spriteFolder+i+".png");
+				Image texture = Loader.image(spriteFolder+i+".png");
 				int frames = texture.getWidth()/width;
 				int w = width;
 				int h = height;

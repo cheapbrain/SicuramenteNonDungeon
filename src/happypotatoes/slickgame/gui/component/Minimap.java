@@ -30,6 +30,7 @@ public class Minimap extends Window{
 		} catch(Exception e) {}
 		
 		setVisible(true);
+		setEnabled(false);
 		instance = this;
 		
 	}

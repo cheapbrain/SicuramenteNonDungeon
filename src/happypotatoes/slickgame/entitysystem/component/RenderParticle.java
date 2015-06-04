@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.geom.Rectangle;
 
@@ -19,7 +20,7 @@ public class RenderParticle extends RenderComponent{
 		this.particle=particle;
 		color = new Color(1,1,1,1f);
 		try {
-			img = new Image(path);
+			img = Loader.image(path);
 			
 		} catch (SlickException e) {
 			e.printStackTrace();

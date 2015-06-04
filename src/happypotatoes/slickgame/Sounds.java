@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 public class Sounds {
-	private static final String FOLDER = "/res/sounds/";
+	private static final String FOLDER = "res/sounds/";
 	private static Sounds instance;
 	
 	private Sounds() {
@@ -25,7 +25,7 @@ public class Sounds {
 		Sound sound = sounds.get(name);
 		if (sound==null) {
 			try {
-				sound = new Sound(FOLDER+name);
+				sound = Loader.sound(FOLDER+name);
 				sounds.put(name, sound);
 			} catch (SlickException e) {
 				e.printStackTrace();

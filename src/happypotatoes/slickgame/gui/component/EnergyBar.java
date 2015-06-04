@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.component.Energy;
 import happypotatoes.slickgame.gui.Component;
 
@@ -16,7 +17,7 @@ public class EnergyBar extends Component{
 		this.maxValue = energy.getEnergy();
 		this.energy = energy;
 		try {
-			bar = new Image("./res/Energia.png");
+			bar = Loader.image("res/Energia.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

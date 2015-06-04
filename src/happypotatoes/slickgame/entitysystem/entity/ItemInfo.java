@@ -1,6 +1,8 @@
 package happypotatoes.slickgame.entitysystem.entity;
 
 
+import happypotatoes.slickgame.Loader;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,7 +36,7 @@ public class ItemInfo {
 		String name = fileInfo.getPath().split(".item")[0];
 		name =name.substring(name.lastIndexOf("\\"));
 		try {
-			texture = new Image((fileInfo.getPath().split("Items")[0])+"Sprites/Items"+name+".png");
+			texture = Loader.image((fileInfo.getPath().split("Items")[0])+"Sprites/Items"+name+".png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

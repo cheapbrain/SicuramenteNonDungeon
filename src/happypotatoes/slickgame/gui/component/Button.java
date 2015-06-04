@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.gui.ActionListener;
 import happypotatoes.slickgame.gui.Component;
 import happypotatoes.slickgame.gui.Container;
@@ -22,9 +23,9 @@ public class Button extends Component{
 		setPosition(x, y);
 		setSize(width, height);
 		try {
-			imgIdle = new Image(imgPath+"/1.png");
-			imgLightened = new Image(imgPath+"/2.png");
-			imgClicked = new Image(imgPath+"/3.png");
+			imgIdle = Loader.image(imgPath+"/1.png");
+			imgLightened = Loader.image(imgPath+"/2.png");
+			imgClicked = Loader.image(imgPath+"/3.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -66,13 +67,6 @@ public class Button extends Component{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		Color bg = null;
-
-		int x = getAbsoluteX();
-		int y = getAbsoluteY();
-		
-		int mx = UI.mx;
-		int my = UI.my;
 		if (hover)
 			if (pressed){
 				if(imgClicked!=null) imgClicked.draw(0,0,width,height);

@@ -13,7 +13,7 @@ public class EnergyPotion {
 			Entity item = new Entity(EntitySystem.getInstance().getFreeID(), ItemList.energy_potion.getName());
 			Item i = ItemList.energy_potion;
 			Pickup itemEntity = new Pickup(item, 0, i.getId());
-			StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/energy_potion.png",-0.25f, -0.45f, true);	
+			StaticRender render = new StaticRender(item, "res/MyMod/Sprites/Items/energy_potion.png",-0.5f, -.7f, true);	
 			SelectComponent selectComponent = new SelectComponent(item, 0, -.5f,-.5f, 1, 1);
 			return item;
 		}

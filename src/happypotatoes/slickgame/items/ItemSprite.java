@@ -1,5 +1,6 @@
 package happypotatoes.slickgame.items;
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.geom.Rectangle;
 
 import java.io.File;
@@ -21,9 +22,7 @@ public class ItemSprite {
 	
 	public ItemSprite(){
 		
-		ArrayList<Image> images = new ArrayList<Image>();
-		
-		File folder = new File("./res/Sprites/");
+		File folder = new File("res/Sprites/");
 		System.out.println(folder.getAbsolutePath());
 		Stack<File> folders = new Stack<File>();
 		folders.push(folder);
@@ -38,8 +37,7 @@ public class ItemSprite {
 					String name = file.getName();
 					if (name.endsWith(".png"))
 						try {
-							images.add(new Image(file.getAbsolutePath()));
-							sprites.put(file.getAbsolutePath(), new Image(file.getAbsolutePath()));
+							sprites.put(file.getAbsolutePath(), Loader.image(file.getAbsolutePath()));
 							System.out.println(file.getAbsolutePath());
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -49,7 +47,6 @@ public class ItemSprite {
 	}
 	
 	public static Image load(String s){
-		File f = new File("./res/Sprites/");
-		return sprites.get(f.getAbsolutePath()+"\\"+s);
+		return sprites.get(new File("res/Sprites/"+s).getAbsolutePath());
 	}
 }

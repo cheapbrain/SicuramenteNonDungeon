@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.geom.Rectangle;
 
@@ -18,7 +19,7 @@ public class StaticRender extends RenderComponent{
 		oy=offY;
 		float unit = Camera.camera.getUnit();
 		try {
-			texture = new Image(spritePath);
+			texture = Loader.image(spritePath);
 			int w = texture.getWidth();
 			int h = texture.getHeight();
 			rect = new Rectangle(owner.x+ox, owner.y+oy, w/unit, h/unit);

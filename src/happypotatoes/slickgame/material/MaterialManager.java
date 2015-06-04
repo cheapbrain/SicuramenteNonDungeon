@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.material;
 
+import happypotatoes.slickgame.Loader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class MaterialManager {
 		
 	public static void init() throws SlickException {
 
-		Image texture = new Image("./res/sheet3.png");
+		Image texture = Loader.image("res/sheet3.png");
 		SpriteSheet sheet = new SpriteSheet(texture, 64, 64);
 		texture.setFilter(Image.FILTER_NEAREST);
 		materials = new ArrayList<Material>();

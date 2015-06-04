@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.gui;
 
 
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.inventory.EquipSlot;
 import happypotatoes.slickgame.inventory.Slot;
@@ -21,7 +22,7 @@ public class InventorySlot extends Component{
 		setPosition(x, y);
 		this.slot = slot;
 		try {
-			img = new Image("./res/popup/Frame.png");
+			img = Loader.image("res/popup/Frame.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -32,7 +33,7 @@ public class InventorySlot extends Component{
 		setPosition(x, y);
 		this.equipSlot = slot;
 		try {
-			img = new Image("./res/popup/Frame.png");
+			img = Loader.image("res/popup/Frame.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

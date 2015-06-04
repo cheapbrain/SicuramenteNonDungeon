@@ -33,13 +33,13 @@ public class MenuState extends BasicGameState{
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		try {
-			ps = new ParticleSystem(new Image("./res/light.png"), 1000);
+			ps = new ParticleSystem(Loader.image("res/light.png"), 1000);
 			basedGame = game;
 			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
 			ps.addEmitter(pe);
-			background  = new Image("./res/menu/BackGround.png");
-			bg2  = new Image("./res/menu/BackForeGround.png");
-			foreground  = new Image("./res/menu/ForeGround.png");
+			background  = Loader.image("res/menu/BackGround.png");
+			bg2  = Loader.image("res/menu/BackForeGround.png");
+			foreground  = Loader.image("res/menu/ForeGround.png");
 			width=container.getWidth();
 			height=container.getHeight();
 			
@@ -51,7 +51,7 @@ public class MenuState extends BasicGameState{
 		dx = (int) ((1366*scale-width)/2);
 		
 		ui = new UI(container, game);
-		play = new Button("",0,(int)(295*scale),(int)(245*scale),(int)(67*scale),"./res/menu/Play");
+		play = new Button("",0,(int)(295*scale),(int)(245*scale),(int)(67*scale),"res/menu/Play");
 		play.setHorizontalAlign(Component.CENTER);
 		play.setActionListener(new ActionListener() {
 			@Override
@@ -60,7 +60,7 @@ public class MenuState extends BasicGameState{
 			}
 		});
 		
-		opt = new Button("",0,(int)(380*scale),(int)(245*scale),(int)(67*scale),"./res/menu/Options");
+		opt = new Button("",0,(int)(380*scale),(int)(245*scale),(int)(67*scale),"res/menu/Options");
 		opt.setHorizontalAlign(Component.CENTER);
 		opt.setActionListener(new ActionListener() {
 			@Override
@@ -69,7 +69,7 @@ public class MenuState extends BasicGameState{
 			}
 		});
 		
-		about = new Button("",0,(int)(465*scale),(int)(245*scale),(int)(67*scale),"./res/menu/About");
+		about = new Button("",0,(int)(465*scale),(int)(245*scale),(int)(67*scale),"res/menu/About");
 		about.setHorizontalAlign(Component.CENTER);
 		about.setActionListener(new ActionListener() {
 			@Override
@@ -78,7 +78,7 @@ public class MenuState extends BasicGameState{
 			}
 		});
 		
-		exit = new Button("",0,(int)(625*scale),(int)(180*scale),(int)(50*scale),"./res/menu/Exit");
+		exit = new Button("",0,(int)(625*scale),(int)(180*scale),(int)(50*scale),"res/menu/Exit");
 		exit.setHorizontalAlign(Component.CENTER);
 		exit.setActionListener(new ActionListener() {
 			@Override

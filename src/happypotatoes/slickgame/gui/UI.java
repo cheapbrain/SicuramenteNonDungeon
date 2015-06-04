@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.gui;
 
+import happypotatoes.slickgame.gui.component.GameInput;
+
 import java.util.Iterator;
 
 import org.newdawn.slick.GameContainer;
@@ -57,6 +59,7 @@ public class UI extends Container implements InputListener{
 			while(it.hasNext())
 				if (it.next().sendMouseEvent(e))
 					return true;
+			GameInput.setButton(e.button, e.action==0);
 			return true;
 		} else {
 			return false;
@@ -69,11 +72,14 @@ public class UI extends Container implements InputListener{
 		if (enabled&&(mousewas||mouseis)) {
 			Iterator<Component> it = children.descendingIterator();
 			while(it.hasNext()) {
-				if (it.next().sendMouseMovementEvent(e))
-					break;
+				if (it.next().sendMouseMovementEvent(e)) {
+					GameInput.clear();
+					return true;
+				}
 			}
 			return mousewas&&mouseis;
 		} else {
+			GameInput.clear();
 			return false;
 		}
 	}
