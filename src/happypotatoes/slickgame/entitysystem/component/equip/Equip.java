@@ -68,7 +68,7 @@ public class Equip extends Component {
 				Item i = ItemList.getItemForId(id); 
 				if(slots[y][x].isFree()&&slots[y][x].canEquip(id)){
 					slots[y][x].addItem(id);
-					render[y][x].updateAnimation(ItemType.getTypeName(i.getType())+"\\"+i.getName()+"\\");
+					render[y][x].updateAnimation(ItemType.getTypeName(i.getType())+"/"+i.getName()+"/");
 					return true;
 				}
 			}

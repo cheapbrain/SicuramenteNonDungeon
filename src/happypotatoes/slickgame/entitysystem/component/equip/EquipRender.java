@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.component.Health;
@@ -19,7 +20,6 @@ import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.geom.Rectangle;
-import happypotatoes.slickgame.items.ItemSprite;
 import happypotatoes.slickgame.world.World;
 
 public class EquipRender extends RenderComponent {
@@ -48,7 +48,7 @@ public class EquipRender extends RenderComponent {
 		for (int i=0;i<walker.states;i++)
 			try {
 				//System.out.println(spriteFolder+String.valueOf(i)+".png");
-				Image texture = ItemSprite.load(spriteFolder+String.valueOf(i)+".png");
+				Image texture = Loader.image("res/Sprites/"+spriteFolder+String.valueOf(i)+".png");
 				//System.out.println(texture);
 				int frames = texture.getWidth()/width;
 				int w = width;
@@ -69,13 +69,27 @@ public class EquipRender extends RenderComponent {
 		
 	}
 
+	static Color color = new Color(0,0,0,1f);
 	@Override
 	public void render(float i) {
+		
 		if(exists()){
+			color.r = i;
+			color.g = i;
+			color.b = i;
+			
+			if(state!=walker.getState()) {
+				animations[state][walker.facing].restart();
+			}
 			state = walker.getState();
-			animations[state][walker.facing].setCurrentFrame(
-					owner.getComponent(WalkerRender.class).animations[state][walker.facing].getFrame());
-			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, new Color(i,i,i,1));
+			
+			if(animations[state][walker.facing].getFrame()==animations[state][walker.facing].getFrameCount()-1&&state==3){	
+				animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
+				animations[state][walker.facing].stop();
+			}else{
+				animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
+			}
+			
 		}
 	}
 

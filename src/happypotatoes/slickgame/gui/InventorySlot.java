@@ -57,11 +57,11 @@ public class InventorySlot extends Component{
 		int n=0;
 		if(slot!=null) n = slot.HowManyStacked();
 		
-		g.setColor(Color.white);
-		if(n>0)	g.fillRect(0, getHeight()-24, 20, 20);
-		g.setColor(Color.black);
-		g.setFont(font);
-		if(n>0)	g.drawString(slot.HowManyStacked()+"",0,getHeight()-27);
+		//g.setColor(Color.white);
+		//if(n>0)	g.fillRect(0, getHeight()-24, 20, 20);
+		//g.setColor(Color.black);
+		//g.setFont(font);
+		//if(n>0)	g.drawString(slot.HowManyStacked()+"",0,getHeight()-27);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ public class Sounds {
 	public static Sounds getInstance() {
 		if (instance==null) instance = new Sounds();
 		return instance;
+		
 	}
 	
 	private Map<String, Sound> sounds = new HashMap<String, Sound>();
