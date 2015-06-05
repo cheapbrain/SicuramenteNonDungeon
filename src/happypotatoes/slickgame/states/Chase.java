@@ -1,12 +1,15 @@
 package happypotatoes.slickgame.states;
 
+import happypotatoes.slickgame.entitysystem.Entity;
+import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.Walk;
+import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.entitysystem.entity.Target;
 
 public class Chase extends State {
-	public float x,y; //last seen x y
+	public float x=-1f,y=-1f; //last seen x y
 	
 	public Chase(AI owner, Integer...state){
 		super(owner, state);
@@ -16,10 +19,16 @@ public class Chase extends State {
 	public int update(long delta) {
 		if (owner.time()) {
 			owner.inSight = owner.getEntitiesInSight();
-			owner.focus = owner.getFocus();
+			Entity a = owner.focus;
+			Entity b = owner.getFocus();
+			owner.focus=null;
+			Entity c = owner.getFocus();
+
 			
 			if(owner.focus==null){
-				owner.focus = Target.create(x,y);
+				if((x!=-1f)&&(y!=-1f))
+					owner.focus = Target.create(x,y);
+				else return 1;
 			}
 			else x=owner.focus.x; y=owner.focus.y;
 			
@@ -31,7 +40,12 @@ public class Chase extends State {
 				else if(owner.focus.getComponent(PlayerInput.class)!=null)
 					return 2;
 				//se ha raggiunto l'ultimo punto dove ha visto il nemico
-				else return 1;
+				else{
+					x=-1f;
+					y=-1f;
+					EntitySystem.getInstance().removeEntity(a);
+					return 1;
+				}
 			}
 			owner.walker.setWalking();
 			Walk thisWalk = owner.owner.getComponent(Walk.class); 
