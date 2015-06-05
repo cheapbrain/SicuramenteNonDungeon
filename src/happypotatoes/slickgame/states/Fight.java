@@ -52,8 +52,8 @@ public class Fight extends State {
 				return 1;
 			}
 			if(thisDefend!=null){
-				if(owner.seeAttacked(owner.owner)!=null)
-						if(thisHealth.getHealth()<enemyHealth.getHealth()/5f)
+				if(owner.seeAttacked(owner.owner)!=null) //se sta venendo attaccato
+					if(owner.seeAttacked(owner.focus)!=null) //se anche il focus sta venendo attaccato da qualcun altro
 							owner.walker.setDefending();
 			}
 		}

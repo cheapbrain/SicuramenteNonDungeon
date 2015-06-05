@@ -23,14 +23,8 @@ public class DefendPlayer extends State {
 				return 2;
 			}
 			
-			/*Health thisHealth = owner.owner.getComponent(Health.class);
-			if(thisHealth!=null){
-				if(thisHealth.getHealth()<=thisHealth.getMaxHealth()/10f)
-					return 3;
-			}*/
 			Defend thisDefend = owner.owner.getComponent(Defend.class);
-			
-			
+						
 			//componenti del focus
 			Attack enemyAttack = null;
 			if(owner.focus!=null){

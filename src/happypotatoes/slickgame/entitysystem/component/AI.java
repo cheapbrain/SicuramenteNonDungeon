@@ -145,12 +145,14 @@ public abstract class AI extends Component {
 		Iterator<Entity> iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
+			//per il player
 			if(t.getComponent(PlayerInput.class) != null){
 				if(t.getComponent(PlayerInput.class).focus == victim){
 					if(t.getComponent(Faction.class).enemyOf(owner))
 						return t;
 				}
 			}
+			//per i mob
 			if(t.getComponent(AI.class) != null){
 				if(t.getComponent(AI.class).focus == victim){
 					if(t.getComponent(Faction.class).enemyOf(owner))

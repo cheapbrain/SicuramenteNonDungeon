@@ -29,7 +29,7 @@ public class Follow extends State {
 			if((attacker = owner.seeAttacked(owner.owner))!=null){ //if pet is attacked
 				if(attacker.getComponent(PlayerInput.class)==null){ //if pet is attacked and attacker is not player
 					owner.focus=attacker;
-					return 2;
+					return 3;
 				}
 			}
 			if(owner.focus.getComponent(PlayerInput.class)!=null){ //if focus is on player

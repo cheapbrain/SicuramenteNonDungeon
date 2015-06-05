@@ -34,9 +34,7 @@ public class LoadingState extends BasicGameState {
 	public UI ui;
 	private int step = 0;
 	private int max;
-	private Image background;
-	private Image gear[] = new Image[20];
-	private int counter =0, frameCount=0;
+	private Image background, foreground, loadingBar;
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -48,10 +46,9 @@ public class LoadingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		step = 0;
-		for(int i=0;i<20;i++){
-			gear[i]=Loader.image("res/Loading/gear/"+(i+1)+".png");
-		}
-		background = Loader.image("res/Loading/LoadingScreen.png");
+		background = Loader.image("res/Loading/LoadingScreenBackground.png");
+		loadingBar = Loader.image("./res/Loading/LoadingScreenBar.png");
+		foreground = Loader.image("./res/Loading/LoadingScreenForeground.png");
 		done = false;
 		files = Loader.getFiles();
 		max = files.size();
@@ -59,12 +56,10 @@ public class LoadingState extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
-			throws SlickException {
+			throws SlickException { 
 		background.draw(0,0,container.getWidth(), container.getHeight());
-		g.setColor(Color.white);
-		g.drawString("Loading.. "+(step*100)/max+"%", 100, 100);
-		Image thisFrame = gear[counter];
-		thisFrame.draw(container.getWidth()-thisFrame.getWidth(), container.getHeight()-thisFrame.getHeight());
+		loadingBar.draw(0, 0, container.getWidth()*((float)step/max), container.getHeight(), 0, 0, loadingBar.getWidth()*((float)step/max), loadingBar.getHeight());
+		foreground.draw(0,0,container.getWidth(), container.getHeight());
 	}
 
 	boolean done = false;
@@ -117,13 +112,6 @@ public class LoadingState extends BasicGameState {
 			container.getGraphics().setBackground(new Color(0,0,0,255));
 			game.enterState(1);
 		}
-		
-		frameCount+=delta;
-		if(frameCount>=50){
-			counter++;
-			frameCount=0;
-		}
-		if(counter>=20) counter =0;
 	}
 	
 	@Override
