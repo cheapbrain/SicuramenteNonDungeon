@@ -51,17 +51,19 @@ public class Container extends Component{
 		g.translate(-ddx, -ddy);
 	}
 	
-	public boolean sendMouseEvent(MouseEvent e) {
-		if (enabled&&contain(e.x, e.y)) {
+	public boolean sendMouseEvent(MouseEvent e, int dx, int dy) {
+		dx += getX();
+		dy += getY();
+		if (enabled&&contain(e.x, e.y, dx, dy)) {
 			Iterator<Component> it = children.descendingIterator();
 			while(it.hasNext())
-				if (it.next().sendMouseEvent(e))
+				if (it.next().sendMouseEvent(e, dx, dy))
 					return true;
 				
 			if (e.action == MouseEvent.PRESSED) {
-				this.mousePressed(e.button, e.x, e.y);
+				this.mousePressed(e.button, e.x-dx, e.y-dy);
 			} else {
-				this.mouseReleased(e.button, e.x, e.y);
+				this.mouseReleased(e.button, e.x-dx, e.y-dy);
 			}
 			return true;
 		} else {
@@ -69,20 +71,22 @@ public class Container extends Component{
 		}
 	}
 
-	public boolean sendMouseMovementEvent(MouseMovementEvent e) {
-		boolean mousewas = contain(e.oldx, e.oldy);
-		boolean mouseis = contain(e.x, e.y);
+	public boolean sendMouseMovementEvent(MouseMovementEvent e, int dx, int dy) {
+		dx += getX();
+		dy += getY();
+		boolean mousewas = contain(e.oldx, e.oldy, dx, dy);
+		boolean mouseis = contain(e.x, e.y, dx, dy);
 		if (enabled&&(mousewas||mouseis)) {
 			
 			Iterator<Component> it = children.descendingIterator();
 			while(it.hasNext()) {
-				if (it.next().sendMouseMovementEvent(e))
+				if (it.next().sendMouseMovementEvent(e, dx, dy))
 					break;
 			}
 
 			if (mousewas&&mouseis) {
 				if (e.type==MouseMovementEvent.MOVE) {
-					mouseMoved(e.oldx, e.oldy, e.x, e.y);
+					mouseMoved(e.oldx-dx, e.oldy-dy, e.x-dx, e.y-dy);
 				} 
 			} else if (mouseis) {
 				mouseEntered();

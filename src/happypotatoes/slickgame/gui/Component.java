@@ -41,12 +41,14 @@ public class Component implements MouseListener{
 		background=img;
 	}
 	
-	public boolean sendMouseEvent(MouseEvent e) {
-		if (enabled&&contain(e.x, e.y)) {
+	public boolean sendMouseEvent(MouseEvent e, int dx, int dy) {
+		dx += getX();
+		dy += getY();
+		if (enabled&&contain(e.x, e.y, dx, dy)) {
 			if (e.action == MouseEvent.PRESSED) {
-				this.mousePressed(e.button, e.x, e.y);
+				this.mousePressed(e.button,e.x-dx, e.y-dy);
 			} else {
-				this.mouseReleased(e.button, e.x, e.y);
+				this.mouseReleased(e.button, e.x-dx, e.y-dy);
 			}
 			return true;
 		} else {
@@ -54,13 +56,15 @@ public class Component implements MouseListener{
 		}
 	}
 
-	public boolean sendMouseMovementEvent(MouseMovementEvent e) {
-		boolean mousewas = contain(e.oldx, e.oldy);
-		boolean mouseis = contain(e.x, e.y);
+	public boolean sendMouseMovementEvent(MouseMovementEvent e, int dx, int dy) {
+		dx += getX();
+		dy += getY();
+		boolean mousewas = contain(e.oldx, e.oldy, dx, dy);
+		boolean mouseis = contain(e.x, e.y, dx, dy);
 		if (enabled&&(mousewas||mouseis)) {
 			if (mousewas&&mouseis) {
 				if (e.type==MouseMovementEvent.MOVE) {
-					mouseMoved(e.oldx, e.oldy, e.x, e.y);
+					mouseMoved(e.oldx-dx, e.oldy-dy, e.x-dx, e.y-dy);
 				} 
 			} else if (mouseis) {
 				mouseEntered();
@@ -108,10 +112,10 @@ public class Component implements MouseListener{
 		this.y = y;
 	}
 	
-	public boolean contain(int x, int y) {
-		int x0 = getX();
+	public boolean contain(int x, int y, int dx, int dy) {
+		int x0 = dx;
 		int x1 = x0+getWidth();
-		int y0 = getY();
+		int y0 = dy;
 		int y1 = y0+getHeight();
 		return x>=x0&&x<=x1&&y>=y0&&y<=y1;
 	}

@@ -53,11 +53,11 @@ public class UI extends Container implements InputListener{
 		return 0;
 	}
 	
-	public boolean sendMouseEvent(MouseEvent e) {
-		if (enabled&&contain(e.x, e.y)) {
+	public boolean sendMouseEvent(MouseEvent e, int dx, int dy) {
+		if (enabled&&contain(e.x, e.y, dx, dy)) {
 			Iterator<Component> it = children.descendingIterator();
 			while(it.hasNext())
-				if (it.next().sendMouseEvent(e))
+				if (it.next().sendMouseEvent(e, dx, dy))
 					return true;
 			GameInput.setButton(e.button, e.action==0);
 			return true;
@@ -66,13 +66,13 @@ public class UI extends Container implements InputListener{
 		}
 	}
 
-	public boolean sendMouseMovementEvent(MouseMovementEvent e) {
-		boolean mousewas = contain(e.oldx, e.oldy);
-		boolean mouseis = contain(e.x, e.y);
+	public boolean sendMouseMovementEvent(MouseMovementEvent e, int dx, int dy) {
+		boolean mousewas = contain(e.oldx, e.oldy, dx, dy);
+		boolean mouseis = contain(e.x, e.y, dx, dy);
 		if (enabled&&(mousewas||mouseis)) {
 			Iterator<Component> it = children.descendingIterator();
 			while(it.hasNext()) {
-				if (it.next().sendMouseMovementEvent(e)) {
+				if (it.next().sendMouseMovementEvent(e, dx, dy)) {
 					GameInput.clear();
 					return true;
 				}
@@ -106,7 +106,7 @@ public class UI extends Container implements InputListener{
 		}
 		mx = x;
 		my = y;
-		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.PRESSED));
+		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.PRESSED), 0, 0);
 	}
 
 	@Override
@@ -124,21 +124,21 @@ public class UI extends Container implements InputListener{
 		}
 		mx = x;
 		my = y;
-		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.RELEASED));
+		sendMouseEvent(new MouseEvent(x, y, button, MouseEvent.RELEASED), 0, 0);
 	}
 
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		mx = newx;
 		my = newy;
-		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.MOVE));
+		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.MOVE), 0, 0);
 	}
 
 	@Override
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		mx = newx;
 		my = newy;
-		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.DRAG));
+		sendMouseMovementEvent(new MouseMovementEvent(oldx, oldy, newx, newy, MouseMovementEvent.DRAG), 0, 0);
 	}
 
 	@Override

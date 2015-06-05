@@ -64,7 +64,6 @@ public class Inventory extends Component{
 		}
 		if(slot!=null){
 			int maxStack = ItemList.getItemForId(id).getMaxStack();
-			slot.setSlotItem(id, maxStack);
 			slot.addItem(id);
 		} else return false;
 		return true;

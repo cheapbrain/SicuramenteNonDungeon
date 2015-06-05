@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.inventory;
 
 import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.items.ItemList;
 
 public class Slot {
 	public int nItems, nMaxItems;
@@ -25,18 +26,18 @@ public class Slot {
 		return false;
 	}
 	public boolean addItem(int id){	
-		if((idItem==0)&&(nItems<nMaxItems)){
+		if(((idItem==id)&&(nItems<nMaxItems))){
 			nItems++;
-		} else return false;
+		} else if (idItem==0) {
+			nItems = 1;
+			idItem = id;
+			nMaxItems = ItemList.getItemForId(id).getMaxStack();
+		} else
+			return false;
+		
 		return true;
 	}
-	public boolean setSlotItem(int id, int max){
-		if(nItems==0){
-			idItem=id;
-			nMaxItems = max;
-		} else return false;
-		return true;
-	}
+	
 	public int popItemId(){
 		int tmp=0;
 		if(nItems!=0){
@@ -46,6 +47,8 @@ public class Slot {
 				nMaxItems = 0;
 				idItem=0;
 			}
+		} else {
+
 		}
 		return tmp;
 	}

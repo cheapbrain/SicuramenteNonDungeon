@@ -75,11 +75,11 @@ public class Equip extends Component {
 		return false;
 	}
 	
-	public boolean canEquip(Slot slot, int id){
+	public boolean canEquip(int id){
 		for(int y=0; y<slots.length; y++)
 			for(int x=0; x<slots[y].length; x++)
-				if(slots[y][x].equals(slot))
-					return slots[y][x].canEquip(id);
+				if (slots[y][x].canEquip(id))
+					return true;
 		return false;			
 	}
 	public boolean canEquip(int x, int y, int id){

@@ -12,7 +12,7 @@ public class Item {
 	private int id;
 	private int type;
 	private int maxStack;
-	private String name, description;
+	private String name, description, path;
 	private Image texture;
 
 	
@@ -20,7 +20,8 @@ public class Item {
 		setId(id);
 		setName(name);
 		try {
-			texture = Loader.image("res/MyMod/Sprites/Items/"+name+".png");
+			path = "res/MyMod/Sprites/Items/"+name+".png";
+			texture = Loader.image(path);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -48,6 +49,10 @@ public class Item {
 	
 	public void setName(String name){
 		this.name=name;
+	}
+	
+	public String getPath() {
+		return path;
 	}
 
 	public int getMaxStack() {
