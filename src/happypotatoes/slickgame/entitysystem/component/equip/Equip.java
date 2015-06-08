@@ -29,15 +29,15 @@ public class Equip extends Component {
 		this.render = new EquipRender[width][height];
 				
 		slots[0][0] = new EquipSlot(this, ItemType.helm);
-		render[0][0] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		render[0][0] = new EquipRender(owner, walker);
 		slots[0][1] = new EquipSlot(this, ItemType.armour);
-		render[0][1] = new EquipRender(owner, walker, 158, 195, -1.25f, -2.25f);
+		render[0][1] = new EquipRender(owner, walker);
 		slots[0][2] = new EquipSlot(this, ItemType.weapon);
-		render[0][2] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		render[0][2] = new EquipRender(owner, walker);
 		slots[0][3] = new EquipSlot(this, ItemType.secondhand);
-		render[0][3] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		render[0][3] = new EquipRender(owner, walker);
 		slots[0][4] = new EquipSlot(this, ItemType.trinket);
-		render[0][4] = new EquipRender(owner, walker, 231, 251, -1.8f, -2.7f);
+		render[0][4] = new EquipRender(owner, walker);
 		
 	}
 	
@@ -68,7 +68,7 @@ public class Equip extends Component {
 				Item i = ItemList.getItemForId(id); 
 				if(slots[y][x].isFree()&&slots[y][x].canEquip(id)){
 					slots[y][x].addItem(id);
-					render[y][x].updateAnimation(ItemType.getTypeName(i.getType())+"/"+i.getName()+"/");
+					render[y][x].updateAnimation(i, ItemType.getTypeName(i.getType())+"/"+i.getName()+"/");
 					return true;
 				}
 			}

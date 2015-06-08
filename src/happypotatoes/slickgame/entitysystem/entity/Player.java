@@ -43,10 +43,10 @@ public class Player {
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/player/", 204, 222, -1.6f, -2.4f);			
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
-		Health health = new Health(e, 0, 100, 1);
+		Health health = new Health(e, 0, 100, 2);
 		Energy energy = new Energy(e, 0, 100, 8);
 		Inventory inventory = new Inventory(e, 0, 4, 4);
-		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword.getId(), ItemList.armour.getId()}, false);
+		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword2.getId(), ItemList.armour.getId()}, false);
 		Defend defend = new Defend(e, 0, walker, walkerRender, .2f);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
 		

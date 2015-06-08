@@ -1,12 +1,12 @@
 package happypotatoes.slickgame.items;
 
 
-public class Weapon extends Item{
+public class Weapon extends Equippable{
 	private float damage;
 	private float weight;
 	
-	public Weapon(int id, String name, float weight, float damage) {
-		super(id, name);
+	public Weapon(int id, String name, float weight, float damage, int width, int height, float offsetX, float offsetY) {
+		super(id, name, width, height, offsetX, offsetY);
 		setType(ItemType.weapon);
 		setWeight(weight);
 		setDamage(damage);

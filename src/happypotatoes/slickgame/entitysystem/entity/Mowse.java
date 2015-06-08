@@ -38,7 +38,7 @@ public class Mowse {
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 3);
-		Health health = new Health(e, 0, 100, 0);
+		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 2);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f, -1.2f, 1.4f, 1.8f);
 		return e;

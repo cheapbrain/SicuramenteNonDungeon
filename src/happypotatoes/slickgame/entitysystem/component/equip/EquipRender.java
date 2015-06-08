@@ -20,6 +20,9 @@ import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.geom.Rectangle;
+import happypotatoes.slickgame.items.Equippable;
+import happypotatoes.slickgame.items.Item;
+import happypotatoes.slickgame.items.ItemList;
 import happypotatoes.slickgame.world.World;
 
 public class EquipRender extends RenderComponent {
@@ -32,18 +35,19 @@ public class EquipRender extends RenderComponent {
 	private Rectangle rect;
 	private int frameTime = (int)Math.round(1000f/24);
 	
-	public EquipRender(Entity owner, Walker walker, int width, int height, float offsetX, float offsetY) {
+	public EquipRender(Entity owner, Walker walker) {
 		super(owner, false);
 		this.walker = walker;
-		this.height = height;
-		this.width = width;
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
-		this.rect = new Rectangle(owner.x+offsetX, owner.y+offsetY, width/unit, height/unit);
-		
+		this.rect = new Rectangle();
 	}
 
-	public void updateAnimation(String spriteFolder) {
+	public void updateAnimation(Item item, String spriteFolder) {
+		Equippable e = (Equippable) item;
+		this.height = e.height;
+		this.width = e.width;
+		this.offsetX = e.offsetX;
+		this.offsetY = e.offsetY;
+		this.rect = new Rectangle(owner.x+offsetX, owner.y+offsetY, width/unit, height/unit);
 		this.animations = new Animation[walker.states][walker.directions];
 		for (int i=0;i<walker.states;i++)
 			try {
@@ -63,8 +67,8 @@ public class EquipRender extends RenderComponent {
 					}
 					animations[i][j] = a;
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}	
 		
 	}
