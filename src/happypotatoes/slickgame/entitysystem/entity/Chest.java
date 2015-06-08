@@ -36,6 +36,7 @@ public class Chest {
 		case 0: case 4: hitBox = new HitBox(e, .7f, .3f, 0); break;
 		default: hitBox = new HitBox(e, .65f, .65f, 0); break;
 		}
+		Faction f = new Faction(e, 0, Faction.neutral);
 		Walker walker = new Walker(e, 0, 8, 4, facing);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Statics/chest/", 222, 144, -1.73f, -1.73f);	
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f,-1.2f, 1.4f, 1.4f);

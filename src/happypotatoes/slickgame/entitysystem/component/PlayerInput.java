@@ -62,6 +62,7 @@ public class PlayerInput extends Component {
 		
 		Walk walk = owner.getComponent(Walk.class);
 		if (GameInput.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
+			
 			if (walker.getState()==0)
 				walker.setWalking();
 			interactTarget = selected;
@@ -82,7 +83,6 @@ public class PlayerInput extends Component {
 				walker.setFacing(walk.dx, walk.dy);
 				Interact inter = interactTarget.getComponent(Interact.class);
 				Health health = interactTarget.getComponent(Health.class);
-				focus=interactTarget;
 				if (inter!=null) {
 					inter.interact(owner);
 					interactTarget = null;
@@ -91,6 +91,9 @@ public class PlayerInput extends Component {
 				else 
 				if (health!=null){
 					//create particle spostato in Attack
+					//owner.getComponent(Attack.class).attack(interactTarget);
+					
+					focus=interactTarget;
 					walker.setAttacking();
 					
 				}

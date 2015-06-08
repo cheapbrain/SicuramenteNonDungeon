@@ -1,11 +1,7 @@
 package happypotatoes.slickgame.states;
 
-import java.util.Random;
-
-import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.Walk;
-import happypotatoes.slickgame.entitysystem.entity.Target;
 
 public class Idle extends State {
 	
@@ -15,23 +11,26 @@ public class Idle extends State {
 
 	@Override
 	public int update(long delta) {
-		if(owner.time(1000)){
+		if(owner.time()){
 			owner.inSight = owner.getEntitiesInSight();
 			owner.focus = owner.getFocus();
-
-			if((owner.focus!=null)&&(owner.focus.getComponent(AI.class)!=null))
+			
+			owner.walker.setStill();
+			if(owner.focus!=null){
+				return 1;
+			}
+			/*
+			if(owner.focus.getComponent(AI.class)!=null)
 				return 1;
 			else {
-				Random r = new Random();
-				float dx = (r.nextFloat()*2f-1f);
-				float dy = (float) Math.sqrt(1f-dx*dx)*(r.nextInt(2)*2f-1f);;
-				float d = (float)Math.sqrt(dx*dx+dy*dy)+0.000001f;
-				float x = owner.owner.x-dx/d*2f;
-				float y = owner.owner.y-dy/d*2f;
-				owner.focus = Target.create(x,y);
-				EntitySystem.getInstance().addEntity(owner.focus);
-				return 1;
-			}			
+				owner.focus
+			}
+			owner.walker.setWalking();
+			Walk thisWalk = owner.owner.getComponent(Walk.class); 
+			thisWalk.dx = owner.focus.x-owner.owner.x;
+			thisWalk.dy = owner.focus.y-owner.owner.y;
+			thisWalk.d = (float)Math.sqrt(thisWalk.dx*thisWalk.dx+thisWalk.dy*thisWalk.dy)+0.000001f;
+			*/
 		}
 		return 0;
 	}

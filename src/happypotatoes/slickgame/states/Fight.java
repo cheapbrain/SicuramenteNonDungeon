@@ -34,6 +34,8 @@ public class Fight extends State {
 					return 2;
 			}
 			
+			Defend thisDefend = owner.owner.getComponent(Defend.class);
+			
 			
 			//componenti del focus
 			Attack enemyAttack = null;
@@ -49,15 +51,10 @@ public class Fight extends State {
 				owner.focus=null;
 				return 1;
 			}
-			
-			//difesa
-			Defend thisDefend = owner.owner.getComponent(Defend.class);
 			if(thisDefend!=null){
-				if(owner.seeAttacked(owner.owner)!=null){ //se sta venendo attaccato
-					if(owner.seeAttacked(owner.focus)!=null){ //se anche il focus sta venendo attaccato da qualcun altro
-						owner.walker.setDefending();
-					}
-				}
+				if(owner.seeAttacked(owner.owner)!=null) //se sta venendo attaccato
+					if(owner.seeAttacked(owner.focus)!=null) //se anche il focus sta venendo attaccato da qualcun altro
+							owner.walker.setDefending();
 			}
 		}
 		return 0;

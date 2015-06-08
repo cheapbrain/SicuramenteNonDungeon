@@ -11,8 +11,6 @@ import java.util.Random;
 
 
 
-
-
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
@@ -50,13 +48,6 @@ public abstract class AI extends Component {
 		}
 		else return false;
 	}
-	public boolean time(int t){
-		if(time<=0){
-			time=t;
-			return true;
-		}
-		else return false;
-	}
 	
 	public float getDistance(Entity focus){
 		float dx = focus.x-owner.x;
@@ -81,7 +72,7 @@ public abstract class AI extends Component {
 			}
 	}
 	
-	public List<Entity> getEntitiesInSight(){		
+	public List<Entity> getEntitiesInSight(){
 		List<Entity> tmp = (EntitySystem.getInstance().getEntities(Walker.class));
 		Iterator<Entity> iterator = tmp.iterator();
 		while(iterator.hasNext()){
@@ -154,19 +145,18 @@ public abstract class AI extends Component {
 		Iterator<Entity> iterator = inSight.iterator();
 		while(iterator.hasNext()){
 			Entity t = iterator.next();
-			if(!t.equals(owner)){
-				if(t.getComponent(PlayerInput.class) != null){
-					if(t.getComponent(PlayerInput.class).focus == victim){
-						if(t.getComponent(Faction.class).enemyOf(victim))
-							return t;
-					}
+			//per il player
+			if(t.getComponent(PlayerInput.class) != null){
+				if(t.getComponent(PlayerInput.class).focus == victim){
+					if(t.getComponent(Faction.class).enemyOf(owner))
+						return t;
 				}
-				//per i mob
-				if(t.getComponent(AI.class) != null){
-					if(t.getComponent(AI.class).focus == victim){
-						if(t.getComponent(Faction.class).enemyOf(victim))
-							return t;
-					}
+			}
+			//per i mob
+			if(t.getComponent(AI.class) != null){
+				if(t.getComponent(AI.class).focus == victim){
+					if(t.getComponent(Faction.class).enemyOf(owner))
+						return t;
 				}
 			}
 		}
