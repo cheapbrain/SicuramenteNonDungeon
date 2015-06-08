@@ -34,7 +34,7 @@ public class GameState extends BasicGameState {
 		item.x=3.5f;
 		item.y=2.5f;
 		world.add(item);
-		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
+		for(int i=0; i<1; i++) world.add(Robot.create(3,3));
 		world.add(FighterEntity.create(3,3));
 		
 		Camera.camera.setTarget(player);

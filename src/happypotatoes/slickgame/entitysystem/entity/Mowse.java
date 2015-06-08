@@ -33,7 +33,7 @@ public class Mowse {
 		TerrainCollision terrainCollision = new TerrainCollision(e, 0, movement, hitBox);
 		EntityCollision entityCollision = new EntityCollision(e, 0, movement, hitBox);
 		Walker walker = new Walker(e, 0, 8, 4);
-		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 237, -2.2f, -2.2f);
+		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/mowse/", 278, 234, -2.2f, -2.2f);
 		Inventory inventory = new Inventory(e, 0, 3, 3, new Integer[]{ItemList.energy_potion.getId()}, false);
 		AI intelligence = (AI) (new AIMad(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
