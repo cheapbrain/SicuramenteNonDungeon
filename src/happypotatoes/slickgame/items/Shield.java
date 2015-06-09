@@ -1,12 +1,12 @@
 package happypotatoes.slickgame.items;
 
 
-public class Shield extends Item{
+public class Shield extends Equippable{
 	private float mitigation;
 	private float weight;
 	
-	public Shield(int id, String name, float weight, float mitigation) {
-		super(id, name);
+	public Shield(int id, String name, float weight, float mitigation, int width, int height, float offsetX, float offsetY) {
+		super(id, name, height, width, offsetX, offsetY);
 		setType(ItemType.secondhand);
 		setMitigation(mitigation);
 		setWeight(weight);

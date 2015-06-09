@@ -1,12 +1,12 @@
 package happypotatoes.slickgame.items;
 
 
-public class Helm extends Item{
+public class Helm extends Equippable{
 	private float mitigation;
 	private float weight;
 	
-	public Helm(int id, String name, float weight, float mitigation) {
-		super(id, name);
+	public Helm(int id, String name, float weight, float mitigation, int width, int height, float offsetX, float offsetY) {
+		super(id, name, height, width, offsetX, offsetY);
 		setType(ItemType.helm);
 		setMitigation(mitigation);
 		setWeight(weight);

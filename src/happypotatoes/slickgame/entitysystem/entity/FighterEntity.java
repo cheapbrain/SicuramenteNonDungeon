@@ -41,7 +41,7 @@ public class FighterEntity {
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 1);
-		Health health = new Health(e, 0, 100, 0);
+		Health health = new Health(e, 0, 100, 1);
 		Energy energy = new Energy(e, 0, 100, 2);
 		Defend defend = new Defend(e, 0, walker, walkerRender, .2f);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);

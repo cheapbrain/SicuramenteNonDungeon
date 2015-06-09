@@ -2,6 +2,7 @@ package happypotatoes.slickgame;
 
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.entity.Door;
+import happypotatoes.slickgame.entitysystem.entity.Robot;
 import happypotatoes.slickgame.gui.Notification;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.world.World;

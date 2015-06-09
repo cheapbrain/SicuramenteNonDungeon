@@ -4,7 +4,7 @@ import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.component.AI;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.entity.Target;
-import happypotatoes.slickgame.entitysystem.entity.Wolf;
+import happypotatoes.slickgame.entitysystem.entity.Robot;
 
 public class Escape extends State {
 	public float speed;

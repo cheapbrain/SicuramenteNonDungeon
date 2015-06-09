@@ -11,7 +11,7 @@ import happypotatoes.slickgame.entitysystem.entity.HealthPotion;
 import happypotatoes.slickgame.entitysystem.entity.ItemEntity;
 import happypotatoes.slickgame.entitysystem.entity.Sword;
 import happypotatoes.slickgame.entitysystem.entity.Player;
-import happypotatoes.slickgame.entitysystem.entity.Wolf;
+import happypotatoes.slickgame.entitysystem.entity.Robot;
 import happypotatoes.slickgame.gui.GuiSystem;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Minimap;
@@ -103,7 +103,7 @@ public class LoadingState extends BasicGameState {
 			
 			Entity item2 = ItemEntity.create(ItemList.key.getId(), 7.5f, 2.5f);
 			world.add(item2);
-			world.add(Wolf.create(3,3));
+			world.add(Robot.create(3,3));
 			
 			System.out.println("fbo");
 			new Minimap(world, player);

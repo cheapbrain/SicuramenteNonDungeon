@@ -33,8 +33,8 @@ public class Room {
 		Random r = new Random();
 		int nMobs = r.nextInt(6)+1;
 		for(int i=0; i<nMobs; i++){
-			float x = r.nextInt(width-1)+this.x+2.5f;
-			float y = r.nextInt(height-1)+this.y+2.5f;
+			float x = r.nextInt(width-2)+this.x+2.5f;
+			float y = r.nextInt(height-2)+this.y+2.5f;
 			Entity e;
 			if(r.nextInt(2)==0) e = Mowse.create(x, y);
 			else e = FighterEntity.create(x, y);

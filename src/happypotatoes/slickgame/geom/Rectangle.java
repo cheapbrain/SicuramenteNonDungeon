@@ -5,6 +5,9 @@ import org.newdawn.slick.Graphics;
 public class Rectangle {
 	public float x0, y0, x1, y1, w, h;
 	
+	public Rectangle(){
+		
+	}
 	public Rectangle(float x, float y, float width, float height) {
 		w = width;
 		h = height;

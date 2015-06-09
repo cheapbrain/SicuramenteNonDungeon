@@ -69,14 +69,14 @@ public class WalkerRender extends RenderComponent{
 		if(state!=walker.getState()||facing!=walker.facing) {
 			state = walker.getState();
 			facing = walker.facing;
-			animations[state][walker.facing].restart();
+			animations[state][facing].restart();
 		}
 		
-		if(animations[state][walker.facing].getFrame()==animations[state][walker.facing].getFrameCount()-1&&state==3){	
-			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
-			animations[state][walker.facing].stop();
+		if(animations[state][facing].getFrame()==animations[state][facing].getFrameCount()-1&&state==3){	
+			animations[state][facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
+			animations[state][facing].stop();
 		}else{
-			animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
+			animations[state][facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
 		}
 		Graphics g = EntityRenderer.g;
 		HitBox hitbox = owner.getComponent(HitBox.class);
