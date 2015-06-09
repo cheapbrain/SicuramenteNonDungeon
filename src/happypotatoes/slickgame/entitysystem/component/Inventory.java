@@ -79,4 +79,13 @@ public class Inventory extends Component{
 	}
 	public void update(World w, long delta) {
 	}
+	
+	public boolean has(int id) {
+		for(int i=0;i<width;i++)
+			for(int j=0;j<height;j++)
+				if (slots[i][j].idItem==id) {
+					return true;
+				}
+		return false;
+	}
 }

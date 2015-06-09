@@ -31,6 +31,7 @@ public class EquipRender extends RenderComponent {
 	private float unit = Camera.camera.getUnit();
 	private Rectangle rect;
 	private int frameTime = (int)Math.round(1000f/24);
+	private int facing;
 	
 	public EquipRender(Entity owner, Walker walker, int width, int height, float offsetX, float offsetY) {
 		super(owner, false);
@@ -78,10 +79,11 @@ public class EquipRender extends RenderComponent {
 			color.g = i;
 			color.b = i;
 			
-			if(state!=walker.getState()) {
+			if(state!=walker.getState()||facing!=walker.facing) {
+				state = walker.getState();
+				facing = walker.facing;
 				animations[state][walker.facing].restart();
 			}
-			state = walker.getState();
 			
 			if(animations[state][walker.facing].getFrame()==animations[state][walker.facing].getFrameCount()-1&&state==3){	
 				animations[state][walker.facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);

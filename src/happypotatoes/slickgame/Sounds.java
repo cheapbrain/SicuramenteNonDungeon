@@ -3,10 +3,12 @@ package happypotatoes.slickgame;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lwjgl.openal.AL;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 public class Sounds {
+	private Map<String, Sound> sounds = new HashMap<String, Sound>();
 	private static final String FOLDER = "res/sounds/";
 	private static Sounds instance;
 	
@@ -20,7 +22,6 @@ public class Sounds {
 		
 	}
 	
-	private Map<String, Sound> sounds = new HashMap<String, Sound>();
 	
 	public void playSound(String name, float x, float y) {
 		Sound sound = sounds.get(name);

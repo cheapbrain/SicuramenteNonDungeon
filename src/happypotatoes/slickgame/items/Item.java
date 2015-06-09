@@ -1,6 +1,7 @@
 package happypotatoes.slickgame.items;
 
 import happypotatoes.slickgame.Loader;
+import happypotatoes.slickgame.entitysystem.Entity;
 
 import java.io.File;
 
@@ -65,5 +66,9 @@ public class Item {
 
 	public Image getTexture() {
 		return texture;
+	}
+	
+	public boolean use(Entity e) {
+		return false;
 	}
 }

@@ -38,4 +38,8 @@ public class Energy extends Component{
 	public void setEnergyRegeneration(float energyRegeneration) {
 		this.energyRegeneration = energyRegeneration;
 	}
+	public void charge(float i) {
+		energy += i;
+		if (energy>maxEnergy) energy = maxEnergy;
+	}
 }

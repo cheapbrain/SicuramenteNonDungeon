@@ -1,5 +1,8 @@
 package happypotatoes.slickgame;
 
+import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.entitysystem.entity.Door;
+import happypotatoes.slickgame.gui.Notification;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.world.World;
 
@@ -19,32 +22,9 @@ public class GameState extends BasicGameState {
 	}
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
 		ui.enter();
-		/*
-		EntityRenderer.init();
-		ItemSystem.load();
-		Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
-		world = new World(container);
-		Entity player = Player.create();
-		player.x = 2.5f;
-		player.y = 2.5f;
-		world.add(player);
-		LightingBello.lighting.add(new Light(player, 0, 0, 6, 1f));
+		Notification.showMessage("Level 1", 3000);
+		EntitySystem.getInstance().addEntity(Door.create(5.5f, 2.01f));
 		
-		Entity item = Item.create(".\\res\\MyMod\\Items\\Spada.item");
-		item.x=3.5f;
-		item.y=2.5f;
-		world.add(item);
-		for(int i=0; i<1; i++) world.add(Wolf.create(3,3));
-		world.add(FighterEntity.create(3,3));
-		
-		Camera.camera.setTarget(player);
-		
-		EntitySystem.getInstance().update(world, 0);
-		
-		ui = new UI(container, game);
-		GuiSystem.init(ui, player);		
-		container.getGraphics().setBackground(new Color(0,0,0,255));
-		*/
 	}
 	
 	public void leave(GameContainer container, StateBasedGame game)

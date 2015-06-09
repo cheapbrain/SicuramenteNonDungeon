@@ -3,6 +3,7 @@ package happypotatoes.slickgame.entitysystem;
 import happypotatoes.slickgame.LightingBello;
 import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.component.RenderComponent;
+import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,18 +60,20 @@ public class EntityRenderer {
 		LightingBello light = LightingBello.lighting;
 		Entity e = task.owner;
 		float i = light.getColorAt(e.x, e.y);
-		if (e==click) {
-			scolor.r = 0.0f*i;
-			scolor.g = 1.0f*i;
-			scolor.b = 0.7f*i;
-			scolor.a = 0.7f;
-			select.draw(click.x-.5f, click.y-.25f, 1, .5f, scolor);
-		} else if (e==hover) {
-			hcolor.r = 1.0f*i;
-			hcolor.g = 0.0f*i;
-			hcolor.b = 0.7f*i;
-			hcolor.a = 0.7f;
-			select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, hcolor);
+		if (task instanceof WalkerRender) {
+			if (e==click) {
+				scolor.r = 0.0f*i;
+				scolor.g = 1.0f*i;
+				scolor.b = 0.7f*i;
+				scolor.a = 0.7f;
+				select.draw(click.x-.5f, click.y-.25f, 1, .5f, scolor);
+			} else if (e==hover) {
+				hcolor.r = 1.0f*i;
+				hcolor.g = 0.0f*i;
+				hcolor.b = 0.7f*i;
+				hcolor.a = 0.7f;
+				select.draw(hover.x-.5f, hover.y-.25f, 1, .5f, hcolor);
+			}
 		}
 		task.render(i);
 	}

@@ -7,6 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 import happypotatoes.slickgame.Camera;
 import happypotatoes.slickgame.CustomRender;
@@ -22,6 +23,7 @@ import happypotatoes.slickgame.worldgenerator.Generator;
 
 public class World {
 	public GameContainer container;
+	public StateBasedGame game;
 	private Camera camera;
 	private LightingBello lighting;
 	private int[][] terrainType;
@@ -35,9 +37,10 @@ public class World {
 		return size;
 	}
 	
-	public World(GameContainer container) {
+	public World(GameContainer container, StateBasedGame game) {
 		camera = Camera.camera;
 		this.container = container;
+		this.game = game;
 		
 		int x = 0, y = 0;
 		
@@ -63,7 +66,7 @@ public class World {
 		
 		for (y=size-1;y>-1;y--)
 			for (x=0;x<size;x++) {
-				this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(int)Math.round(Math.random())*9;
+				this.terrain[x][y] = x%3+(y%3)*3+MaterialManager.FLOOR+(Math.random()>0.9?1:0)*9;
 				if(terrain[x][y]==0) {
 					this.walls[x][y] = 0;
 				} else 

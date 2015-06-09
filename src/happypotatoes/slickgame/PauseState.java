@@ -1,7 +1,9 @@
 package happypotatoes.slickgame;
 
+
 import happypotatoes.slickgame.gui.ActionListener;
 import happypotatoes.slickgame.gui.Component;
+import happypotatoes.slickgame.gui.Container;
 import happypotatoes.slickgame.gui.UI;
 import happypotatoes.slickgame.gui.component.Button;
 
@@ -19,6 +21,7 @@ public class PauseState extends BasicGameState{
 	private int height =0;
 	private UI ui;
 	private Button play, exit, menu;
+	GameContainer cont;
 	StateBasedGame basedGame;
 	float scale;
 	int dx;
@@ -27,6 +30,7 @@ public class PauseState extends BasicGameState{
 			throws SlickException {
 
 		basedGame = game;
+		cont = container;
 
 		background  = Loader.image("res/Pause/PauseMenuBackground.png");
 		bg2  = Loader.image("res/Pause/PauseMenuBackFrame.png");
@@ -62,7 +66,7 @@ public class PauseState extends BasicGameState{
 		exit.setActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(Component source) {
-				System.exit(0);
+				cont.exit();
 			}
 		});
 		

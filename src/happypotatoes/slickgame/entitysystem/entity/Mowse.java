@@ -12,9 +12,11 @@ import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.LoopSound;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
+import happypotatoes.slickgame.entitysystem.component.StateSoundManager;
 import happypotatoes.slickgame.entitysystem.component.StupidInput;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walk;
@@ -41,6 +43,11 @@ public class Mowse {
 		Health health = new Health(e, 0, 100, 0);
 		Energy energy = new Energy(e, 0, 100, 2);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.7f, -1.2f, 1.4f, 1.8f);
+		
+
+		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
+				new LoopSound(e,1,5000, "Meuwse.ogg")
+				);
 		return e;
 	}
 	

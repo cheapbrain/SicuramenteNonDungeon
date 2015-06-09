@@ -15,6 +15,9 @@ public class Main {
 		AppGameContainer app = new AppGameContainer(new GameStateController());
 		app.setIcon("./res/icon32.png");
 		app.setDisplayMode(800, 600, false);
+		//app.setTargetFrameRate(60);
+		app.setVSync(true);
+		app.setShowFPS(false);
         app.start();
 	}
 }

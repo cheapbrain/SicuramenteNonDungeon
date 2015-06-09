@@ -75,6 +75,12 @@ public class InventorySlot extends Component{
 					if (equip!=null) {
 						if (equip.add(id)) {
 							slot.getOwner().takeOut(slot);
+						} else {
+							if (ItemList.getItemForId(id).use(slot.getOwner().owner)) {
+								slot.getOwner().takeOut(slot);
+							} else {
+								Notification.showMessage("Can't use this item!", 2000);
+							}
 						}
 					} else {
 						if (EntitySystem.getInstance().getEntities(PlayerInput.class).get(0).getComponent(Inventory.class).add(id)) {
@@ -97,10 +103,12 @@ public class InventorySlot extends Component{
 			break;
 		case MouseEvent.BUTTON1:
 			if(slot!=null) {
-				int id = slot.getOwner().takeOut(slot);
 				Entity o = slot.getOwner().owner;
-				if (id!=0)
-					EntitySystem.getInstance().addEntity(ItemEntity.create(id, o.x, o.y));
+				if (o.getComponent(Equip.class)!=null) {
+					int id = slot.getOwner().takeOut(slot);
+					if (id!=0)
+						EntitySystem.getInstance().addEntity(ItemEntity.create(id, o.x, o.y));
+				}
 			} else {
 				int id = equipSlot.getOwner().takeOut(equipSlot);
 				Entity o = equipSlot.getOwner().owner;

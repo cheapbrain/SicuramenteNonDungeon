@@ -26,6 +26,7 @@ public class MenuState extends BasicGameState{
 	private int dx;
 	private float scale;
 	private int  time=0, max=1500;
+	GameContainer cont;
 	private StateBasedGame basedGame;
 	public void enter(GameContainer container, StateBasedGame game)	throws SlickException {
 		ui.enter();
@@ -34,6 +35,7 @@ public class MenuState extends BasicGameState{
 			throws SlickException {
 		try {
 			ps = new ParticleSystem(Loader.image("res/light.png"), 1000);
+			cont = container;
 			basedGame = game;
 			ParticleEmitter pe = new FogEmitter(container.getWidth(), container.getHeight());
 			ps.addEmitter(pe);
@@ -83,7 +85,7 @@ public class MenuState extends BasicGameState{
 		exit.setActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(Component source) {
-				System.exit(0);
+				cont.exit();
 			}
 		});
 		ui.add(exit);

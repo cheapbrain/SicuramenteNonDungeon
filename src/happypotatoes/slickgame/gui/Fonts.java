@@ -8,7 +8,8 @@ public class Fonts {
 	public static TrueTypeFont font1;
 	
 	public static void init() {
-		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
+		Font awtFont = new Font("Verdana", Font.BOLD, 24);
 		font1 = new TrueTypeFont(awtFont, true);
+		
 	}
 }

@@ -8,6 +8,7 @@ import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.entity.EnergyPotion;
 import happypotatoes.slickgame.entitysystem.entity.HealthPotion;
+import happypotatoes.slickgame.entitysystem.entity.ItemEntity;
 import happypotatoes.slickgame.entitysystem.entity.Sword;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Wolf;
@@ -92,26 +93,15 @@ public class LoadingState extends BasicGameState {
 			System.out.println("camera");
 			Camera.camera = new Camera(container.getWidth(), container.getHeight(), 64, null);
 			System.out.println("world");
-			world = new World(container);
+			world = new World(container, game);
 
 			System.out.println("entities");
 			player = Player.create();
 			player.x = 2.5f;
 			player.y = 2.5f;
 			world.add(player);
-			Entity item = Sword.create();
-			item.x=3.5f;
-			item.y=2.5f;
-			world.add(item);
 			
-			Entity item1 = HealthPotion.create();
-			item1.x=5.5f;
-			item1.y=2.5f;
-			world.add(item1);
-			
-			Entity item2 = EnergyPotion.create();
-			item2.x=7.5f;
-			item2.y=2.5f;
+			Entity item2 = ItemEntity.create(ItemList.key.getId(), 7.5f, 2.5f);
 			world.add(item2);
 			world.add(Wolf.create(3,3));
 			

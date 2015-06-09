@@ -3,6 +3,7 @@ package happypotatoes.slickgame.entitysystem.component;
 import org.newdawn.slick.Input;
 
 import happypotatoes.slickgame.Camera;
+import happypotatoes.slickgame.GameOver;
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
@@ -19,6 +20,7 @@ import happypotatoes.slickgame.world.World;
 public class PlayerInput extends Component {
 	float destx, desty;
 	Entity interactTarget = null;
+	int deathtime = 0;
 	
 	Walker walker;
 	Movement movement;
@@ -32,6 +34,14 @@ public class PlayerInput extends Component {
 		
 	}
 	public void update(World w, long delta) {
+		if (walker.getState()==3) {
+			deathtime += delta;
+			if (deathtime>2000) {
+				GameOver.winner = false;
+				w.game.enterState(420);
+			}
+		}
+		
 		Camera c = Camera.camera;
 		Input input = w.container.getInput();
 		
@@ -79,7 +89,7 @@ public class PlayerInput extends Component {
 			walk.dx = destx-owner.x;
 			walk.dy = desty-owner.y;
 			walk.d = (float)Math.sqrt(walk.dx*walk.dx+walk.dy*walk.dy);
-			if (walk.d<1&&interactTarget!=null) {
+			if (walk.d<1.5&&interactTarget!=null) {
 				walker.setFacing(walk.dx, walk.dy);
 				Interact inter = interactTarget.getComponent(Interact.class);
 				Health health = interactTarget.getComponent(Health.class);

@@ -13,8 +13,11 @@ import happypotatoes.slickgame.entitysystem.component.Faction;
 import happypotatoes.slickgame.entitysystem.component.Health;
 import happypotatoes.slickgame.entitysystem.component.Interact;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.LoopSound;
 import happypotatoes.slickgame.entitysystem.component.Open;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
+import happypotatoes.slickgame.entitysystem.component.StateSound;
+import happypotatoes.slickgame.entitysystem.component.StateSoundManager;
 import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.entitysystem.component.HitBox;
@@ -43,6 +46,12 @@ public class Chest {
 		Inventory i = new Inventory(e, 0, 2, 2, integers, true);
 		Open o = new Open(e, 0,walker, walkerRender);
 		OpenChest open = new OpenChest(e, walker, 0);
+		
+		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
+				new StateSound(e,1,StateSound.ENTER, "Chest.ogg"),
+				new StateSound(e,3,StateSound.ENTER, "Chest.ogg")
+				);
+		
 		return e;
 	}
 	

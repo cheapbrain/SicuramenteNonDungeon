@@ -55,4 +55,8 @@ public class OpenChest extends Interact {
 		walker.setState(3);
 		agent=null;
 	}
+	
+	public void update(long delta) {
+		
+	}
 }

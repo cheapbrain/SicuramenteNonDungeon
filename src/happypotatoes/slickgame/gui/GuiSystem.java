@@ -23,6 +23,7 @@ public class GuiSystem {
 		eq=equip(ui, player);
 		hud=hud(ui, player);
 		ui.add(Minimap.getInstance());
+		ui.add(new Notification());
 	}
 	public static Window getHud(){
 		return hud;

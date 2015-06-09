@@ -41,7 +41,7 @@ public class TerrainCollision extends Component {
 		boolean c1=false,c2=false;
 		boolean moved = false;
 		float r = 1.001f;
-		float speed = 0.0001f;
+		float speed = 0.00003f;
 		if (owner.x>m.oldx)  {
 			c1 = !w.isWalkable(owner.x+h.sizex, m.oldy-h.sizey);
 			c2 = !w.isWalkable(owner.x+h.sizex, m.oldy+h.sizey);

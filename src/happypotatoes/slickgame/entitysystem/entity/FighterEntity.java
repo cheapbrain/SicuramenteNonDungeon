@@ -15,6 +15,7 @@ import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.LoopSound;
 import happypotatoes.slickgame.entitysystem.component.Movement;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
+import happypotatoes.slickgame.entitysystem.component.StateSound;
 import happypotatoes.slickgame.entitysystem.component.StateSoundManager;
 import happypotatoes.slickgame.entitysystem.component.TerrainCollision;
 import happypotatoes.slickgame.entitysystem.component.Walk;
@@ -46,7 +47,9 @@ public class FighterEntity {
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.4f,-1.8f, .8f, 2);
 		
 		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
-				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg")
+				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg"),
+				new StateSound(e,3,StateSound.ENTER, "Evil_Player_Death.ogg"),
+				new LoopSound(e,1,3000, "Evil_Player.ogg")
 				);
 		
 		return e;

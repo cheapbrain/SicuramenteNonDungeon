@@ -51,7 +51,8 @@ public class Player {
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
 		
 		StateSoundManager soundManager = new StateSoundManager(e, 0, walker,
-				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg")
+				new LoopSound(e,1,300, "step1.ogg", "step2.ogg", "step3.ogg"),
+				new StateSound(e,3,StateSound.ENTER, "Player_Death.ogg")
 				);
 		
 		return e;

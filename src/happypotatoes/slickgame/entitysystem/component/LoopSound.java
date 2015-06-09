@@ -12,7 +12,7 @@ public class LoopSound extends StateSound{
 	public LoopSound(Entity owner, int state, int wait, String ... sounds) {
 		super(owner, state, 0, sounds);
 		this.wait = wait;
-		time = 0;
+		time = wait;
 	}
 	
 	public void trigger(int state, int event) {
@@ -35,7 +35,7 @@ public class LoopSound extends StateSound{
 					Sounds.getInstance().playSound(sounds[(int)(Math.random()*sounds.length)], dx, dy);
 			}
 		} else {
-			time = 0;
+			time = wait;
 		}
 	}
 }

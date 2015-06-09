@@ -13,7 +13,8 @@ public abstract class Interact extends Component{
 
 	@Override
 	public void update(World w, long delta) {
-		
+
 	}
+	
 	public abstract void interact(Entity e);
 }

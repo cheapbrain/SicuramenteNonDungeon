@@ -45,4 +45,9 @@ public class Health extends Component{
 	public float getMaxHealth() {
 		return maxHealth;
 	}
+	
+	public void heal(float i) {
+		health += i;
+		if (health>maxHealth) health = maxHealth;
+	}
 }

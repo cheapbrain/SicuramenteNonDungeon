@@ -47,7 +47,7 @@ public class EntityCollision extends Component {
 					float d = dx + dy+0.000001f;
 					float r = 1.2f*1.2f;
 					if (d<r) {
-						float ss = r-d;
+						float ss = (r-d)/r;
 						ss = ss*ss;
 						movement.speedx += sx*dx*ss/d*speed;
 						movement.speedy += sy*dy*ss/d*speed;
