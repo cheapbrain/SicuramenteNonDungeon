@@ -1,5 +1,7 @@
 package happypotatoes.slickgame.entitysystem.component;
 
+import java.util.Random;
+
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.world.World;
@@ -49,6 +51,11 @@ public class Walker extends Component{
 	}
 	public void setAttacking(){
 		this.state=2;
+		if(this.states>5){
+			switch((new Random()).nextInt(2)){
+			case 0: this.state=5;
+			}
+		}
 	}
 	public void setDead(){
 		if(owner.getComponent(AI.class)!=null){
