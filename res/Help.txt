@@ -1,8 +1,0 @@
-Istruzioni per l'utilizzo di MOBuilder:
-Name: nome del Mob
-Health: salute massima del mob (x=bassa; y=media; z=alta)
-Health Reneration: velocità rigenerazione salute (x=bassa; y=media; z=alta)
-Damage: 
-Folder: Percorso della cartella TuaMod
-Sprite: Percorso in cui si trova la sprite del mob
-Done: quando hai completato tutti i campi premendo done verrà creato il mob
