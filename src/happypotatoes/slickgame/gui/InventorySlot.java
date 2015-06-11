@@ -68,13 +68,17 @@ public class InventorySlot extends Component{
 	public void mousePressed(int button, int x, int y) {
 		switch(button) {
 		case MouseEvent.BUTTON0:
+			//inventory o chest
 			if(slot!=null) {
 				int id = slot.getItemId();
 				if (id!=0) {
 					Equip equip = slot.getOwner().owner.getComponent(Equip.class);
+					//inventory
 					if (equip!=null) {
+						//equipaggia
 						if (equip.add(id)) {
 							slot.getOwner().takeOut(slot);
+						//usa
 						} else {
 							if (ItemList.getItemForId(id).use(slot.getOwner().owner)) {
 								slot.getOwner().takeOut(slot);
@@ -82,12 +86,16 @@ public class InventorySlot extends Component{
 								Notification.showMessage("Can't use this item!", 2000);
 							}
 						}
+					//chest
 					} else {
 						if (EntitySystem.getInstance().getEntities(PlayerInput.class).get(0).getComponent(Inventory.class).add(id)) {
 							slot.getOwner().takeOut(slot);
+						} else {
+							Notification.showMessage("Full inventory!", 2000);
 						}
 					}
 				}
+			//equip
 			} else {
 				int id = equipSlot.getItemId();
 
@@ -96,6 +104,8 @@ public class InventorySlot extends Component{
 					if (inv!=null) {
 						if (inv.add(id)) {
 							equipSlot.getOwner().takeOut(equipSlot);
+						} else {
+							Notification.showMessage("Full inventory!", 2000);
 						}
 					}
 				}
