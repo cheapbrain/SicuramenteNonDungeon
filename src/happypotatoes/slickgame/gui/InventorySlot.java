@@ -4,7 +4,6 @@ package happypotatoes.slickgame.gui;
 import happypotatoes.slickgame.Loader;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.PlayerInput;
 import happypotatoes.slickgame.entitysystem.component.equip.Equip;
@@ -13,7 +12,6 @@ import happypotatoes.slickgame.inventory.EquipSlot;
 import happypotatoes.slickgame.inventory.Slot;
 import happypotatoes.slickgame.items.ItemList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

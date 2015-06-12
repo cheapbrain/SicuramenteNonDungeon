@@ -23,15 +23,22 @@ public class Chase extends State {
 			}
 			else x=owner.focus.x; y=owner.focus.y;
 			
-			if(owner.getDistance(owner.focus)<1.5f){ //1.5 andrà sostituito con range
+			float distance=owner.getDistance(owner.focus);
+			if(distance<1.5f){ //1.5 andrà sostituito con range
 				//se ha raggiunto un nemico
-				if(owner.focus.getComponent(AI.class)!=null)
+				if(owner.focus.getComponent(AI.class)!=null){
 					return 2;
+				}
 				//se ha raggiunto il player
-				else if(owner.focus.getComponent(PlayerInput.class)!=null)
+				else if(owner.focus.getComponent(PlayerInput.class)!=null){
 					return 2;
+				}
 				//se ha raggiunto l'ultimo punto dove ha visto il nemico
-				else return 1;
+				else{
+					if(distance<.2f){
+						return 1;
+					}
+				}
 			}
 			owner.walker.setWalking();
 			Walk thisWalk = owner.owner.getComponent(Walk.class); 

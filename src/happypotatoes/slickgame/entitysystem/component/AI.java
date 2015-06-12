@@ -11,9 +11,11 @@ import java.util.Random;
 
 
 
+
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
+import happypotatoes.slickgame.states.Escape;
 import happypotatoes.slickgame.states.State;
 import happypotatoes.slickgame.world.World;
 
@@ -56,7 +58,7 @@ public abstract class AI extends Component {
 	}
 	
 	public void goTo(float dx, float dy, float d){ //0 raggiunto, 1 non raggiunto
-		if (d>1.4&&walker.getState()<2) {
+		if (walker.getState()<2) {
 			float nsx = dx/d*speed;
 			float nsy = dy/d*speed;
 			movement.speedx += nsx;
@@ -65,11 +67,6 @@ public abstract class AI extends Component {
 			walker.setWalking();
 			return;
 		} 
-		else{ 
-			if (walker.getState()==1)
-				walker.setStill();
-			return;
-			}
 	}
 	
 	public List<Entity> getEntitiesInSight(){
@@ -148,16 +145,18 @@ public abstract class AI extends Component {
 			//per il player
 			if(t.getComponent(PlayerInput.class) != null){
 				if(t.getComponent(PlayerInput.class).focus == victim){
-					if(t.getComponent(Faction.class).enemyOf(owner))
+					if(t.getComponent(Faction.class).enemyOf(victim))
 						return t;
 				}
 			}
 			//per i mob
-			if(t.getComponent(AI.class) != null){
-				if(t.getComponent(AI.class).focus == victim){
-					if(t.getComponent(Faction.class).enemyOf(owner))
-						return t;
-				}
+			AI ai = t.getComponent(AI.class);
+			if(ai != null){ //se ha un'AI
+				if((!ai.state.getClass().isInstance(Escape.class))) //se non sta fuggendo
+					if(ai.focus == victim){ //se punta alla vittima
+							if(t.getComponent(Faction.class).enemyOf(victim)) //se è nemico della vittima
+								return t;
+					}
 			}
 		}
 		return null;

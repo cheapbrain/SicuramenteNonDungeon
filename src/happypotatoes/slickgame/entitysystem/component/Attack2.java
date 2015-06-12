@@ -4,7 +4,6 @@ import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.equip.Equip;
-import happypotatoes.slickgame.entitysystem.component.equip.WeaponComponent;
 import happypotatoes.slickgame.entitysystem.entity.ParticleBuilder;
 import happypotatoes.slickgame.items.Item;
 import happypotatoes.slickgame.items.ItemList;
@@ -71,18 +70,23 @@ public class Attack2 extends Component{
 				//calcolo danno
 				damage=baseDamage;
 				if (focus!=null) { 
-					Health EnemyHp = ((Health) focus.getComponent(Health.class));
-					if(focus.getComponent(Defend.class)!=null){
-						damage*=(1f-((Defend)focus.getComponent(Defend.class)).mitigation);
+					if(focus.getComponent(Walker.class).getState()!=3){
+						Health EnemyHp = ((Health) focus.getComponent(Health.class));
+						if(focus.getComponent(Defend.class)!=null){
+							damage*=(1f-((Defend)focus.getComponent(Defend.class)).mitigation);
+						}
+						if(weapon!=null){
+							damage*=weapon.getDamage()+1f;
+						}
+						
+						//vita e sangue
+						if(damage>=EnemyHp.getHealth()/100f*5f)
+								createBlood();
+						EnemyHp.setHealth(EnemyHp.getHealth()-damage);
 					}
-					if(weapon!=null){
-						damage*=weapon.getDamage()+1f;
+					else{
+						EntitySystem.getInstance().destroy(focus);
 					}
-					
-					//vita e sangue
-					if(damage>=EnemyHp.getHealth()/100f*5f)
-							createBlood();
-					EnemyHp.setHealth(EnemyHp.getHealth()-damage);
 					
 					//alternanza Render
 					nAlternate=nAlternate%2+1;

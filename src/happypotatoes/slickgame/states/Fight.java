@@ -51,11 +51,10 @@ public class Fight extends State {
 				owner.focus=null;
 				return 1;
 			}
-			if(thisDefend!=null){
+			if(thisDefend!=null)
 				if(owner.seeAttacked(owner.owner)!=null) //se sta venendo attaccato
 					if(owner.seeAttacked(owner.focus)!=null) //se anche il focus sta venendo attaccato da qualcun altro
-							owner.walker.setDefending();
-			}
+						owner.walker.setDefending();
 		}
 		return 0;
 		

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.interact.OpenChest;
 import happypotatoes.slickgame.inventory.Slot;
 import happypotatoes.slickgame.items.ItemList;

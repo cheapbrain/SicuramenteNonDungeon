@@ -4,7 +4,6 @@ import java.util.Random;
 
 import happypotatoes.slickgame.entitysystem.Component;
 import happypotatoes.slickgame.entitysystem.Entity;
-import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.component.Inventory;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;

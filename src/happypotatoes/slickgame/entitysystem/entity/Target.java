@@ -19,7 +19,6 @@ public class Target {
 	public static Entity create() {
 		Entity e = new Entity(EntitySystem.getInstance().getFreeID(), "Target");
 		HitBox hitBox = new HitBox(e, .05f, .05f, 0);
-		SelectComponent selectComponent = new SelectComponent(e, 0, -.05f,-.05f, +.05f, +.05f);
 		Walker walker = new Walker(e, 0, 1, 1);
 		return e;
 	}

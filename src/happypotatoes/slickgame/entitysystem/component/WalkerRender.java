@@ -78,19 +78,8 @@ public class WalkerRender extends RenderComponent{
 		}else{
 			animations[state][facing].draw(rect.x0, rect.y0, rect.w, rect.h, color);
 		}
-		Graphics g = EntityRenderer.g;
-		HitBox hitbox = owner.getComponent(HitBox.class);
-		if (hitbox!=null) {
-			g.setColor(Color.white);
-			g.drawRect(owner.x-hitbox.sizex, owner.y-hitbox.sizey, hitbox.sizex*2, hitbox.sizey*2);
-		}
-		
+			
 		SelectComponent select = owner.getComponent(SelectComponent.class);
-		if (select!=null) {
-			Rectangle rect = select.rect;
-			g.setColor(Color.red);
-			g.drawRect(rect.x0, rect.y0, rect.w, rect.h);
-		}
 		
 		Health hc = owner.getComponent(Health.class);
 		if(hc!=null&&!owner.getName().equals("Player")){

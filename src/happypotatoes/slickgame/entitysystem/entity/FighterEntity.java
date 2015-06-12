@@ -37,7 +37,7 @@ public class FighterEntity {
 		Walker walker = new Walker(e, 0, 8, 5);
 		WalkerRender walkerRender = new WalkerRender(e, walker, "res/Sprites/Mobs/fighterTest/", 204, 222, -1.6f, -2.4f);
 		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword.getId(), ItemList.sword2.getId()}, true);
-		Inventory inventory = new Inventory(e, 0, 3, 3, new Integer[]{ItemList.key.getId()}, true);
+		Inventory inventory = new Inventory(e, 0, 3, 3, new Integer[]{ItemList.energy_potion.getId(),ItemList.health_potion.getId()}, true);
 		AI intelligence = (AI) (new AIFighter(e, 0f, walker, movement, speed));
 		Walk walk = new Walk(e, 0, walker, walkerRender);
 		Attack attack = new Attack(e, 0, walker, walkerRender, 1);

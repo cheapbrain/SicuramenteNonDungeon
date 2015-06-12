@@ -13,8 +13,7 @@ public class Rest extends State {
 	public int update(long delta) {
 		if (owner.time()) {
 			owner.inSight = owner.getEntitiesInSight();
-			owner.focus = owner.getFocus();
-			
+			owner.walker.setStill();
 			if(owner.owner.getComponent(Health.class).getHealth()>
 				owner.owner.getComponent(Health.class).getMaxHealth()/10f*8f)
 				return 1;

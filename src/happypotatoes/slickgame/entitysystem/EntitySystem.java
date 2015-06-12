@@ -1,5 +1,9 @@
 package happypotatoes.slickgame.entitysystem;
 
+import happypotatoes.slickgame.entitysystem.component.Inventory;
+import happypotatoes.slickgame.entitysystem.component.equip.Equip;
+import happypotatoes.slickgame.entitysystem.entity.ItemEntity;
+import happypotatoes.slickgame.items.ItemList;
 import happypotatoes.slickgame.world.World;
 
 import java.util.ArrayList;
@@ -77,6 +81,25 @@ public class EntitySystem {
 		entities.clear();
 		toAdd.clear();
 		toRemove.clear();
+	}
+
+	public void destroy(Entity focus) {
+		Inventory inventory = focus.getComponent(Inventory.class);
+		Equip equip = focus.getComponent(Equip.class);
+		if(inventory!=null){
+			for(int i=0;i<inventory.width;i++)
+				for(int j=0;j<inventory.height;j++)
+					if(!inventory.getSlot(i, j).isFree())
+						addEntity(ItemEntity.create(inventory.getSlot(i, j).getItemId(), focus.x, focus.y));
+		}
+		if(equip!=null){
+			for(int i=0;i<equip.width;i++)
+				for(int j=0;j<equip.height;j++)
+					if(!equip.getSlot(i, j).isFree())
+						addEntity(ItemEntity.create(equip.getSlot(i, j).getItemId(), focus.x, focus.y));
+		}
+		removeEntity(focus);
+		
 	}
 	
 }

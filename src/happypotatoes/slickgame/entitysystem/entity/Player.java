@@ -2,7 +2,6 @@ package happypotatoes.slickgame.entitysystem.entity;
 
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.ItemSystem;
 import happypotatoes.slickgame.entitysystem.component.Attack;
 import happypotatoes.slickgame.entitysystem.component.Attack2;
 import happypotatoes.slickgame.entitysystem.component.Defend;
@@ -23,12 +22,7 @@ import happypotatoes.slickgame.entitysystem.component.Walk;
 import happypotatoes.slickgame.entitysystem.component.Walker;
 import happypotatoes.slickgame.entitysystem.component.WalkerRender;
 import happypotatoes.slickgame.entitysystem.component.WeaponRender;
-import happypotatoes.slickgame.entitysystem.component.equip.ArmourComponent;
 import happypotatoes.slickgame.entitysystem.component.equip.Equip;
-import happypotatoes.slickgame.entitysystem.component.equip.HelmComponent;
-import happypotatoes.slickgame.entitysystem.component.equip.SecondHandComponent;
-import happypotatoes.slickgame.entitysystem.component.equip.TrinketComponent;
-import happypotatoes.slickgame.entitysystem.component.equip.WeaponComponent;
 import happypotatoes.slickgame.items.ItemList;
 
 public class Player {
@@ -48,7 +42,7 @@ public class Player {
 		Health health = new Health(e, 0, 100, 2);
 		Energy energy = new Energy(e, 0, 100, 8);
 		Inventory inventory = new Inventory(e, 0, 4, 4);
-		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword2.getId(), ItemList.armour.getId()}, false);
+		Equip equip = new Equip(e, walker, 0, 1, 5, new Integer[]{ItemList.sword.getId(), ItemList.armour.getId()}, false);
 		Defend defend = new Defend(e, 0, walker, walkerRender, .2f);
 		SelectComponent selectComponent = new SelectComponent(e, 0, -.5f,-1.9f, 1f, 2);
 		

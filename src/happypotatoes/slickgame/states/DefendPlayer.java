@@ -15,8 +15,7 @@ public class DefendPlayer extends State {
 	public int update(long delta) {
 		if (owner.time()) {
 			owner.inSight = owner.getEntitiesInSight();
-			owner.focus = owner.getFocus();
-			if(owner.focus==null) //se perde focus 
+			if(owner.focus != owner.getFocus()) //se focus muore
 				return 1;
 			
 			if(owner.getDistance(owner.focus)>1.5f){

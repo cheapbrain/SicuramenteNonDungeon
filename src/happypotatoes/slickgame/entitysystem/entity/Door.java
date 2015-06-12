@@ -3,9 +3,9 @@ package happypotatoes.slickgame.entitysystem.entity;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
 import happypotatoes.slickgame.entitysystem.component.Faction;
-import happypotatoes.slickgame.entitysystem.component.OpenDoor;
 import happypotatoes.slickgame.entitysystem.component.SelectComponent;
 import happypotatoes.slickgame.entitysystem.component.StaticRender;
+import happypotatoes.slickgame.entitysystem.interact.OpenDoor;
 
 public class Door {
 

@@ -6,10 +6,7 @@ import java.util.Stack;
 import happypotatoes.slickgame.entitysystem.Entity;
 import happypotatoes.slickgame.entitysystem.EntityRenderer;
 import happypotatoes.slickgame.entitysystem.EntitySystem;
-import happypotatoes.slickgame.entitysystem.entity.EnergyPotion;
-import happypotatoes.slickgame.entitysystem.entity.HealthPotion;
 import happypotatoes.slickgame.entitysystem.entity.ItemEntity;
-import happypotatoes.slickgame.entitysystem.entity.Sword;
 import happypotatoes.slickgame.entitysystem.entity.Player;
 import happypotatoes.slickgame.entitysystem.entity.Robot;
 import happypotatoes.slickgame.gui.GuiSystem;
@@ -101,9 +98,9 @@ public class LoadingState extends BasicGameState {
 			player.y = 2.5f;
 			world.add(player);
 			
-			Entity item2 = ItemEntity.create(ItemList.key.getId(), 7.5f, 2.5f);
-			world.add(item2);
-			world.add(Robot.create(3,3));
+			//Entity item2 = ItemEntity.create(ItemList.key.getId(), 7.5f, 2.5f);
+			//world.add(item2);
+			world.add(Robot.create(24.5f,8.5f));
 			
 			System.out.println("fbo");
 			new Minimap(world, player);

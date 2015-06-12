@@ -28,6 +28,7 @@ public class Follow extends State {
 			Entity attacker;
 			if((attacker = owner.seeAttacked(owner.owner))!=null){ //if pet is attacked
 				if(attacker.getComponent(PlayerInput.class)==null){ //if pet is attacked and attacker is not player
+					//System.out.println(owner.owner.getName()+" <-- "+attacker.getName());
 					owner.focus=attacker;
 					return 3;
 				}
@@ -35,12 +36,14 @@ public class Follow extends State {
 			if(owner.focus.getComponent(PlayerInput.class)!=null){ //if focus is on player
 				if((attacker = owner.seeAttacked(owner.focus))!=null){ //if player is attacked
 					if(attacker.getComponent(PlayerInput.class)==null){ //if player is not suiciding
+						//System.out.println(owner.focus.getName()+" <-- "+attacker.getName());
 						owner.focus=attacker;
 						return 3;
 					}
 				}
 			}
-			if(owner.getDistance(owner.focus)<1.5f){ //1.5 andrà sostituito con range
+			float distance=owner.getDistance(owner.focus);
+			if(distance<1.5f){ //1.5 andrà sostituito con range
 				//se ha raggiunto un nemico
 				if(owner.focus.getComponent(AI.class)!=null)
 					owner.walker.setStill();
@@ -48,7 +51,11 @@ public class Follow extends State {
 				else if(owner.focus.getComponent(PlayerInput.class)!=null)
 					owner.walker.setStill();
 				//se ha raggiunto l'ultimo punto dove ha visto il nemico
-				else return 1;
+				else
+					if(distance<.2f){
+						System.out.println("Target raggiunto");
+						return 1;
+					}
 			}
 			else{
 				owner.walker.setWalking();

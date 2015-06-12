@@ -10,7 +10,6 @@ import happypotatoes.slickgame.states.Wrath;
 import happypotatoes.slickgame.world.World;
 
 public class AIMad extends AI{
-	State state;
 	State states[]={new Idle(this,2), new Chase(this,1,3), new Wrath(this,1,2)};
 	
 	float speed;
