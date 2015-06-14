@@ -8,7 +8,7 @@ public class ItemList {
 	public static HashMap<Integer, Item> items = new HashMap<Integer, Item>();
 	
 	public static Weapon sword = new Weapon(getFreeId(), "sword", 3f, 2f, 231, 251, -1.8f, -2.7f);
-	public static Weapon sword2 = new Weapon(getFreeId(), "sword2", 1.5f, 3f, 236, 257, -1.8f, -2.7f);
+	public static Weapon sword2 = new Weapon(getFreeId(), "sword2", 1.5f, 3f, 236, 256, -1.8f, -2.7f);
 	public static Armour armour = new Armour(getFreeId(), "armour", 2f, 3f, 158, 195, -1.25f, -2.25f);
 	public static Potion health_potion = new Potion(getFreeId(), "health_potion", Potion.health, 30f);
 	public static Potion energy_potion = new Potion(getFreeId(), "energy_potion", Potion.energy, 30f);
